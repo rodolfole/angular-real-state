@@ -13,8 +13,9 @@ export class AppComponent {
 
   constructor(
     private userService: UserService
-  ) { }
-
+  ) {
+  }
+  
   getCurrentUser() {
     const getCurrentUserSub = this.userService.getCurrentUser().subscribe((currentUser) => {
       this.currentUser = currentUser;
@@ -22,5 +23,4 @@ export class AppComponent {
       getCurrentUserSub.unsubscribe();
     })
   }
-
 }
