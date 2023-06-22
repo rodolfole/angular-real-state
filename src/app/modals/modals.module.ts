@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal/modal.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
-
-
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,8 @@ import { RegisterModalComponent } from './register-modal/register-modal.componen
     RegisterModalComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ComponentsModule
   ]
 })
 export class ModalsModule { }
