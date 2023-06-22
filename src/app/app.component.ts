@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { SafeUser } from './types';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'real-state';
+
+  currentUser: SafeUser | null = null;
+
+  constructor(
+    private userService: UserService
+  ) { }
+
+  getCurrentUser() {
+    const getCurrentUserSub = this.userService.getCurrentUser().subscribe((currentUser) => {
+      this.currentUser = currentUser;
+
+      getCurrentUserSub.unsubscribe();
+    })
+  }
+
 }

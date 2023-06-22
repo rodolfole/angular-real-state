@@ -1,0 +1,14 @@
+<div class="
+  flex 
+  flex-col 
+  gap-2 
+  h-[60vh]
+  items-center 
+  justify-center 
+">
+    <app-heading [center]="true" [title]="title" [subtitle]="subtitle" />
+    <div class="w-48 mt-4">
+        <app-button *ngIf="showReset" label="Remove all filters" [routerLink]="['/']" [outline]="true">
+        </app-button>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="col-span-1 cursor-pointer group" [routerLink]="['/listings/' + data!.id]">
+    <div class="flex flex-col gap-2 w-full">
+        <div class="
+            aspect-square 
+            overflow-hidden 
+            relative 
+            rounded-xl
+            w-full 
+        ">
+            <img fill class="
+                        group-hover:scale-110 
+                        h-full 
+                        object-cover 
+                        transition
+                        w-full" [src]="data!.imageSrc" alt="Listing" />
+            <div class="
+                absolute
+                right-3
+                top-3
+            ">
+                <app-heart-button [listingId]="data!.id" [currentUser]="currentUser">
+                </app-heart-button>
+            </div>
+        </div>
+        <div class="font-semibold text-lg">
+            {{location?.region}}, {{location?.label}}
+        </div>
+        <div class="font-light text-neutral-500">
+            {{reservationDate || data!.category}}
+        </div>
+        <div class="flex flex-row gap-1 items-center">
+            <div class="font-semibold">$ {{price}}</div>
+            <div class="font-light" *ngIf="!reservation">night</div>
+        </div>
+        <app-button *ngIf="onAction && actionLabel" [disabled]="disabled" [label]="actionLabel"
+            [onClick]="handleCancel" [small]="true">
+        </app-button>
+    </div>
+</div>
