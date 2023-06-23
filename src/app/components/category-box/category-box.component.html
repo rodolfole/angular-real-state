@@ -1,0 +1,7 @@
+<div (click)="handleClick" class="flex flex-col items-center justify-center gap-2 p-3 border-b-2
+    hover:text-neutral-800 transition cursor-pointer" [ngClass]="{
+    'border-b-neutral-800 text-neutral-800': selected,
+    'border-transparent text-neutral-500': !selected}">
+    <i [ngClass]="[icon, 'text-2xl']"></i>
+    <div class="font-medium text-sm">{{label}}</div>
+</div>

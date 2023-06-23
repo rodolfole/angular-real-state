@@ -1,0 +1,15 @@
+<ng-template ngIf="isMainPage">
+    <app-container>
+        <div class="
+          pt-4
+          flex 
+          flex-row 
+          items-center 
+          justify-between
+          overflow-x-auto
+        ">
+            <app-category-box *ngFor="let item of categories" [label]="item.label" [icon]="item.icon"
+                [selected]="category===item.label"></app-category-box>
+        </div>
+    </app-container>
+</ng-template>

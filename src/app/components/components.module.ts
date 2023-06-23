@@ -17,6 +17,9 @@ import { UserMenuComponent } from './navbar/user-menu/user-menu.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { MenuItemComponent } from './navbar/menu-item/menu-item.component';
 import { ToasterComponent } from './toaster/toaster.component';
+import { CategoriesComponent } from './navbar/categories/categories.component';
+import { CategoryBoxComponent } from './category-box/category-box.component';
+import { CategoryInputComponent } from './inputs/category-input/category-input.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { ToasterComponent } from './toaster/toaster.component';
     UserMenuComponent,
     AvatarComponent,
     MenuItemComponent,
-    ToasterComponent
+    ToasterComponent,
+    CategoriesComponent,
+    CategoryBoxComponent,
+    CategoryInputComponent
   ],
   imports: [CommonModule, RouterModule, DateFnsModule],
   exports: [
@@ -49,7 +55,10 @@ import { ToasterComponent } from './toaster/toaster.component';
     UserMenuComponent,
     AvatarComponent,
     MenuItemComponent,
-    ToasterComponent
+    ToasterComponent,
+    CategoriesComponent,
+    CategoryBoxComponent,
+    CategoryInputComponent
   ],
 })
 export class ComponentsModule { }

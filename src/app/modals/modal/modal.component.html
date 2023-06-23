@@ -1,8 +1,16 @@
-<section
-  class="g-neutral-800/70 fixed flex focus:outline-none inset-0 items-center justify-center outline-none overflow-x-hidden overflow-y-auto z-50"
->
-  <div
-    class="
+<section class="
+  bg-neutral-800/70 
+  fixed 
+  flex 
+  focus:outline-none 
+  inset-0 
+  items-center 
+  justify-center 
+  outline-none 
+  overflow-x-hidden 
+  overflow-y-auto 
+  z-50">
+  <div class="
             h-full 
             lg:h-auto
             lg:w-3/6
@@ -13,17 +21,12 @@
             relative 
             w-full
             xl:w-2/5
-          "
-  >
+          ">
     <ng-container [ngTemplateOutlet]="content"></ng-container>
-    <div
-      class="duration-300 h-full translate"
-      [ngClass]="
+    <div class="duration-300 h-full translate" [ngClass]="
         showModal ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
-      "
-    >
-      <div
-        class="
+      ">
+      <div class="
               bg-white 
               border-0 
               flex 
@@ -38,10 +41,8 @@
               shadow-lg 
               translate
               w-full 
-            "
-      >
-        <div
-          class="
+            ">
+        <div class="
                     border-b-[1px]
                     flex 
                     items-center 
@@ -49,20 +50,16 @@
                     p-6
                     relative
                     rounded-t
-                "
-        >
-          <button
-            class="
+                ">
+          <button class="
                     absolute
                     border-0 
                     hover:opacity-70
-                    left-9
+                    right-9
                     p-1
                     transition
-                  "
-            (click)="onClose()"
-          >
-            <i class="fa fa-xmark fa-2x"></i>
+                  " (click)="onClose()">
+            <i class="fa fa-xmark fa-lg"></i>
           </button>
           <div class="font-semibold text-lg">{{ title }}</div>
         </div>
@@ -72,15 +69,13 @@
         </div>
 
         <div class="flex flex-col gap-2 p-6">
-          <div
-            class="
+          <div class="
                     flex 
                     flex-row 
                     gap-4 
                     items-center 
                     w-full
-                  "
-          >
+                  ">
             <!--{secondaryAction && secondaryActionLabel && (
                         <Button disabled={disabled} label={secondaryActionLabel} onClick={handleSecondaryAction}
                             outline />
