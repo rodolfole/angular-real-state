@@ -12,7 +12,7 @@ export class ToasterComponent {
   type: ToastType = "Warning";
   message: string = "";
   isOpen: boolean = false;
-  timeoutId: number = 0;
+  timeout: ReturnType<typeof setTimeout> = setTimeout(()=> {});
 
   $toast: Subscription | null = null;;
 
@@ -31,11 +31,11 @@ export class ToasterComponent {
 
   handleOnClick(e: MouseEvent) {
     this.isOpen = false;
-    clearTimeout(this.timeoutId);
+    clearTimeout(this.timeout);
   }
 
   closeToastAfterDelay() {
-    this.timeoutId = setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.isOpen = false;
     }, 3000);
   }
