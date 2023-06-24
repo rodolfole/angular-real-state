@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { SafeUser } from 'src/app/types';
 
 @Component({
@@ -9,17 +9,39 @@ import { SafeUser } from 'src/app/types';
 })
 export class NavbarComponent {
 
+  @ViewChild('navbar', { static: false }) navbar?: ElementRef<HTMLElement>;
+
   @Input() currentUser?: SafeUser | null = null;
   isMainPage: boolean = true;
+  isValidPage: boolean = true;
+  isScrolling: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {
         this.isMainPage = this.router.url === "/";
       }
 
+      if (event instanceof ActivationEnd) {
+        this.isValidPage = event.snapshot.data["pageNotFound"] !== true;
+      }
+
     });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+
+  onWindowScroll() {
+    const navbarElement = this.navbar?.nativeElement;
+    if (!navbarElement) return;
+
+    if (window.scrollY > navbarElement.clientHeight - 160) {
+      this.isScrolling = true;
+
+    } else {
+      this.isScrolling = false;
+    }
   }
 
 

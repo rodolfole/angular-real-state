@@ -10,6 +10,7 @@ import { Category, categories } from 'src/app/mocks/categories';
 export class CategoriesComponent {
 
 @Input() isMainPage: boolean = true;
+@Input() isScrolling: boolean = false;
 
   category: string = "Beach";
   categories: Category[] = categories;

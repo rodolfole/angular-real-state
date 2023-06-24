@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { differenceInDays } from 'date-fns';
-import { ToastService } from '../../../services/toast.service';
+import { ModalService } from '../../../services/modal.service';
 
 @Component({
   selector: 'app-search',
@@ -22,7 +22,7 @@ export class SearchComponent {
   durationLabel: string = "";
   locationLabel: string = "";
 
-  constructor(private toastService: ToastService) { }
+  constructor(private modalService: ModalService) { }
 
   getLocationLabel() {
     if (this.locationValue) {
@@ -57,6 +57,6 @@ export class SearchComponent {
   }
 
   showToast() {
-    this.toastService.setToast("Info", "Información");
+    this.modalService.setToast("Info", "Información");
   }
 }

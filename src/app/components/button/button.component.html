@@ -1,4 +1,7 @@
 <button [disabled]="disabled" (click)="onClick($event)" class="
+    flex
+    justify-center
+    items-center
     disabled:cursor-not-allowed 
     disabled:opacity-70 
     hover:opacity-80 
@@ -12,12 +15,10 @@
         'border-[1px] font-light py-1 text-sm': small, 
         'border-2 font-semibold py-3 text-md': !small
     }">
-    <i *ngIf="icon" class="
-      absolute
-      left-4
-      top-3
+  <i *ngIf="icon" class="
+      mr-3
       text-2xl
       leading-none
     " [ngClass]="icon"></i>
-    {{label}}
+  {{label}}
 </button>

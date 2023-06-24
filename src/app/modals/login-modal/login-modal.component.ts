@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-login-modal',
@@ -6,18 +6,11 @@ import { Component, TemplateRef } from '@angular/core';
   styleUrls: ['./login-modal.component.css'],
 })
 export class LoginModalComponent {
+
   disabled = false;
+  isLoading: boolean = false;
   isOpen = false;
   errors: boolean = false;
-
-  // router = useRouter();
-  // loginModal = useLoginModal();
-  // registerModal = useRegisterModal();
-  isLoading: boolean = false;
-
-  handleClose = () => {
-    console.log('cerrrrr');
-  };
 
   handleSubmit = () => {
     console.log('submit');
@@ -27,7 +20,6 @@ export class LoginModalComponent {
     // loginModal.onClose();
     // registerModal.onOpen();
   }
-
 
   signIn = (action: string) => {
 

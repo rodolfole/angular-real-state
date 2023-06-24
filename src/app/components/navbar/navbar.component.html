@@ -1,15 +1,17 @@
-<div class="fixed w-full bg-white z-10 shadow-sm">
-    <div class="py-4 border-b-[1px]">
+<div #navbar class="fixed w-full z-10 transition-all duration-200" [ngClass]="{'bg-white shadow-sm': isValidPage}">
+    <div class="py-4 border-b-[1px] border-transparent" [ngClass]="{'border-b-brown-100': isValidPage}">
         <app-container>
             <div class="flex flex-row items-center justify-between gap-3 md:gap-0">
-                <div class="flex gap-2 items-center" routerLink="/">
+                <div class="group flex gap-2 items-center cursor-pointer" routerLink="/">
                     <app-logo></app-logo>
-                    <span class="font-mayennesans text-2xl text-brown-900">Real state</span>
+                    <span
+                        class="font-mayennesans text-2xl text-brown-900 group-hover:text-brown-700 transition-all">Real
+                        State</span>
                 </div>
                 <app-search *ngIf="isMainPage"></app-search>
                 <app-user-menu *ngIf="isMainPage" [currentUser]="currentUser"></app-user-menu>
             </div>
         </app-container>
     </div>
-    <app-categories [isMainPage]="isMainPage"></app-categories>
+    <app-categories [isMainPage]="isMainPage" [isScrolling]="isScrolling"></app-categories>
 </div>

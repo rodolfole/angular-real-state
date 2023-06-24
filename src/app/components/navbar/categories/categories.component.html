@@ -6,7 +6,9 @@
           items-center 
           justify-between
           overflow-x-auto
-        ">
+          transition-all
+          duration-300
+        " [ngClass]="{'pt-4': !isScrolling}">
             <app-category-box *ngFor="let item of categories" [label]="item.label" [icon]="item.icon"
                 [selected]="category===item.label"></app-category-box>
         </div>

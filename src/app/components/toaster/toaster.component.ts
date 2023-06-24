@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ToastService, type ToastType } from 'src/app/services/toast.service';
+import { ModalService, type ToastType } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-toaster',
@@ -16,8 +16,8 @@ export class ToasterComponent {
 
   $toast: Subscription | null = null;;
 
-  constructor(private toastService: ToastService) {
-    this.$toast = this.toastService.getToast().subscribe(({ type, message }) => {
+  constructor(private modalService: ModalService) {
+    this.$toast = this.modalService.getToast().subscribe(({ type, message }) => {
       this.type = type;
       this.message = message;
       this.isOpen = true;

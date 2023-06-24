@@ -16,7 +16,7 @@
     <app-button [outline]="true" label="Continue with Github" icon="fab fa-github"
       (click)="signIn('github')"></app-button>
     <div class="text-neutral-500 text-center mt-4 font-light">
-      <p>First time using Airbnb?
+      <p>First time using <strong class="font-semibold">Real State</strong>?
         <span (click)="onToggle" class="
             text-neutral-800
             cursor-pointer 
@@ -27,5 +27,5 @@
   </div>
 </ng-template>
 
-<app-modal actionLabel="Continue" [disabled]="disabled" [isOpen]="isOpen" [onClose]="handleClose"
-  [onSubmit]="handleSubmit" title="Login" [body]="body" [footer]="footer"></app-modal>
+<app-modal actionLabel="Continue" [disabled]="disabled" [onSubmit]="handleSubmit" title="Login" [body]="body"
+  [footer]="footer"></app-modal>
