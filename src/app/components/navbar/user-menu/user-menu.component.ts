@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LoginAction, ModalService } from 'src/app/services/modal.service';
 import { SafeUser } from 'src/app/types';
 
 @Component({
@@ -10,11 +11,11 @@ export class UserMenuComponent {
 
   @Input() currentUser?: SafeUser | null = null;
 
-  registerModal: () => void = () => { };
-  loginModal: () => void = () => { };
   rentModal: () => void = () => { };
 
   isOpen: boolean = false;
+
+  constructor(private modalService: ModalService) { }
 
   toggleOpen = () => {
     this.isOpen = !this.isOpen;
@@ -22,7 +23,7 @@ export class UserMenuComponent {
 
   onRent = () => {
     if (!this.currentUser) {
-      return this.loginModal;
+      return this.handleloginModal;
     }
 
     return this.rentModal;
@@ -30,6 +31,11 @@ export class UserMenuComponent {
 
   handleSignOut = () => {
 
+  }
+
+  handleloginModal = (action: LoginAction) => {
+    this.toggleOpen();
+    this.modalService.setShowLoginModal(true, action);
   }
 
 }

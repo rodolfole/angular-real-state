@@ -13,7 +13,8 @@ export class HeartButtonComponent {
 
   hasFavorited: boolean = false;
 
-  toggleFavorite = () => {
+  toggleFavorite = (e: MouseEvent) => {
+    e.stopPropagation();
     this.hasFavorited = !this.hasFavorited;
   };
 

@@ -14,15 +14,17 @@ import { listings } from 'src/app/mocks/listings';
 })
 export class HomeComponent {
 
-  constructor(
-    private listinsgService: ListingsService,
-    private userService: UserService
-  ) { }
-
   @Input() searchParams: IListingsParams = {};
 
   listings: Listing[] = [];
   currentUser: SafeUser | null = null;
+
+  constructor(
+    private listinsgService: ListingsService,
+    private userService: UserService
+  ) { 
+
+  }
 
   ngOnInit(): void {
     this.listings = listings;

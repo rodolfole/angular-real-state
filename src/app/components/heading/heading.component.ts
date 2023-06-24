@@ -10,5 +10,6 @@ export class HeadingComponent {
   @Input() center?: boolean;
   @Input() subtitle?: string;
   @Input() title: string | undefined = undefined;
+  @Input() titleSize: string = "text-3xl";
 
 }
