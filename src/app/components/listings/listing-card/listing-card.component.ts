@@ -24,7 +24,7 @@ export class ListingCardComponent {
   price: string = "";
 
   swiper: Swiper | null = null;
-  sliders: number[] = [...Array(10).keys()];
+  sliders: string[] = [];
 
   config: SwiperOptions = {
     modules: [Navigation, Pagination, A11y, Mousewheel],
@@ -57,7 +57,9 @@ export class ListingCardComponent {
     }
   }
 
-  constructor(private detector: ChangeDetectorRef) { }
+  constructor(private detector: ChangeDetectorRef) { 
+    this.sliders = [...Array(10).entries()].map((_, i) => `../../../assets/images/${i + 1}.webp`);
+  }
 
   ngOnInit(): void {
     this.getReservationDate();

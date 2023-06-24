@@ -21,9 +21,13 @@ import { ToasterComponent } from './toaster/toaster.component';
 import { CategoriesComponent } from './navbar/categories/categories.component';
 import { CategoryBoxComponent } from './category-box/category-box.component';
 import { CategoryInputComponent } from './Inputs/category-input/category-input.component';
+import { AgentRoleTagComponent } from './agent-role-tag/agent-role-tag.component';
+import { ListingActionsComponent } from './listings/listing-actions/listing-actions.component';
+import { ListingHeroComponent } from './listings/listing-hero/listing-hero.component';
 
 import { register } from 'swiper/element/bundle';
-
+import { ListingStickComponent } from './listings/listing-stick/listing-stick.component';
+import { ListingNavbarComponent } from './listings/listing-navbar/listing-navbar.component';
 register();
 
 @NgModule({
@@ -44,7 +48,12 @@ register();
     ToasterComponent,
     CategoriesComponent,
     CategoryBoxComponent,
-    CategoryInputComponent
+    CategoryInputComponent,
+    AgentRoleTagComponent,
+    ListingActionsComponent,
+    ListingHeroComponent,
+    ListingStickComponent,
+    ListingNavbarComponent
   ],
   imports: [CommonModule, RouterModule, DateFnsModule, SwiperDirective],
   exports: [
@@ -63,7 +72,12 @@ register();
     ToasterComponent,
     CategoriesComponent,
     CategoryBoxComponent,
-    CategoryInputComponent
+    CategoryInputComponent,
+    AgentRoleTagComponent,
+    ListingActionsComponent,
+    ListingHeroComponent,
+    ListingStickComponent,
+    ListingNavbarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

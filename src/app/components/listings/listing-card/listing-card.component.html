@@ -10,12 +10,12 @@
             mb-3
         ">
             <swiper-container fmSwiper [config]="config" init="false" class="w-full h-full" #listingSwiper>
-                <swiper-slide class="w-full h-full" *ngFor="let slider of sliders; let i = index">
-                    <img fill class="
+                <swiper-slide class="w-full h-full" *ngFor="let slider of sliders">
+                    <img class="
                         h-full 
                         object-cover 
                         transition
-                        w-full" [src]="'../../../assets/images/' + (i + 1) + '.webp'" alt="Listing" />
+                        w-full" [src]="slider" alt="Listing" height="300px" width="400px"/>
                 </swiper-slide>
             </swiper-container>
             <button *ngIf="swiper" class="
@@ -56,43 +56,56 @@
                 absolute
                 right-3
                 top-3
-                z-50
+                z-40
             ">
                 <app-heart-button [listingId]="data!.id" [currentUser]="currentUser">
                 </app-heart-button>
             </div>
         </div>
         <div
-            class="relative -top-11 -mb-11 flex flex-col justify-center bottom-0 right-0 bg-white rounded-xl w-full py-6 px-8 z-10">
-            <div class="font-semibold text-base">
+            class="relative 
+            -top-11 
+            -mb-11 
+            flex 
+            flex-col
+            justify-start 
+            bottom-0 
+            right-0 
+            bg-white 
+            rounded-xl 
+            w-full 
+            py-4
+            px-6
+            z-10
+            ">
+            <div class="font-semibold text-base line-clamp-1">
                 <!-- {{location?.region}}, {{location?.label}} -->
-                Buckingham Palace
+                {{data!.title}}
             </div>
-            <div class="font-light text-neutral-500 text-sm">
-                <!-- {{reservationDate || data!.category}} -->
-                17969 E 54th Ave, Denver, CO 80249
+            <div class="font-light text-neutral-500 text-sm line-clamp-1">
+                {{reservationDate || data!.locationValue}}
             </div>
             <div class="flex flex-row gap-1 items-center mt-2">
                 <div class="font-semibold">${{price}} <span class="text-xs">MXN</span></div>
             </div>
-            <div class="flex flex-row gap-7 items-center mt-3">
+            <div class="flex flex-row gap-6 items-center mt-3">
                 <div class="flex flex-row items-center gap-2 text-brown-600">
                     <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
                         <use href="../../../../assets/icons/bed.svg#bed"></use>
                     </svg>
-                    <div>4</div>
+                    <div>{{data!.roomCount}}</div>
                 </div>
                 <div class="flex flex-row items-center gap-2 text-brown-600">
                     <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
                         <use href="../../../../assets/icons/tub.svg#tub"></use>
                     </svg>
-                    <div>2</div>
+                    <div>{{data!.bathroomCount}}</div>
                 </div>
                 <div class="flex flex-row items-center gap-2 text-brown-600">
                     <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
                         <use href="../../../../assets/icons/home.svg#home"></use>
                     </svg>
-                    <div>300mt<sup>2</sup></div>
+                    <div>{{data!.propertyArea}}mt<sup>2</sup></div>
                 </div>
             </div>
             <app-button *ngIf="onAction && actionLabel" [disabled]="disabled" [label]="actionLabel"

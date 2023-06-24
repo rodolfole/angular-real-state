@@ -1,4 +1,3 @@
-<div class="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
-    <!-- <ng-container [ngTemplateOutlet]="children"></ng-container> -->
+<div class="max-w-[2520px] mx-auto sm:px-2 px-4" [ngClass]="maxWidth + (expandHeight ? ' h-full': '')">
     <ng-content></ng-content>
 </div>

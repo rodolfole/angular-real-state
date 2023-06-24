@@ -27,9 +27,11 @@ export class ModalComponent {
 
   constructor(private modalService: ModalService) {
     this.documentBody = document.querySelector("body");
-    this.documentBody?.classList.add("overflow-hidden");
 
     this.$showModalSub = this.modalService.getShowLoginModal().subscribe(({ showModal, action }) => {
+
+      if (showModal) this.documentBody?.classList.add("overflow-hidden");
+      
       this.isOpen = showModal;
       this.showModal = showModal;
       this.modalAction = action;
@@ -49,6 +51,7 @@ export class ModalComponent {
     this.showModal = false;
     setTimeout(() => {
       this.isOpen = false;
+      this.documentBody?.classList.remove("overflow-hidden");
     }, 300);
   }
 

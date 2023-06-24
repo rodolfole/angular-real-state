@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, NavigationEnd, Router } from '@angular/router';
+import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { SafeUser } from 'src/app/types';
 
 @Component({
@@ -16,7 +16,7 @@ export class NavbarComponent {
   isValidPage: boolean = true;
   isScrolling: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router) {
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {

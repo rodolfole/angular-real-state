@@ -8,5 +8,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 export class ContainerComponent {
 
   @Input() children: TemplateRef<any> | null = null;
+  @Input() expandHeight: boolean = false;
+  @Input() maxWidth: string = "xl:px-20 md:px-10";
 
 }

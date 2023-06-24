@@ -1,1 +1,22 @@
-<p>listings works!</p>
+<app-container maxWidth="xl:px-40 md:px-20">
+    <app-listing-navbar [show]="showListingNavbar"></app-listing-navbar>
+    <div id="listingHero" class="pt-8">
+        <app-heading title="Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion"
+            titleSize="text-2xl leading-6"></app-heading>
+        <div class="flex justify-between items-center text-sm mb-3">
+            <div class="flex items-center">
+                <app-agent-role-tag role="Featured Agent" icon=""></app-agent-role-tag>
+                <div class="flex items-center justify-center relative w-4 h-full font-semibold text-slate-600">
+                    <span class="relative -top-[3px]">.</span>
+                </div>
+                <a href="/" class="underline font-semibold">Hildale, Utah, Estados Unidos</a>
+            </div>
+            <app-listing-actions [listingId]="listingId"></app-listing-actions>
+        </div>
+        <app-listing-hero [listingId]="listingId" [images]="listingImages"></app-listing-hero>
+    </div>
+    <div #listingInfo id="listingInfo" class="flex h-screen py-12">
+        <div class="w-full"></div>
+        <app-listing-stick [listing]="listing"></app-listing-stick>
+    </div>
+</app-container>
