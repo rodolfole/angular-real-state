@@ -28,8 +28,7 @@ module.exports = {
     },
   },
   plugins: [
-    require('tailwindcss-animated'),
-    require('@tailwindcss/line-clamp')
+    require('tailwindcss-animated')
   ],
 }
 

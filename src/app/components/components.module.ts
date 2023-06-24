@@ -28,6 +28,7 @@ import { ListingHeroComponent } from './listings/listing-hero/listing-hero.compo
 import { register } from 'swiper/element/bundle';
 import { ListingStickComponent } from './listings/listing-stick/listing-stick.component';
 import { ListingNavbarComponent } from './listings/listing-navbar/listing-navbar.component';
+import { ListingDetailsComponent } from './listings/listing-details/listing-details.component';
 register();
 
 @NgModule({
@@ -53,7 +54,8 @@ register();
     ListingActionsComponent,
     ListingHeroComponent,
     ListingStickComponent,
-    ListingNavbarComponent
+    ListingNavbarComponent,
+    ListingDetailsComponent
   ],
   imports: [CommonModule, RouterModule, DateFnsModule, SwiperDirective],
   exports: [
@@ -77,7 +79,8 @@ register();
     ListingActionsComponent,
     ListingHeroComponent,
     ListingStickComponent,
-    ListingNavbarComponent
+    ListingNavbarComponent,
+    ListingDetailsComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

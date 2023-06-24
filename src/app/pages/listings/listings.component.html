@@ -16,7 +16,9 @@
         <app-listing-hero [listingId]="listingId" [images]="listingImages"></app-listing-hero>
     </div>
     <div #listingInfo id="listingInfo" class="flex h-screen py-12">
-        <div class="w-full"></div>
+        <div class="w-full">
+            <app-listing-details></app-listing-details>
+        </div>
         <app-listing-stick [listing]="listing"></app-listing-stick>
     </div>
 </app-container>
