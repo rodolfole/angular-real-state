@@ -22,4 +22,14 @@ export class LoginModalComponent {
   handleSubmit = () => {
     console.log('submit');
   };
+
+  onToggle() {
+    // loginModal.onClose();
+    // registerModal.onOpen();
+  }
+
+
+  signIn = (action: string) => {
+
+  }
 }

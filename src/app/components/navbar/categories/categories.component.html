@@ -1,7 +1,6 @@
-<ng-template ngIf="isMainPage">
+<ng-container *ngIf="isMainPage">
     <app-container>
         <div class="
-          pt-4
           flex 
           flex-row 
           items-center 
@@ -12,4 +11,4 @@
                 [selected]="category===item.label"></app-category-box>
         </div>
     </app-container>
-</ng-template>
+</ng-container>

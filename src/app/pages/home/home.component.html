@@ -4,15 +4,14 @@
 
 <app-container *ngIf="listings.length">
     <div class="
-        2xl:grid-cols-6
-        gap-8
+        gap-6
         grid 
-        grid-cols-1 
-        lg:grid-cols-4
-        md:grid-cols-3 
+        grid-cols-4
         pt-24
-        sm:grid-cols-2 
-        xl:grid-cols-5
+        max-[1128px]:grid-cols-3
+        max-[950px]:grid-cols-2
+        max-sm:grid-cols-1
+        rounded
       ">
         <app-listing-card *ngFor="let listing of listings" [currentUser]="currentUser!" [data]="listing">
         </app-listing-card>

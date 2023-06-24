@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-logo',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./logo.component.css']
 })
 export class LogoComponent {
+
+  @Input() logoSize: string = "h-10 w-10"; 
 
 }

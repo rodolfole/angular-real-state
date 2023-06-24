@@ -2,14 +2,13 @@
     disabled:cursor-not-allowed 
     disabled:opacity-70 
     hover:opacity-80 
-    hover:bg-slate-100/70
     relative 
     rounded-lg 
     transition 
     w-full
     " [ngClass]="{
-        'bg-white border-black text-black': outline,
-        'bg-rose-500 border-rose-500 text-white' : !outline,
+        'bg-white border-black text-black hover:bg-slate-100': outline,
+        'bg-brown-500 border-brown-500 text-white' : !outline,
         'border-[1px] font-light py-1 text-sm': small, 
         'border-2 font-semibold py-3 text-md': !small
     }">
@@ -18,6 +17,7 @@
       left-4
       top-3
       text-2xl
+      leading-none
     " [ngClass]="icon"></i>
     {{label}}
 </button>

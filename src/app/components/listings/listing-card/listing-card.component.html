@@ -1,39 +1,103 @@
 <div class="col-span-1 cursor-pointer group" [routerLink]="['/listings/' + data!.id]">
-    <div class="flex flex-col gap-2 w-full">
-        <div class="
+    <div class="relative flex flex-col gap-2 w-full bg-white rounded-xl">
+        <div *ngIf="sliders.length" class="
+            group
             aspect-square 
             overflow-hidden 
             relative 
             rounded-xl
-            w-full 
+            w-full
+            mb-3
         ">
-            <img fill class="
-                        group-hover:scale-110 
+            <swiper-container fmSwiper [config]="config" init="false" class="w-full h-full" #listingSwiper>
+                <swiper-slide class="w-full h-full" *ngFor="let slider of sliders; let i = index">
+                    <img fill class="
                         h-full 
                         object-cover 
                         transition
-                        w-full" [src]="data!.imageSrc" alt="Listing" />
+                        w-full" [src]="'../../../assets/images/' + (i + 1) + '.webp'" alt="Listing" />
+                </swiper-slide>
+            </swiper-container>
+            <button *ngIf="swiper" class="
+                absolute 
+                z-10 
+                left-4 
+                top-[calc(50%-16px)] 
+                h-8 
+                w-8 
+                bg-white/80 
+                rounded-full 
+                opacity-0
+                transition-all
+                duration-200
+                pointer-events-none
+            " [ngClass]="{'group-hover:opacity-100 group-hover:pointer-events-auto': swiper.activeIndex !== 0}"
+                (click)="handlePrevSlide($event)">
+                <i class="fas fa-chevron-left text-brown-900"></i>
+            </button>
+            <button *ngIf="swiper" class="
+                absolute 
+                z-10
+                right-4 
+                top-[calc(50%-16px)] 
+                h-8 
+                w-8 
+                bg-white/80 
+                rounded-full
+                opacity-0
+                transition-all
+                duration-200
+                pointer-events-none
+            " [ngClass]="{'group-hover:opacity-100 group-hover:pointer-events-auto': swiper.activeIndex !== (sliders.length - 1)}"
+                (click)="handleNextSlide($event)">
+                <i class="fas fa-chevron-right text-brown-900"></i>
+            </button>
             <div class="
                 absolute
                 right-3
                 top-3
+                z-50
             ">
                 <app-heart-button [listingId]="data!.id" [currentUser]="currentUser">
                 </app-heart-button>
             </div>
         </div>
-        <div class="font-semibold text-lg">
-            {{location?.region}}, {{location?.label}}
+        <div
+            class="relative -top-11 -mb-11 flex flex-col justify-center bottom-0 right-0 bg-white rounded-xl w-full py-6 px-8 z-10">
+            <div class="font-semibold text-base">
+                <!-- {{location?.region}}, {{location?.label}} -->
+                Buckingham Palace
+            </div>
+            <div class="font-light text-neutral-500 text-sm">
+                <!-- {{reservationDate || data!.category}} -->
+                17969 E 54th Ave, Denver, CO 80249
+            </div>
+            <div class="flex flex-row gap-1 items-center mt-2">
+                <div class="font-semibold">${{price}} <span class="text-xs">MXN</span></div>
+            </div>
+            <div class="flex flex-row gap-7 items-center mt-3">
+                <div class="flex flex-row items-center gap-2 text-brown-600">
+                    <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
+                        <use href="../../../../assets/icons/bed.svg#bed"></use>
+                    </svg>
+                    <div>4</div>
+                </div>
+                <div class="flex flex-row items-center gap-2 text-brown-600">
+                    <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
+                        <use href="../../../../assets/icons/tub.svg#tub"></use>
+                    </svg>
+                    <div>2</div>
+                </div>
+                <div class="flex flex-row items-center gap-2 text-brown-600">
+                    <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
+                        <use href="../../../../assets/icons/home.svg#home"></use>
+                    </svg>
+                    <div>300mt<sup>2</sup></div>
+                </div>
+            </div>
+            <app-button *ngIf="onAction && actionLabel" [disabled]="disabled" [label]="actionLabel"
+                [onClick]="handleCancel" [small]="true">
+            </app-button>
         </div>
-        <div class="font-light text-neutral-500">
-            {{reservationDate || data!.category}}
-        </div>
-        <div class="flex flex-row gap-1 items-center">
-            <div class="font-semibold">$ {{price}}</div>
-            <div class="font-light" *ngIf="!reservation">night</div>
-        </div>
-        <app-button *ngIf="onAction && actionLabel" [disabled]="disabled" [label]="actionLabel"
-            [onClick]="handleCancel" [small]="true">
-        </app-button>
     </div>
 </div>

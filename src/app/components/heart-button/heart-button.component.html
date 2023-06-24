@@ -1,21 +1,25 @@
 <div (click)="toggleFavorite()" class="
   relative
-  hover:opacity-80
   transition
   cursor-pointer
-">
-    <i class="
+" [ngClass]="{'hover:opacity-80': !hasFavorited}">
+  <i class="
     fa-regular 
     fa-heart 
-    text-[28px]   
+    text-[22px]   
     text-white
     absolute
-    -top-[2px]
-    -right-[2px]"></i>
-    <i class="
+    top-[4px]
+    right-[4px]
+    z-10
+    "></i>
+  <i class="
     fa-solid 
     fa-heart
-    text-[26px]   
-    " 
-    [ngClass]="hasFavorited ? 'text-rose-500' : 'text-neutral-500/70'"></i>
+    text-[20px]
+    absolute
+    top-[5px]
+    right-[5px]
+    " [ngClass]="
+    hasFavorited ? 'text-rose-500' : 'text-brown-500/40'"></i>
 </div>

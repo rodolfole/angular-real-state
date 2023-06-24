@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { SafeUser } from 'src/app/types';
 
 @Component({
@@ -9,5 +10,17 @@ import { SafeUser } from 'src/app/types';
 export class NavbarComponent {
 
   @Input() currentUser?: SafeUser | null = null;
+  isMainPage: boolean = true;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+
+      if (event instanceof NavigationEnd) {
+        this.isMainPage = this.router.url === "/";
+      }
+
+    });
+  }
+
 
 }

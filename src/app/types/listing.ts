@@ -3,12 +3,12 @@ export type Listing = {
     id: string;
     title: string;
     description: string;
-    imageSrc: string;
+    images: string[];
     category: string;
     roomCount: number;
     bathroomCount: number;
     guestCount: number;
     locationValue: string;
     userId: string;
-    price: number;
+    price: string;
 }

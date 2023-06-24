@@ -6,33 +6,43 @@ export interface Category {
 
 export const categories: Category[] = [
     {
-        label: "Beach",
-        icon: "far fa-umbrella-beach",
+        label: "House",
+        icon: "home_category",
         description: "This property is close to the beach!",
     },
     {
-        label: "Windmills",
-        icon: "fas fa-wind-turbine",
+        label: "Residential",
+        icon: "residential_category",
         description: "This property is has windmills!",
     },
     {
-        label: "Pools",
-        icon: "fas fa-swimming-pool",
+        label: "Apartment",
+        icon: "apartment_category",
         description: "This is property has a beautiful pool!",
     },
     {
-        label: "Islands",
-        icon: "fal fa-island-tropical",
+        label: "Townhouse",
+        icon: "townhouse_category",
         description: "This property is on an island!",
     },
     {
-        label: "Skiing",
-        icon: "fas fa-skiing",
+        label: "Building",
+        icon: "building_category",
         description: "This property has skiing activies!",
     },
     {
-        label: "Castles",
-        icon: "far fa-chess-rook-alt",
+        label: "Condominium",
+        icon: "condominium_category",
         description: "This property is an ancient castle!",
     },
+    {
+        label: "Villa",
+        icon: "villa_category",
+        description: "This property is an ancient castle!",
+    },
+    {
+        label: "Bungalow",
+        icon: "bungalow_category",
+        description: "This property is an ancient castle!",
+    }
 ];

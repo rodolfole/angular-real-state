@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { SafeListing, SafeReservation, SafeUser } from 'src/app/types';
+import { A11y, Mousewheel, Navigation, Pagination, SwiperOptions, Swiper } from 'swiper';
 
 @Component({
   selector: 'app-listing-card',
@@ -7,6 +8,8 @@ import { SafeListing, SafeReservation, SafeUser } from 'src/app/types';
   styleUrls: ['./listing-card.component.css']
 })
 export class ListingCardComponent {
+
+  @ViewChild('listingSwiper', { static: false }) listingSwiper?: ElementRef<HTMLElement>;
 
   @Input() actionId?: string;
   @Input() actionLabel?: string;
@@ -18,13 +21,52 @@ export class ListingCardComponent {
 
   location: any = null;
   reservationDate: string | null = null;
-  price: number = 0;
+  price: string = "";
 
-  constructor() { }
+  swiper: Swiper | null = null;
+  sliders: number[] = [...Array(10).keys()];
+
+  config: SwiperOptions = {
+    modules: [Navigation, Pagination, A11y, Mousewheel],
+    spaceBetween: 20,
+    navigation: false,
+    pagination: { clickable: true, dynamicBullets: true },
+    slidesPerView: 1,
+    centeredSlides: true,
+    injectStyles: [`
+    .swiper-pagination-bullets.swiper-pagination-horizontal {
+      bottom: 30px;
+    }
+    .swiper-pagination-bullet {
+      background: white;
+    }
+    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next,
+    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {
+      opacity: 0.8;
+    }
+    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next,
+    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {
+      opacity: 0.6;
+    }
+    `],
+    breakpoints: {
+      400: {
+        slidesPerView: "auto",
+        centeredSlides: false
+      },
+    }
+  }
+
+  constructor(private detector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getReservationDate();
     this.getPrice();
+  }
+
+  ngAfterViewInit(): void {
+    this.swiper = (this.listingSwiper?.nativeElement as any).swiper;
+    this.detector.detectChanges();
   }
 
   getReservationDate() {
@@ -45,20 +87,32 @@ export class ListingCardComponent {
       this.price = this.reservation.totalPrice;
     }
 
-    this.price = this.data?.price || 0;
+    this.price = this.data?.price || "";
   }
 
   handleCancel(e: MouseEvent) {
     console.log("Hey");
     e.stopPropagation();
-    
-    
+
+
 
     if (this.disabled) {
       return;
     }
 
     this.onAction?.(this.actionId!);
+  }
+
+  handleNextSlide(e: MouseEvent) {
+    e.stopPropagation();
+    const swiper = this.listingSwiper?.nativeElement as any;
+    swiper.swiper.slideNext()
+  }
+
+  handlePrevSlide(e: MouseEvent) {
+    e.stopPropagation();
+    const swiper = this.listingSwiper?.nativeElement as any;
+    swiper.swiper.slidePrev()
   }
 
 }

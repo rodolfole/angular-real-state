@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Category, categories } from 'src/app/mocks/categories';
 
 @Component({
@@ -8,9 +9,9 @@ import { Category, categories } from 'src/app/mocks/categories';
 })
 export class CategoriesComponent {
 
+@Input() isMainPage: boolean = true;
+
   category: string = "Beach";
   categories: Category[] = categories;
-  pathname: string = "";
-  isMainPage: boolean = this.pathname === "/";
 
 }

@@ -1,7 +1,9 @@
 <div (click)="handleClick" class="flex flex-col items-center justify-center gap-2 p-3 border-b-2
-    hover:text-neutral-800 transition cursor-pointer" [ngClass]="{
-    'border-b-neutral-800 text-neutral-800': selected,
+    hover:text-neutral-800 hover:border-b-brown-200 transition cursor-pointer" [ngClass]="{
+    'border-b-brown-900 text-brown-900': selected,
     'border-transparent text-neutral-500': !selected}">
-    <i [ngClass]="[icon, 'text-2xl']"></i>
+    <svg class="h-8 w-8 fill-current stroke-current" aria-hidden="true" focusable="false">
+        <use [attr.href]="'../../../assets/icons/'+icon+'.svg#'+icon"></use>
+    </svg>
     <div class="font-medium text-sm">{{label}}</div>
 </div>

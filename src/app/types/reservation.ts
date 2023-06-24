@@ -4,6 +4,6 @@ export type Reservation = {
     listingId: string;
     startDate: Date;
     endDate: Date;
-    totalPrice: number;
+    totalPrice: string;
     createdAt: Date;
 }

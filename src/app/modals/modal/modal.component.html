@@ -59,7 +59,7 @@
                     p-1
                     transition
                   " (click)="onClose()">
-            <i class="fa fa-xmark fa-lg"></i>
+            <i class="fa fa-xmark fa-xl"></i>
           </button>
           <div class="font-semibold text-lg">{{ title }}</div>
         </div>
@@ -76,14 +76,11 @@
                     items-center 
                     w-full
                   ">
-            <!--{secondaryAction && secondaryActionLabel && (
-                        <Button disabled={disabled} label={secondaryActionLabel} onClick={handleSecondaryAction}
-                            outline />
-                        )}
-                        <Button disabled={disabled} label={actionLabel} onClick={handleSubmit} />-->
-            <button (click)="onSubmit()">{{ actionLabel }}</button>
+            <app-button *ngIf="secondaryAction && secondaryActionLabel" [disabled]="disabled"
+              [label]="secondaryActionLabel" (click)="handleSecondaryAction" [outline]="true" class="w-full"></app-button>
+            <app-button [disabled]="disabled" [label]="actionLabel!" [onClick]="handleSubmit" class="w-full"></app-button>
           </div>
-          footer
+          <ng-container [ngTemplateOutlet]="footer"></ng-container>
         </div>
       </div>
     </div>

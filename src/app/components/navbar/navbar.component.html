@@ -2,11 +2,14 @@
     <div class="py-4 border-b-[1px]">
         <app-container>
             <div class="flex flex-row items-center justify-between gap-3 md:gap-0">
-                <app-logo></app-logo>
-                <app-search></app-search>
-                <app-user-menu [currentUser]="currentUser"></app-user-menu>
+                <div class="flex gap-2 items-center" routerLink="/">
+                    <app-logo></app-logo>
+                    <span class="font-mayennesans text-2xl text-brown-900">Real state</span>
+                </div>
+                <app-search *ngIf="isMainPage"></app-search>
+                <app-user-menu *ngIf="isMainPage" [currentUser]="currentUser"></app-user-menu>
             </div>
         </app-container>
     </div>
-    <app-categories></app-categories>
+    <app-categories [isMainPage]="isMainPage"></app-categories>
 </div>

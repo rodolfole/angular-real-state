@@ -7,9 +7,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { ModalsModule } from './modals/modals.module';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
      AppRoutingModule, 
