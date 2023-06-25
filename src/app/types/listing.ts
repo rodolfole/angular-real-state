@@ -6,6 +6,7 @@ export type Listing = {
     title: string;
     description: string;
     images: string[];
+    amenities?: string[];
     category: ListingCategory;
     roomCount: number;
     bathroomCount: number;
