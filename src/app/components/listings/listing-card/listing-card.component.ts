@@ -13,7 +13,6 @@ export class ListingCardComponent {
 
   @Input() actionId?: string;
   @Input() actionLabel?: string;
-  @Input() currentUser?: SafeUser | null;
   @Input() data: SafeListing | null = null;
   @Input() disabled?: boolean;
   @Input() onAction?: (id: string) => void;

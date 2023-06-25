@@ -24,7 +24,7 @@ import { CategoryInputComponent } from './Inputs/category-input/category-input.c
 import { AgentTagComponent } from './agent-tag/agent-tag.component';
 import { ListingActionsComponent } from './listings/listing-actions/listing-actions.component';
 import { ListingHeroComponent } from './listings/listing-hero/listing-hero.component';
-import { ListingStickComponent } from './listings/listing-stick/listing-stick.component';
+import { ListingStickyComponent } from './listings/listing-sticky/listing-sticky.component';
 import { ListingNavbarComponent } from './listings/listing-navbar/listing-navbar.component';
 import { ListingDetailsComponent } from './listings/listing-details/listing-details.component';
 import { ListingServicesComponent } from './listings/listing-services/listing-services.component';
@@ -36,6 +36,8 @@ import { register } from 'swiper/element/bundle';
 import { AgentContactBoxComponent } from './agent-contact-box/agent-contact-box.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { FooterComponent } from './footer/footer.component';
+import { SafeUserPipe } from '../pipes/safe-user.pipe';
+import { StickyCardComponent } from './sticky-card/sticky-card.component';
 register();
 
 @NgModule({
@@ -60,7 +62,7 @@ register();
     AgentTagComponent,
     ListingActionsComponent,
     ListingHeroComponent,
-    ListingStickComponent,
+    ListingStickyComponent,
     ListingNavbarComponent,
     ListingDetailsComponent,
     ListingServicesComponent,
@@ -69,9 +71,10 @@ register();
     AgentAvatarComponent,
     AgentContactBoxComponent,
     IconButtonComponent,
-    FooterComponent
+    FooterComponent,
+    StickyCardComponent
   ],
-  imports: [CommonModule, RouterModule, DateFnsModule, SwiperDirective],
+  imports: [CommonModule, RouterModule, DateFnsModule, SwiperDirective, SafeUserPipe],
   exports: [
     InputComponent,
     ContainerComponent,
@@ -88,7 +91,7 @@ register();
     AgentTagComponent,
     ListingActionsComponent,
     ListingHeroComponent,
-    ListingStickComponent,
+    ListingStickyComponent,
     ListingNavbarComponent,
     ListingDetailsComponent,
     ListingServicesComponent,
@@ -96,7 +99,8 @@ register();
     ListingAgentsComponent,
     AgentAvatarComponent,
     AgentContactBoxComponent,
-    FooterComponent
+    FooterComponent,
+    StickyCardComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

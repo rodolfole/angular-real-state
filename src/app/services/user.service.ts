@@ -26,4 +26,16 @@ export class UserService {
       })
     );
   }
+
+  getAgentById(id: string): Observable<SafeUser> {
+
+    const url = `${environment.URI}/api/users/agent`;
+
+    return this.http.get(url, { params: { id } }).pipe(
+      map((resp: any) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
 }

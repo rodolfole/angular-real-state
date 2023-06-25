@@ -2,11 +2,11 @@
     <div class="grid grid-cols-2 gap-32">
         <div class="flex flex-col flex-1">
             <div class="flex gap-6 items-center w-full">
-                <app-agent-avatar image="../../../assets/images/agent.jpg" medalColor="text-red-700"
-                    avatarSize="h-16 w-16">
+                <app-agent-avatar [agent]="agent" avatarSize="h-16 w-16"
+                    [icon]="{icon: 'fas fa-medal text-red-700', border:true}">
                 </app-agent-avatar>
                 <div class="flex flex-col flex-1 gap-1 ">
-                    <p class="text-xl font-semibold">Agent: Sebastian</p>
+                    <p class="text-xl font-semibold">Agent: {{agent!.name}}</p>
                     <span class="text-brown-500 text-sm">Registered in August 2019</span>
                 </div>
             </div>

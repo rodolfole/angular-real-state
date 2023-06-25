@@ -13,7 +13,14 @@ export class ListingNavbarComponent {
 
   handleClick(elementId: string): void {
     const element = document.getElementById(elementId);
-    element!.scrollIntoView({ behavior: "smooth" })
+    var headerOffset = 80;
+    var elementPosition = element!.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+    window!.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   }
 
 }

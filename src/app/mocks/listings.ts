@@ -21,7 +21,17 @@ export const listings: Listing[] = [
         guestCount: 3,
         locationValue: "Peshastin, Washington, Estados Unidos",
         propertyArea: 530,
-        userId: "1",
+        userId: {
+            createdAt: "",
+            updatedAt: "",
+            email: "user1@example.com",
+            emailVerified: "true",
+            favoriteIds: [],
+            id: "1",
+            image: "../../assets/images/agent.jpg",
+            name: "Camila Herrera",
+            hashedPassword: null
+        },
         price: "270,000"
     },
     {
@@ -46,7 +56,17 @@ export const listings: Listing[] = [
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
         propertyArea: 320,
-        userId: "1",
+        userId: {
+            createdAt: "",
+            updatedAt: "",
+            email: "user2@example.com",
+            emailVerified: "true",
+            favoriteIds: [],
+            id: "2",
+            image: "../../assets/images/placeholder.jpg",
+            name: "Brenda Flores",
+            hashedPassword: null
+        },
         price: "320,000"
     }
 ]

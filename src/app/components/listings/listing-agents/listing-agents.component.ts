@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SafeUser } from 'src/app/types';
 
 @Component({
   selector: 'app-listing-agents',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./listing-agents.component.css']
 })
 export class ListingAgentsComponent {
+
+  @Input() agent?: SafeUser;
 
 }

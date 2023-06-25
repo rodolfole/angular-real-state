@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { SafeUser } from 'src/app/types';
+
+interface AvatarIcon {
+  icon: string,
+  border?: boolean,
+}
 
 @Component({
   selector: 'app-agent-avatar',
@@ -7,8 +13,15 @@ import { Component, Input } from '@angular/core';
 })
 export class AgentAvatarComponent {
 
-  @Input() image?: string = "../../../assets/images/placeholder.jpg";
+  @Input() agent?: SafeUser;
   @Input() avatarSize: string = "h-14 w-14";
-  @Input() medalColor?: string;
+  @Input() icon?: AvatarIcon;
+  @Input() customIcon: TemplateRef<any> | null = null;
+  @Input() disabled: boolean = false;
+  defaultImage: string = "../../../assets/images/agent.jpg";
+
+  handleClick = () => {
+
+  }
 
 }

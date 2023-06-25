@@ -1,4 +1,4 @@
-<section class="flex flex-col">
+<section id="listingDetails" class="flex flex-col">
     <ng-container [ngTemplateOutlet]="header"></ng-container>
     <ng-container [ngTemplateOutlet]="body"></ng-container>
 </section>
@@ -6,10 +6,12 @@
 <ng-template #header>
     <div class="mb-7 flex w-full">
         <div class="flex flex-col flex-1">
-            <strong class="text-2xl text-brown-600">Minicasa. Agente: Sebastian</strong>
+            <strong class="text-2xl text-brown-600">Minicasa. Agente: {{(listing!.userId | safeUser).name}}</strong>
             <p>Some text here</p>
         </div>
-        <app-agent-avatar image="../../../assets/images/agent.jpg" medalColor="text-red-700"></app-agent-avatar>
+        <app-agent-avatar [agent]="listing!.userId | safeUser"
+            [icon]="{icon: 'fas fa-medal text-red-700', border:true}">
+        </app-agent-avatar>
     </div>
 </ng-template>
 

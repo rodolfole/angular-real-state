@@ -17,12 +17,12 @@
     </div>
     <div #listingInfo id="listingInfo" class="flex py-12">
         <div class="flex flex-col w-full">
-            <app-listing-details></app-listing-details>
+            <app-listing-details [listing]="listing"></app-listing-details>
             <app-listing-services [amenities]="listing!.amenities"></app-listing-services>
         </div>
-        <app-listing-stick [listing]="listing"></app-listing-stick>
+        <app-listing-sticky [listing]="listing"></app-listing-sticky>
     </div>
     <app-listing-location></app-listing-location>
-    <app-listing-agents></app-listing-agents>
+    <app-listing-agents [agent]="listing!.userId | safeUser"></app-listing-agents>
 </app-container>
 <app-footer></app-footer>

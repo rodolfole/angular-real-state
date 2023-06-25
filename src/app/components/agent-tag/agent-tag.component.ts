@@ -9,6 +9,7 @@ export class AgentTagComponent {
 
   @Input() icon: string | null = null;
   @Input() customIcon: TemplateRef<any> | null = null;
+  @Input() customClasses?: string;
   @Input() tag: string | null = null;
 
 }
