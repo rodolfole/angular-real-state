@@ -1,5 +1,26 @@
-<section class="relative flex flex-col gap-2 w-full h-min">
-    <div class="grid grid-cols-[5fr_3fr] gap-2 overflow-clip">
+<section class="flex flex-col gap-2 w-full h-min">
+    <div class="relative grid grid-cols-[5fr_3fr] gap-2 overflow-clip">
+        <button class="
+            absolute 
+            flex 
+            items-center 
+            justify-center 
+            gap-3 
+            bottom-6
+            right-6
+            py-2
+            px-5 
+            bg-white/90
+            text-brown-800
+            transition
+            rounded-xl
+            hover:bg-brown-100/90
+            active:scale-95
+            z-10
+            ">
+            <app-logo logoSize="h-6 w-6" logoColor="text-800"></app-logo>
+            <span class="font-semibold">View all photos</span>
+        </button>
         <button class="group max-h-[50vh] min-h-[350px] h-full w-full max-w-full overflow-hidden rounded-xl">
             <img class="
             w-full 
@@ -34,25 +55,4 @@
                 " [src]="image" alt="list-hero-img" width="400px" height="300px">
         </button>
     </div>
-
-    <button class="
-        absolute 
-        flex 
-        items-center 
-        justify-center 
-        gap-3 
-        top-[310px]
-        right-6
-        py-2
-        px-5 
-        bg-white/90
-        text-brown-800
-        transition
-        rounded-xl
-        hover:bg-brown-100/90
-        active:scale-95
-        ">
-        <app-logo logoSize="h-6 w-6" logoColor="text-800"></app-logo>
-        <span class="font-semibold">View all photos</span>
-    </button>
 </section>
