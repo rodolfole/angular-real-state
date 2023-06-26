@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 import { SafeUser } from 'src/app/types';
 
 @Component({
@@ -9,9 +10,13 @@ import { SafeUser } from 'src/app/types';
 export class HeartButtonComponent {
 
   @Input() listingId: string | null = null;
-  @Input() currentUser?: SafeUser | null = null;
 
+  currentUser?: SafeUser | null = null;
   hasFavorited: boolean = false;
+
+  constructor(private userService: UserService) {
+    this.currentUser = this.userService.user;
+  }
 
   toggleFavorite = (e: MouseEvent) => {
     e.stopPropagation();

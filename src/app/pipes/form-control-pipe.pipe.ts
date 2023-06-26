@@ -3,6 +3,7 @@ import { AbstractControl, FormControl } from '@angular/forms';
 
 @Pipe({
   name: 'formControlPipe',
+  standalone: true
 })
 export class FormControlPipePipe implements PipeTransform {
   transform(value: AbstractControl): FormControl<(typeof value)['value']> {

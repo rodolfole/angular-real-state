@@ -21,14 +21,26 @@ import { ToasterComponent } from './toaster/toaster.component';
 import { CategoriesComponent } from './navbar/categories/categories.component';
 import { CategoryBoxComponent } from './category-box/category-box.component';
 import { CategoryInputComponent } from './Inputs/category-input/category-input.component';
-import { AgentRoleTagComponent } from './agent-role-tag/agent-role-tag.component';
+import { AgentTagComponent } from './agent-tag/agent-tag.component';
 import { ListingActionsComponent } from './listings/listing-actions/listing-actions.component';
 import { ListingHeroComponent } from './listings/listing-hero/listing-hero.component';
-
-import { register } from 'swiper/element/bundle';
-import { ListingStickComponent } from './listings/listing-stick/listing-stick.component';
+import { ListingStickyComponent } from './listings/listing-sticky/listing-sticky.component';
 import { ListingNavbarComponent } from './listings/listing-navbar/listing-navbar.component';
 import { ListingDetailsComponent } from './listings/listing-details/listing-details.component';
+import { ListingServicesComponent } from './listings/listing-services/listing-services.component';
+import { ListingLocationComponent } from './listings/listing-location/listing-location.component';
+import { ListingAgentsComponent } from './listings/listing-agents/listing-agents.component';
+import { AgentAvatarComponent } from './agent-avatar/agent-avatar.component';
+
+import { AgentContactBoxComponent } from './agent-contact-box/agent-contact-box.component';
+import { IconButtonComponent } from './icon-button/icon-button.component';
+import { FooterComponent } from './footer/footer.component';
+import { SafeUserPipe } from '../pipes/safe-user.pipe';
+import { StickyCardComponent } from './sticky-card/sticky-card.component';
+import { SwiperComponent } from './swiper/swiper.component';
+
+import { register } from 'swiper/element/bundle';
+import { ReviewComponent } from './review/review.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipePipe } from '../pipes/form-control-pipe.pipe';
 register();
@@ -52,19 +64,30 @@ register();
     CategoriesComponent,
     CategoryBoxComponent,
     CategoryInputComponent,
-    AgentRoleTagComponent,
+    AgentTagComponent,
     ListingActionsComponent,
     ListingHeroComponent,
-    ListingStickComponent,
+    ListingStickyComponent,
     ListingNavbarComponent,
     ListingDetailsComponent,
-    FormControlPipePipe
+    ListingServicesComponent,
+    ListingLocationComponent,
+    ListingAgentsComponent,
+    AgentAvatarComponent,
+    AgentContactBoxComponent,
+    IconButtonComponent,
+    FooterComponent,
+    StickyCardComponent,
+    SwiperComponent,
+    ReviewComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     DateFnsModule,
     SwiperDirective,
+    SafeUserPipe,
+    FormControlPipePipe,
     ReactiveFormsModule,
   ],
   exports: [
@@ -79,17 +102,22 @@ register();
     SearchComponent,
     UserMenuComponent,
     AvatarComponent,
-    MenuItemComponent,
     ToasterComponent,
-    CategoriesComponent,
-    CategoryBoxComponent,
-    CategoryInputComponent,
-    AgentRoleTagComponent,
+    AgentTagComponent,
     ListingActionsComponent,
     ListingHeroComponent,
-    ListingStickComponent,
+    ListingStickyComponent,
     ListingNavbarComponent,
     ListingDetailsComponent,
+    ListingServicesComponent,
+    ListingLocationComponent,
+    ListingAgentsComponent,
+    AgentAvatarComponent,
+    AgentContactBoxComponent,
+    FooterComponent,
+    StickyCardComponent,
+    SwiperComponent,
+    ReviewComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

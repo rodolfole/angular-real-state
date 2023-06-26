@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SafeListing } from 'src/app/types';
 
 @Component({
   selector: 'app-listing-details',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./listing-details.component.css']
 })
 export class ListingDetailsComponent {
+
+  @Input() listing?: SafeListing;
 
 }

@@ -1,6 +1,5 @@
-import { Component, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { SafeListing, SafeReservation, SafeUser } from 'src/app/types';
-import { A11y, Mousewheel, Navigation, Pagination, SwiperOptions, Swiper } from 'swiper';
+import { Component, Input } from '@angular/core';
+import { SafeListing, SafeReservation } from 'src/app/types';
 
 @Component({
   selector: 'app-listing-card',
@@ -9,66 +8,28 @@ import { A11y, Mousewheel, Navigation, Pagination, SwiperOptions, Swiper } from 
 })
 export class ListingCardComponent {
 
-  @ViewChild('listingSwiper', { static: false }) listingSwiper?: ElementRef<HTMLElement>;
-
   @Input() actionId?: string;
   @Input() actionLabel?: string;
-  @Input() currentUser?: SafeUser | null;
   @Input() data: SafeListing | null = null;
   @Input() disabled?: boolean;
   @Input() onAction?: (id: string) => void;
   @Input() reservation?: SafeReservation;
+  @Input() showFavoritesBtn: boolean = true;
+  @Input() showSwiper: boolean = true;
 
   location: any = null;
   reservationDate: string | null = null;
   price: string = "";
 
-  swiper: Swiper | null = null;
-  sliders: string[] = [];
+  slides: string[] = [];
 
-  config: SwiperOptions = {
-    modules: [Navigation, Pagination, A11y, Mousewheel],
-    spaceBetween: 20,
-    navigation: false,
-    pagination: { clickable: true, dynamicBullets: true },
-    slidesPerView: 1,
-    centeredSlides: true,
-    injectStyles: [`
-    .swiper-pagination-bullets.swiper-pagination-horizontal {
-      bottom: 30px;
-    }
-    .swiper-pagination-bullet {
-      background: white;
-    }
-    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next,
-    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {
-      opacity: 0.8;
-    }
-    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next,
-    .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {
-      opacity: 0.6;
-    }
-    `],
-    breakpoints: {
-      400: {
-        slidesPerView: "auto",
-        centeredSlides: false
-      },
-    }
-  }
-
-  constructor(private detector: ChangeDetectorRef) { 
-    this.sliders = [...Array(10).entries()].map((_, i) => `../../../assets/images/${i + 1}.webp`);
+  constructor() {
+    this.slides = [...Array(10).entries()].map((_, i) => `../../../assets/images/${i + 1}.webp`);
   }
 
   ngOnInit(): void {
     this.getReservationDate();
     this.getPrice();
-  }
-
-  ngAfterViewInit(): void {
-    this.swiper = (this.listingSwiper?.nativeElement as any).swiper;
-    this.detector.detectChanges();
   }
 
   getReservationDate() {
@@ -103,18 +64,6 @@ export class ListingCardComponent {
     }
 
     this.onAction?.(this.actionId!);
-  }
-
-  handleNextSlide(e: MouseEvent) {
-    e.stopPropagation();
-    const swiper = this.listingSwiper?.nativeElement as any;
-    swiper.swiper.slideNext()
-  }
-
-  handlePrevSlide(e: MouseEvent) {
-    e.stopPropagation();
-    const swiper = this.listingSwiper?.nativeElement as any;
-    swiper.swiper.slidePrev()
   }
 
 }

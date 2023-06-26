@@ -4,7 +4,6 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { SafeUser } from '../types';
-import { User } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +30,18 @@ export class UserService {
     const url = `${environment.URI}/api/user/register`;
 
     return this.http.post(url, user).pipe(
+      map((resp: any) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
+
+  getAgentById(id: string): Observable<SafeUser> {
+
+    const url = `${environment.URI}/api/users/agent`;
+
+    return this.http.get(url, { params: { id } }).pipe(
       map((resp: any) => resp),
       catchError((err) => {
         return throwError(() => err);

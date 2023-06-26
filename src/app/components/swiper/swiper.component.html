@@ -1,0 +1,48 @@
+<div class="group relative w-full" [ngClass]="customClasses">
+    <ng-container [ngTemplateOutlet]="actions"></ng-container>
+    <swiper-container fmSwiper [config]="config" init="false" class="w-full h-full" #swiperRef>
+        <ng-content></ng-content>
+    </swiper-container>
+</div>
+
+<ng-template #actions>
+    <div *ngIf="!swiper?.isLocked" class="flex w-full items-center" [ngClass]="{
+        'absolute px-4 top-[calc(50%-16px)] left-0 justify-between': innerActions,
+        'justify-end gap-2 mb-8': !innerActions
+    }">
+        <button *ngIf="swiperRef" class="
+            z-10 
+            h-8 
+            w-8 
+            bg-white/80 
+            rounded-full 
+            opacity-0
+            transition-all
+            duration-200
+            pointer-events-none
+        " [ngClass]="{
+            'group-hover:opacity-100 group-hover:pointer-events-auto' : !swiper?.isBeginning  && innerActions,
+            'pointer-events-auto opacity-100 border border-brown-200' : !innerActions,
+            'opacity-50 cursor-not-allowed' : swiper?.isBeginning && !innerActions,
+        }" (click)="!swiper?.isBeginning && handlePrevSlide($event, swiperRef)">
+            <i class="fas fa-chevron-left text-brown-900"></i>
+        </button>
+        <button *ngIf="swiperRef" class="
+            z-10
+            h-8 
+            w-8 
+            bg-white/80 
+            rounded-full
+            opacity-0
+            transition-all
+            duration-200
+            pointer-events-none
+    " [ngClass]="{
+        'group-hover:opacity-100 group-hover:pointer-events-auto' : !swiper?.isEnd && innerActions,
+        'pointer-events-auto opacity-100 border border-brown-200' : !innerActions,
+        'opacity-50 cursor-not-allowed' : !innerActions && swiper?.isEnd,
+    }" (click)="!swiper?.isEnd && handleNextSlide($event, swiperRef)">
+            <i class="fas fa-chevron-right text-brown-900"></i>
+        </button>
+    </div>
+</ng-template>
