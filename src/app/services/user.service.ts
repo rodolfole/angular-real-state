@@ -26,4 +26,15 @@ export class UserService {
       })
     );
   }
+
+  registerUser(user: any) {
+    const url = `${environment.URI}/api/user/register`;
+
+    return this.http.post(url, user).pipe(
+      map((resp: any) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
 }

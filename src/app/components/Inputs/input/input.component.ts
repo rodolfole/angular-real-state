@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 export type InputType = "email" | "number" | "password" | "text";
 
@@ -9,12 +10,13 @@ export type InputType = "email" | "number" | "password" | "text";
 })
 export class InputComponent {
 
-  @Input() disabled?: boolean;
   @Input() errors: any
   @Input() formatPrice?: boolean;
+  @Input() formControlName: string = "";
+  @Input() formGroupRef: FormGroup = new FormGroup({});
   @Input() id: string | null = null;
   @Input() label: string | null = null;
-  @Input() required?: boolean;
+  @Input() required: boolean = false;
   @Input() type?: InputType;
 
 }

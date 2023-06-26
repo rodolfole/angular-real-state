@@ -29,6 +29,8 @@ import { register } from 'swiper/element/bundle';
 import { ListingStickComponent } from './listings/listing-stick/listing-stick.component';
 import { ListingNavbarComponent } from './listings/listing-navbar/listing-navbar.component';
 import { ListingDetailsComponent } from './listings/listing-details/listing-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormControlPipePipe } from '../pipes/form-control-pipe.pipe';
 register();
 
 @NgModule({
@@ -55,9 +57,16 @@ register();
     ListingHeroComponent,
     ListingStickComponent,
     ListingNavbarComponent,
-    ListingDetailsComponent
+    ListingDetailsComponent,
+    FormControlPipePipe
   ],
-  imports: [CommonModule, RouterModule, DateFnsModule, SwiperDirective],
+  imports: [
+    CommonModule,
+    RouterModule,
+    DateFnsModule,
+    SwiperDirective,
+    ReactiveFormsModule,
+  ],
   exports: [
     InputComponent,
     ContainerComponent,
@@ -80,8 +89,8 @@ register();
     ListingHeroComponent,
     ListingStickComponent,
     ListingNavbarComponent,
-    ListingDetailsComponent
+    ListingDetailsComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

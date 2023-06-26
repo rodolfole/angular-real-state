@@ -9,12 +9,6 @@ import { JwtPayload, Tokens } from './types';
 
 @Injectable()
 export class AuthService {
-  user = {
-    id: 1,
-    name: 'John',
-    email: 'text@example.com',
-    refreshToken: '',
-  };
 
   constructor(
     private config: ConfigService,
@@ -63,34 +57,7 @@ export class AuthService {
     };
   }
 
-  async register({ email, name, password}: RegisterDto) {
-    const hash = await argon.hash(password);
-
-    const user = await this._prismaService.user
-      .create({
-        data: {
-          email,
-          hashedPassword: hash,
-          name
-        },
-      })
-      .catch((error) => {
-        if (error) {
-          if (error.code === 'P2002') {
-            throw new ForbiddenException('Credentials incorrect');
-          }
-        }
-        throw error;
-      });
-
-      console.log({ userFin: user});
-      
-
-    const tokens = await this.getTokens(user.id, user.email);
-    // await this.updateRtHash(user.id, tokens.refresh_token);
-
-    return tokens;
-  }
+  
 
   logout() {
     return {};

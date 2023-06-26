@@ -10,7 +10,6 @@ import {
   } from '@nestjs/common';
   import { AuthService } from './auth.service';
   import { LoginDto } from './dto/login.dto';
-  import { RegisterDto } from './dto/register.dto';
   import { Public } from './decorators/public.decorator';
   import { RefreshTokenGuard } from './guards/refresh-token.guard';
   
@@ -39,16 +38,7 @@ import {
     refresh(@Request() request) {
       const { refreshToken, sub: userId } = request;
       return this._authService.refresh(userId, refreshToken);
-    }
-  
-    @Public()
-    @Post('register')
-    @HttpCode(HttpStatus.CREATED)
-    register(@Body() payload: RegisterDto) {
-      console.log({payloadReg: payload});
-      
-      return this._authService.register(payload);
-    }
+    }    
   
     @Get('user-info')
     getUserInfo() {
