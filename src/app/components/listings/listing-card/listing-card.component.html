@@ -1,69 +1,35 @@
 <div class="col-span-1 cursor-pointer group" [routerLink]="['/listings/' + data!.id]">
     <div class="relative flex flex-col gap-2 w-full bg-white rounded-xl">
-        <div *ngIf="sliders.length" class="
-            group
-            aspect-square 
-            overflow-hidden 
-            relative 
-            rounded-xl
-            w-full
-            mb-3
-        ">
-            <swiper-container fmSwiper [config]="config" init="false" class="w-full h-full" #listingSwiper>
-                <swiper-slide class="w-full h-full" *ngFor="let slider of sliders">
-                    <img class="
-                        h-full 
-                        object-cover 
-                        transition
-                        w-full" [src]="slider" alt="Listing" height="300px" width="400px"/>
-                </swiper-slide>
-            </swiper-container>
-            <button *ngIf="swiper" class="
-                absolute 
-                z-10 
-                left-4 
-                top-[calc(50%-16px)] 
-                h-8 
-                w-8 
-                bg-white/80 
-                rounded-full 
-                opacity-0
-                transition-all
-                duration-200
-                pointer-events-none
-            " [ngClass]="{'group-hover:opacity-100 group-hover:pointer-events-auto': swiper.activeIndex !== 0}"
-                (click)="handlePrevSlide($event)">
-                <i class="fas fa-chevron-left text-brown-900"></i>
-            </button>
-            <button *ngIf="swiper" class="
-                absolute 
-                z-10
-                right-4 
-                top-[calc(50%-16px)] 
-                h-8 
-                w-8 
-                bg-white/80 
-                rounded-full
-                opacity-0
-                transition-all
-                duration-200
-                pointer-events-none
-            " [ngClass]="{'group-hover:opacity-100 group-hover:pointer-events-auto': swiper.activeIndex !== (sliders.length - 1)}"
-                (click)="handleNextSlide($event)">
-                <i class="fas fa-chevron-right text-brown-900"></i>
-            </button>
-            <div class="
-                absolute
-                right-3
-                top-3
-                z-40
-            ">
+        <div class="relative ">
+            <div *ngIf="showFavoritesBtn" class="
+                    absolute
+                    right-3
+                    top-3
+                    z-40
+                ">
                 <app-heart-button [listingId]="data!.id">
                 </app-heart-button>
             </div>
+            <app-swiper *ngIf="showSwiper && slides.length"
+                customClasses="group aspect-square overflow-hidden relative rounded-xl w-full mb-3">
+                <swiper-slide class="w-full h-full" *ngFor="let slide of slides">
+                    <img class="
+                            h-full 
+                            object-cover 
+                            transition
+                            w-full" [src]="slide" alt="Listing" height="300px" width="400px" />
+                </swiper-slide>
+            </app-swiper>
+            <div *ngIf="!showSwiper" class="group aspect-square overflow-hidden rounded-xl w-full mb-3">
+                <img class="
+                h-full 
+                object-cover 
+                transition
+                w-full
+                " [src]="slides[0]" alt="Listing" height="300px" width="400px" />
+            </div>
         </div>
-        <div
-            class="relative 
+        <div class="relative 
             -top-11 
             -mb-11 
             flex 
@@ -85,10 +51,10 @@
             <div class="font-light text-neutral-500 text-sm line-clamp-1">
                 {{reservationDate || data!.locationValue}}
             </div>
-            <div class="flex flex-row gap-1 items-center mt-2">
+            <div *ngIf="showSwiper" class="flex flex-row gap-1 items-center mt-2">
                 <div class="font-semibold">${{price}} <span class="text-xs">MXN</span></div>
             </div>
-            <div class="flex flex-row gap-6 items-center mt-3">
+            <div *ngIf="showSwiper" class="flex flex-row gap-6 items-center mt-3">
                 <div class="flex flex-row items-center gap-2 text-brown-600">
                     <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
                         <use href="../../../../assets/icons/bed.svg#bed"></use>

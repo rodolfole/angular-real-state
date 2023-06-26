@@ -32,12 +32,15 @@ import { ListingLocationComponent } from './listings/listing-location/listing-lo
 import { ListingAgentsComponent } from './listings/listing-agents/listing-agents.component';
 import { AgentAvatarComponent } from './agent-avatar/agent-avatar.component';
 
-import { register } from 'swiper/element/bundle';
 import { AgentContactBoxComponent } from './agent-contact-box/agent-contact-box.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { FooterComponent } from './footer/footer.component';
 import { SafeUserPipe } from '../pipes/safe-user.pipe';
 import { StickyCardComponent } from './sticky-card/sticky-card.component';
+import { SwiperComponent } from './swiper/swiper.component';
+
+import { register } from 'swiper/element/bundle';
+import { ReviewComponent } from './review/review.component';
 register();
 
 @NgModule({
@@ -72,7 +75,9 @@ register();
     AgentContactBoxComponent,
     IconButtonComponent,
     FooterComponent,
-    StickyCardComponent
+    StickyCardComponent,
+    SwiperComponent,
+    ReviewComponent
   ],
   imports: [CommonModule, RouterModule, DateFnsModule, SwiperDirective, SafeUserPipe],
   exports: [
@@ -100,7 +105,9 @@ register();
     AgentAvatarComponent,
     AgentContactBoxComponent,
     FooterComponent,
-    StickyCardComponent
+    StickyCardComponent,
+    SwiperComponent,
+    ReviewComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
