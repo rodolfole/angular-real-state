@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { LoginAction, ModalService } from 'src/app/services/modal.service';
 import { SafeUser } from 'src/app/types';
 
@@ -10,6 +10,7 @@ import { SafeUser } from 'src/app/types';
 export class UserMenuComponent {
 
   @Input() currentUser?: SafeUser | null = null;
+  @ViewChild('loginModal', { static: false }) loginModal: ElementRef<HTMLElement> | null = null;
 
   rentModal: () => void = () => { };
 
@@ -33,9 +34,9 @@ export class UserMenuComponent {
 
   }
 
-  handleloginModal = (action: LoginAction) => {
+  handleloginModal = (loginModalRef: TemplateRef<HTMLElement> | null) => {
     this.toggleOpen();
-    this.modalService.setShowLoginModal(true, action);
+    this.modalService.setShowModal({ showModal: true, content: loginModalRef });
   }
 
 }

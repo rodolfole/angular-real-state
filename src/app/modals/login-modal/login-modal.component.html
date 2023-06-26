@@ -1,55 +1,59 @@
+<ng-template #header>
+  <div class="
+    border-b-[1px]
+    flex 
+    items-center 
+    justify-center
+    p-6
+    relative
+    rounded-t
+">
+    <button class="
+    absolute
+    border-0 
+    hover:opacity-70
+    right-9
+    p-1
+    transition
+  " (click)="handleClose()">
+      <i class="fa fa-xmark fa-xl"></i>
+    </button>
+    <div class="font-semibold text-lg">Login</div>
+  </div>
+</ng-template>
+
 <ng-template #body>
-  <form [formGroup]="form" class="flex flex-col gap-4">
-    <app-heading
-      title="Welcome back"
-      subtitle="Login to your account!"
-    ></app-heading>
-    <app-input
-      [formGroupRef]="form"
-      formControlName="name"
-      ngDefaultControl
-      id="name"
-      label="Name"
-      [errors]="errors"
-    ></app-input>
-    <app-input
-      [formGroupRef]="form"
-      formControlName="email"
-      ngDefaultControl
-      id="email"
-      label="Email"
-      [errors]="errors"
-      [required]="true"
-    >
+  <form [formGroup]="form" class="flex flex-col gap-4 p-6">
+    <app-heading title="Welcome back" subtitle="Login to your account!"></app-heading>
+    <app-input [formGroupRef]="form" formControlName="name" ngDefaultControl id="name" label="Name"
+      [errors]="errors"></app-input>
+    <app-input [formGroupRef]="form" formControlName="email" ngDefaultControl id="email" label="Email" [errors]="errors"
+      [required]="true">
     </app-input>
-    <app-input
-      [formGroupRef]="form"
-      formControlName="password"
-      ngDefaultControl
-      id="password"
-      label="Password"
-      type="password"
-      [errors]="errors"
-      [required]="true"
-    ></app-input>
+    <app-input [formGroupRef]="form" formControlName="password" ngDefaultControl id="password" label="Password"
+      type="password" [errors]="errors" [required]="true"></app-input>
   </form>
+</ng-template>
+
+<ng-template #submitButton>
+  <div class="
+    flex 
+    flex-row 
+    gap-4 
+    items-center 
+    w-full
+  ">
+    <app-button [disabled]="form.invalid" label="Continue" [onClick]="handleSubmit" class="w-full"></app-button>
+  </div>
 </ng-template>
 
 <ng-template #footer>
   <div class="flex flex-col gap-4 mt-3">
     <hr />
-    <app-button
-      [outline]="true"
-      label="Continue with Google"
-      icon="fab fa-google"
-      (click)="signIn('google')"
-    ></app-button>
-    <app-button
-      [outline]="true"
-      label="Continue with Github"
-      icon="fab fa-github"
-      (click)="signIn('github')"
-    ></app-button>
+    <app-button [outline]="true" label="Continue with Google" icon="fab fa-google"
+      (click)="signIn('google')"></app-button>
+    <app-button [outline]="true" label="Continue with Github" icon="fab fa-github"
+      (click)="signIn('github')"></app-button>
     <div class="text-neutral-500 text-center mt-4 font-light">
       <p>First time using Real State?
         <span (click)="onToggle" class="
@@ -62,12 +66,12 @@
   </div>
 </ng-template>
 
-<app-modal
-  actionLabel="Continue"
-  [disabled]="form.invalid"
-  [onSubmit]="handleSubmit"
-  title="Login"
-  [body]="body"
-  [footer]="footer"
-  (getModalAction)="getModalAction($event)"
-></app-modal>
+<section class="flex flex-col w-full h-full">
+  <ng-container [ngTemplateOutlet]="header"></ng-container>
+  <ng-container [ngTemplateOutlet]="body"></ng-container>
+
+  <div class="flex flex-col gap-2 p-6">
+    <ng-container [ngTemplateOutlet]="submitButton"></ng-container>
+    <ng-container [ngTemplateOutlet]="footer"></ng-container>
+  </div>
+</section>

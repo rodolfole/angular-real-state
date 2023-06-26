@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControlPipe } from 'src/app/pipes/form-control.pipe';
 
 export type InputType = "email" | "number" | "password" | "text";
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css']
+  styleUrls: ['./input.component.css'],
+  imports: [CommonModule, ReactiveFormsModule, FormControlPipe],
+  standalone: true
 })
 export class InputComponent {
 

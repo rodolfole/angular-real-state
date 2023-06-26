@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-listing-hero',
@@ -9,12 +10,26 @@ export class ListingHeroComponent {
 
   @Input() listingId: string = "";
   @Input() images: string[] = [];
+
+  isOpen: boolean = false;
   heroImagesList: string[] = [];
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private modalService: ModalService
+  ) { }
 
   ngOnInit(): void {
     this.heroImagesList = [...this.images].reverse().slice(0, 6);
     this.changeDetector.detectChanges();
+  }
+
+  toggleOpen = () => {
+    this.isOpen = !this.isOpen;
+  }
+
+  handlehHeroModal = () => {
+    this.toggleOpen();
+    // this.modalService.setShowModal({ showModal: true, content: null });
   }
 }

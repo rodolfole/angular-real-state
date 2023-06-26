@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export type ToastType = "Success" | "Info" | "Warning" | "Error";
@@ -10,9 +10,10 @@ interface Toast {
   message: string
 }
 
-interface LoginModalData {
+interface ModalProps {
   showModal: boolean;
-  action?: LoginAction;
+  isExpanded?: boolean;
+  content: TemplateRef<any> | null;
 }
 
 @Injectable({
@@ -23,7 +24,7 @@ export class ModalService {
   constructor() { }
 
   private toast = new Subject<Toast>();
-  private showModal = new Subject<LoginModalData>();
+  private showModal = new Subject<ModalProps>();
 
   setToast(type: ToastType, message: string) {
     this.toast.next({ type, message });
@@ -33,11 +34,11 @@ export class ModalService {
     return this.toast.asObservable();
   }
 
-  setShowLoginModal(showModal: boolean, action?: LoginAction) {
-    this.showModal.next({showModal, action});
+  setShowModal(props: ModalProps) {
+    this.showModal.next(props);
   }
 
-  getShowLoginModal() {
+  getShowModal() {
     return this.showModal.asObservable();
   }
 }

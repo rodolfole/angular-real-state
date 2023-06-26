@@ -1,4 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { SafeUser } from 'src/app/types';
 
 interface AvatarIcon {
@@ -18,10 +19,27 @@ export class AgentAvatarComponent {
   @Input() icon?: AvatarIcon;
   @Input() customIcon: TemplateRef<any> | null = null;
   @Input() disabled: boolean = false;
+  @Input() navigate: boolean = true;
+
   defaultImage: string = "../../../assets/images/agent.jpg";
 
-  handleClick = () => {
+  constructor(private router: Router) { }
 
+  handleClick = () => {
+    if (this.navigate) this.router.navigate(['/agents/' + this.agent!.id]);
+    else this.scrollToAgentSection();
+  }
+
+  scrollToAgentSection(): void {
+    const element = document.getElementById("listingAgent");
+    var headerOffset = 80;
+    var elementPosition = element!.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+    window!.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   }
 
 }

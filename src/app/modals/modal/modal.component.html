@@ -9,19 +9,12 @@
   outline-none 
   overflow-hidden
   transition-all
-  z-[99999]" [ngClass]="{'opacity-0 pointer-events-none': !isOpen}" (click)="handleClose()">
-  <div class="
+  z-[99999]" [ngClass]="{'opacity-0 pointer-events-none p-6': !showModal}" (click)="handleClose()">
+  <div class=" 
             h-full 
-            lg:h-auto
-            lg:w-3/6
-            md:h-auto
-            md:w-4/6
-            mx-auto
             relative 
             w-full
-            xl:w-2/5
-          ">
-    <ng-container [ngTemplateOutlet]="content"></ng-container>
+          " [ngClass]="{'mx-auto xl:w-2/5 md:w-4/6 md:h-auto lg:w-3/6 lg:h-auto': !isExpanded}">
     <div class="duration-300 h-full translate" [ngClass]="
         showModal ? 'delay-200 opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
       ">
@@ -34,57 +27,17 @@
               h-full
               lg:h-auto
               md:h-auto
+              max-h-
               outline-none 
               relative 
               rounded-lg 
               shadow-lg 
               translate
               w-full 
-            "
-            (click)="$event.stopPropagation()"
-            >
-        <div class="
-                    border-b-[1px]
-                    flex 
-                    items-center 
-                    justify-center
-                    p-6
-                    relative
-                    rounded-t
-                ">
-          <button class="
-                    absolute
-                    border-0 
-                    hover:opacity-70
-                    right-9
-                    p-1
-                    transition
-                  " (click)="handleClose()">
-            <i class="fa fa-xmark fa-xl"></i>
-          </button>
-          <div class="font-semibold text-lg">{{ title }}</div>
-        </div>
-
-        <div class="flex-auto p-6 relative">
-          <ng-container [ngTemplateOutlet]="body"></ng-container>
-        </div>
-
-        <div class="flex flex-col gap-2 p-6">
-          <div class="
-                    flex 
-                    flex-row 
-                    gap-4 
-                    items-center 
-                    w-full
-                  ">
-            <app-button *ngIf="secondaryAction && secondaryActionLabel" [disabled]="disabled"
-              [label]="secondaryActionLabel" (click)="handleSecondaryAction" [outline]="true"
-              class="w-full"></app-button>
-            <app-button [disabled]="disabled" [label]="actionLabel!" [onClick]="handleSubmit"
-              class="w-full"></app-button>
-          </div>
-          <ng-container [ngTemplateOutlet]="footer"></ng-container>
-        </div>
+              overflow-y-auto
+              overflow-x-hidden
+            " (click)="$event.stopPropagation()">
+        <ng-container [ngTemplateOutlet]="content || null"></ng-container>
       </div>
     </div>
   </div>

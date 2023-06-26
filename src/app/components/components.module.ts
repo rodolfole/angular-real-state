@@ -42,17 +42,15 @@ import { SwiperComponent } from './swiper/swiper.component';
 import { register } from 'swiper/element/bundle';
 import { ReviewComponent } from './review/review.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormControlPipePipe } from '../pipes/form-control-pipe.pipe';
+import { FormControlPipe } from '../pipes/form-control.pipe';
+import { LoginModalComponent } from '../modals/login-modal/login-modal.component';
 register();
 
 @NgModule({
   declarations: [
-    InputComponent,
     ContainerComponent,
     ListingCardComponent,
     EmptyStateComponent,
-    HeadingComponent,
-    ButtonComponent,
     HeartButtonComponent,
     NavbarComponent,
     LogoComponent,
@@ -87,8 +85,12 @@ register();
     DateFnsModule,
     SwiperDirective,
     SafeUserPipe,
-    FormControlPipePipe,
+    FormControlPipe,
     ReactiveFormsModule,
+    ButtonComponent,
+    HeadingComponent,
+    InputComponent,
+    LoginModalComponent
   ],
   exports: [
     InputComponent,
@@ -96,12 +98,12 @@ register();
     ListingCardComponent,
     EmptyStateComponent,
     HeadingComponent,
-    ButtonComponent,
     NavbarComponent,
     LogoComponent,
     SearchComponent,
     UserMenuComponent,
     AvatarComponent,
+    ButtonComponent,
     ToasterComponent,
     AgentTagComponent,
     ListingActionsComponent,

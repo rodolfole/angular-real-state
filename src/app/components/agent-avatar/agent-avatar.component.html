@@ -1,4 +1,4 @@
-<button class="relative active:scale-95" [routerLink]="['/agents/' + agent!.id]"
+<button class="relative active:scale-95" (click)="handleClick()"
     [ngClass]="{'pointer-events-none': disabled}">
     <div class="rounded-full overflow-clip" [ngClass]="avatarSize">
         <img class="h-full w-full object-cover" [src]="agent!.image || defaultImage" alt="agent" width="100"

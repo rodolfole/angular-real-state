@@ -9,8 +9,8 @@
             <strong class="text-2xl text-brown-600">Minicasa. Agente: {{(listing!.userId | safeUser).name}}</strong>
             <p>Some text here</p>
         </div>
-        <app-agent-avatar [agent]="listing!.userId | safeUser"
-            [icon]="{icon: 'fas fa-medal text-red-700', border:true}">
+        <app-agent-avatar [agent]="listing!.userId | safeUser" [icon]="{icon: 'fas fa-medal text-red-700', border:true}"
+            [navigate]="false">
         </app-agent-avatar>
     </div>
 </ng-template>

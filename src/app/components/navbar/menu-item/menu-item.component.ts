@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { LoginAction } from 'src/app/services/modal.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { LoginAction } from 'src/app/services/modal.service';
 })
 export class MenuItemComponent {
   @Input() action: LoginAction = "Login";
-  @Input() onClick?: (action: LoginAction) => void = () => { };
+  @Input() loginModalRef: TemplateRef<HTMLElement> | null = null;
+  @Input() onClick?: (loginModalRef: TemplateRef<HTMLElement> | null) => void = () => { };
   @Input() routerLink?: string | null = null;
   @Input() label: string | null = null;
   @Input() isBold: boolean = false;

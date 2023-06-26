@@ -5,7 +5,7 @@ import { AbstractControl, FormControl } from '@angular/forms';
   name: 'formControlPipe',
   standalone: true
 })
-export class FormControlPipePipe implements PipeTransform {
+export class FormControlPipe implements PipeTransform {
   transform(value: AbstractControl): FormControl<(typeof value)['value']> {
     return value as FormControl<(typeof value)['value']>;
   }
