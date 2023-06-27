@@ -2,7 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DateFnsModule } from 'ngx-date-fns';
-import { SwiperDirective } from '../directives/swiper.directive';
 
 import { InputComponent } from './Inputs/input/input.component';
 import { ContainerComponent } from './container/container.component';
@@ -39,12 +38,11 @@ import { SafeUserPipe } from '../pipes/safe-user.pipe';
 import { StickyCardComponent } from './sticky-card/sticky-card.component';
 import { SwiperComponent } from './swiper/swiper.component';
 
-import { register } from 'swiper/element/bundle';
 import { ReviewComponent } from './review/review.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipe } from '../pipes/form-control.pipe';
 import { LoginModalComponent } from '../modals/login-modal/login-modal.component';
-register();
+import { HeroComponent } from '../modals/hero/hero.component';
 
 @NgModule({
   declarations: [
@@ -76,21 +74,21 @@ register();
     IconButtonComponent,
     FooterComponent,
     StickyCardComponent,
-    SwiperComponent,
     ReviewComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     DateFnsModule,
-    SwiperDirective,
     SafeUserPipe,
     FormControlPipe,
     ReactiveFormsModule,
     ButtonComponent,
     HeadingComponent,
     InputComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    HeroComponent,
+    SwiperComponent
   ],
   exports: [
     InputComponent,

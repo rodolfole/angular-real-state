@@ -13,6 +13,7 @@ export class ModalComponent {
   $showModalSub: Subscription | null = null;
 
   showModal: boolean = false;
+  isOpen: boolean = false;
   isExpanded?: boolean;
   content: TemplateRef<any> | null = null;
 
@@ -23,11 +24,15 @@ export class ModalComponent {
 
     this.$showModalSub = this.modalService
       .getShowModal()
-      .subscribe(({ showModal, isExpanded, content }) => {
+      .subscribe(({ showModal, isExpanded, content, index }) => {
+
         if (showModal) this.documentBody?.classList.add('overflow-hidden');
+        else return this.handleClose();
+
+        this.isOpen = true;
+        this.content = content;
         this.showModal = showModal;
         this.isExpanded = isExpanded;
-        this.content = content;
       });
   }
 
@@ -39,7 +44,7 @@ export class ModalComponent {
   handleClose = () => {
     this.showModal = false;
     setTimeout(() => {
-      this.showModal = false;
+      this.isOpen = false;
       this.documentBody?.classList.remove('overflow-hidden');
     }, 300);
   };

@@ -10,15 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ModalComponent,
     RegisterModalComponent
   ],
-  exports: [
-    ModalComponent,
-    RegisterModalComponent
-  ],
   imports: [
     CommonModule,
     ComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  ],
+  exports: [
+    ModalComponent,
+    RegisterModalComponent,
   ]
 })
 export class ModalsModule { }

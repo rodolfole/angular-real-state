@@ -1,5 +1,4 @@
 <section class="
-  bg-neutral-800/70 
   fixed 
   flex 
   focus:outline-none 
@@ -9,34 +8,30 @@
   outline-none 
   overflow-hidden
   transition-all
-  z-[99999]" [ngClass]="{'opacity-0 pointer-events-none p-6': !showModal}" (click)="handleClose()">
+  z-[99999]" [ngClass]="{
+    'opacity-0 pointer-events-none p-6': !isOpen,
+    'bg-neutral-800/70': !isExpanded,
+    'bg-slate-950/95': isExpanded
+  }" (click)="handleClose()">
   <div class=" 
             h-full 
             relative 
             w-full
-          " [ngClass]="{'mx-auto xl:w-2/5 md:w-4/6 md:h-auto lg:w-3/6 lg:h-auto': !isExpanded}">
-    <div class="duration-300 h-full translate" [ngClass]="
+          " [ngClass]="{'mx-auto xl:w-2/5 md:w-4/6 lg:w-3/6 md:max-h-[92vh]': !isExpanded}">
+    <div class="duration-300 h-full translate flex" [ngClass]="
         showModal ? 'delay-200 opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
       ">
       <div class="
-              bg-white 
-              border-0 
               flex 
               flex-col 
-              focus:outline-none
               h-full
-              lg:h-auto
-              md:h-auto
-              max-h-
               outline-none 
               relative 
-              rounded-lg 
-              shadow-lg 
               translate
-              w-full 
-              overflow-y-auto
-              overflow-x-hidden
-            " (click)="$event.stopPropagation()">
+              w-full
+            " (click)="$event.stopPropagation()" [ngClass]="{
+          'bg-white overflow-hidden border-0 focus:outline-none lg:h-auto md:h-auto rounded-lg shadow-lg max-h-full': !isExpanded}
+          ">
         <ng-container [ngTemplateOutlet]="content || null"></ng-container>
       </div>
     </div>

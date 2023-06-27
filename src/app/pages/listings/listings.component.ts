@@ -23,7 +23,7 @@ export class ListingsComponent {
       this.listingId = param['id'];
     });
 
-    this.listingImages = [...Array(10).entries()].map((_, i) => `../../assets/images/${i + 1}.webp`);
+    this.listingImages = [...Array(10).entries()].map((_, i) => `assets/images/${i + 1}.webp`);
     this.listing = listings[0];
 
   }

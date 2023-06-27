@@ -14,6 +14,7 @@ interface ModalProps {
   showModal: boolean;
   isExpanded?: boolean;
   content: TemplateRef<any> | null;
+  index?: number
 }
 
 @Injectable({

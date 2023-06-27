@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, TemplateRef } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -28,8 +28,8 @@ export class ListingHeroComponent {
     this.isOpen = !this.isOpen;
   }
 
-  handlehHeroModal = () => {
+  handleHeroModal = (heroModalRef: TemplateRef<HTMLElement> | null, index?: number) => {
     this.toggleOpen();
-    // this.modalService.setShowModal({ showModal: true, content: null });
+    this.modalService.setShowModal({ showModal: true, content: heroModalRef, isExpanded: true });
   }
 }

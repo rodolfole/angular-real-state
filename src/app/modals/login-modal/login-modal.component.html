@@ -68,10 +68,12 @@
 
 <section class="flex flex-col w-full h-full">
   <ng-container [ngTemplateOutlet]="header"></ng-container>
-  <ng-container [ngTemplateOutlet]="body"></ng-container>
+  <div class="flex flex-col flex-1 overflow-y-auto">
+    <ng-container [ngTemplateOutlet]="body"></ng-container>
 
-  <div class="flex flex-col gap-2 p-6">
-    <ng-container [ngTemplateOutlet]="submitButton"></ng-container>
-    <ng-container [ngTemplateOutlet]="footer"></ng-container>
+    <div class="flex flex-col gap-2 p-6">
+      <ng-container [ngTemplateOutlet]="submitButton"></ng-container>
+      <ng-container [ngTemplateOutlet]="footer"></ng-container>
+    </div>
   </div>
 </section>

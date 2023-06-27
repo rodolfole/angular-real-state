@@ -1,10 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { SwiperDirective } from 'src/app/directives/swiper.directive';
 import { Navigation, Pagination, A11y, Mousewheel, SwiperOptions, Swiper } from 'swiper';
+import { register } from 'swiper/element/bundle';
+
+register();
 
 @Component({
   selector: 'app-swiper',
   templateUrl: './swiper.component.html',
-  styleUrls: ['./swiper.component.css']
+  styleUrls: ['./swiper.component.css'],
+  imports: [CommonModule, SwiperDirective],
+  standalone: true
 })
 export class SwiperComponent {
 
@@ -12,8 +19,11 @@ export class SwiperComponent {
 
   @Input() innerActions: boolean = true;
   @Input() customClasses: string = "";
-  @Input() slidesPerView?: number = 1;
+  @Input() slides?: string[];
+  @Input() slidesPerView?: number;
   @Input() showPagination: boolean = true;
+  @Input() centeredSlides: boolean = false;
+  @Input() expandedControls?: boolean;
 
   config: SwiperOptions = {}
 
@@ -26,8 +36,24 @@ export class SwiperComponent {
       modules: [Navigation, Pagination, A11y, Mousewheel],
       spaceBetween: 20,
       navigation: false,
-      pagination: this.showPagination ? { clickable: true, dynamicBullets: true } : false,
-      slidesPerView: "auto",
+      centeredSlides: this.centeredSlides,
+      pagination: this.showPagination
+        ? {
+          clickable: true,
+          dynamicBullets: !this.expandedControls ? true : false,
+          ...(this.expandedControls && {
+            renderBullet: (index, className) => {
+              return `
+              <span class=${className}>
+                <img class="pagination-image" style="--url:url(${this.slides![index]})">
+                </img>
+              </span>
+              `
+            }
+          })
+        }
+        : false,
+      slidesPerView: this.slidesPerView || "auto",
       watchOverflow: true,
       injectStyles: [`
       .swiper-pagination-bullets.swiper-pagination-horizontal {
@@ -43,6 +69,17 @@ export class SwiperComponent {
       .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next,
       .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {
         opacity: 0.6;
+      }
+      .swiper-pagination-bullet-active > img {
+          content: url('../../../assets/images/slider-pagination-active.png');
+      }
+      ${this.expandedControls && ".swiper-pagination-bullet { width: 75px !important; height: 75px !important; opacity: 1 !important; }"} 
+      ${this.expandedControls && ".swiper-pagination-bullet-active { opacity: .2 !important }"} 
+      .pagination-image {
+          width: 100%;
+          height: 100%;
+          content: var(--url) !important;
+          object-fit: cover;
       }
       `]
     }

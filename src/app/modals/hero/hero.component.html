@@ -1,0 +1,26 @@
+<section class="relative flex flex-col h-full mt-[2vh]" (click)="$event.stopPropagation()">
+    <button class="
+    absolute 
+    right-3
+    top-1
+    rounded-full 
+    text-white/80
+    hover:text-white
+    w-10
+    h-10
+    z-50
+    active:scale-95" (click)="handleClose()">
+        <i class="fa fa-xmark fa-xl"></i>
+    </button>
+    <app-swiper class="h-full" customClasses="group relative w-full h-full mb-3" [centeredSlides]="true"
+        [expandedControls]="true" [slidesPerView]="1" [slides]="heroImages">
+        <swiper-slide class="w-full h-full md:px-[12vw] md:h-[calc(100%-75px-50px)]" *ngFor="let slide of heroImages">
+            <img class="
+                cursor-pointer
+                h-full 
+                object-cover 
+                transition
+                w-full" [src]="slide" alt="Listing" height="300px" width="400px" />
+        </swiper-slide>
+    </app-swiper>
+</section>
