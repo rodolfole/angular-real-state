@@ -14,6 +14,7 @@ export class UserMenuComponent {
   rentModal: () => void = () => { };
 
   isOpen: boolean = false;
+  loginAction: LoginAction = "Login";
 
   constructor(private modalService: ModalService) { }
 
@@ -33,9 +34,13 @@ export class UserMenuComponent {
 
   }
 
-  handleloginModal = (loginModalRef: TemplateRef<HTMLElement> | null) => {
+  handleloginModal = (loginModalRef: TemplateRef<HTMLElement> | null, loginAction: LoginAction) => {
     this.toggleOpen();
+    this.loginAction = loginAction;
     this.modalService.setShowModal({ showModal: true, content: loginModalRef });
   }
 
+  getLoginAction = (): LoginAction => {
+    return this.loginAction;
+  }
 }

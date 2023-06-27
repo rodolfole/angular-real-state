@@ -66,9 +66,9 @@
             </ng-container>
 
             <ng-container *ngIf="!currentUser">
-                <app-menu-item label="Login" [onClick]="handleloginModal" [isBold]="true" action="Login"
-                    [loginModalRef]="loginModal"></app-menu-item>
-                <app-menu-item label="Sign up" [onClick]="handleloginModal" action="Register"
+                <app-menu-item label="Login" (click)="handleloginModal(loginModal, 'Login')" [isBold]="true"
+                    action="Login" [loginModalRef]="loginModal"></app-menu-item>
+                <app-menu-item label="Sign up" (click)="handleloginModal(loginModal, 'Register')" action="Register"
                     [loginModalRef]="loginModal"></app-menu-item>
             </ng-container>
 
@@ -77,5 +77,5 @@
 </ng-template>
 
 <ng-template #loginModal>
-    <app-login-modal class="h-full"></app-login-modal>
+    <app-login-modal class="h-full" [loginAction]="getLoginAction"></app-login-modal>
 </ng-template>

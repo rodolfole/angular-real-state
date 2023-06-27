@@ -15,6 +15,7 @@ interface ModalProps {
   isExpanded?: boolean;
   autoSize?: boolean;
   content: TemplateRef<any> | null;
+  loginAction?: LoginAction
 }
 
 @Injectable({

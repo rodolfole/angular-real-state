@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { LoginAction, ModalService } from '../../services/modal.service';
@@ -18,7 +18,7 @@ export class LoginModalComponent {
 
   isLoading: boolean = false;
   errors: boolean = false;
-  modalAction: LoginAction | undefined;
+  @Input() loginAction: () => LoginAction | void = () => { };
 
   form: FormGroup;
 
@@ -32,6 +32,11 @@ export class LoginModalComponent {
       email: [{ value: "", disabled: false }, [Validators.required, Validators.email]],
       password: [{ value: "", disabled: false }, Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    console.log(this.loginAction());
+
   }
 
   handleClose = () => {
@@ -56,9 +61,4 @@ export class LoginModalComponent {
   signIn = (action?: string) => {
 
   };
-
-  getModalAction = (modalAction: LoginAction) => {
-    this.modalAction = modalAction
-    console.log(this.modalAction);
-  }
 }
