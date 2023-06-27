@@ -40,7 +40,8 @@ export class SwiperComponent {
       pagination: this.showPagination
         ? {
           clickable: true,
-          dynamicBullets: !this.expandedControls ? true : false,
+          dynamicBullets: true,
+          dynamicMainBullets: 2,
           ...(this.expandedControls && {
             renderBullet: (index, className) => {
               return `
@@ -74,6 +75,10 @@ export class SwiperComponent {
           content: url('../../../assets/images/slider-pagination-active.png');
       }
       ${this.expandedControls && ".swiper-pagination-bullet { width: 75px !important; height: 75px !important; opacity: 1 !important; }"} 
+      ${this.expandedControls && ".swiper-pagination-bullet-active-next { transform: scale(1) !important; }"} 
+      ${this.expandedControls && ".swiper-pagination-bullet-active-next-next { transform: scale(1) !important; }"} 
+      ${this.expandedControls && ".swiper-pagination-bullet-active-prev { transform: scale(1) !important; }"} 
+      ${this.expandedControls && ".swiper-pagination-bullet-active-prev-prev { transform: scale(1) !important; }"} 
       ${this.expandedControls && ".swiper-pagination-bullet-active { opacity: .2 !important }"} 
       .pagination-image {
           width: 100%;

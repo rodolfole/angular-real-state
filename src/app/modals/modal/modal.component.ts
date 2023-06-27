@@ -1,6 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LoginAction, ModalService } from 'src/app/services/modal.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-modal',
@@ -17,16 +17,21 @@ export class ModalComponent {
   isExpanded?: boolean;
   content: TemplateRef<any> | null = null;
 
+  documentHtml: HTMLElement | null = null;
   documentBody: HTMLElement | null = null;
 
   constructor(private modalService: ModalService) {
+    this.documentHtml = document.querySelector('html');
     this.documentBody = document.querySelector('body');
 
     this.$showModalSub = this.modalService
       .getShowModal()
       .subscribe(({ showModal, isExpanded, content, index }) => {
 
-        if (showModal) this.documentBody?.classList.add('overflow-hidden');
+        if (showModal) {
+          this.documentHtml?.classList.add('overflow-hidden');
+          this.documentBody?.classList.add('overflow-hidden');
+        }
         else return this.handleClose();
 
         this.isOpen = true;
@@ -37,6 +42,7 @@ export class ModalComponent {
   }
 
   ngOnDestroy(): void {
+    this.documentHtml?.classList.remove('overflow-hidden');
     this.documentBody?.classList.remove('overflow-hidden');
     this.$showModalSub?.unsubscribe();
   }
@@ -45,6 +51,7 @@ export class ModalComponent {
     this.showModal = false;
     setTimeout(() => {
       this.isOpen = false;
+      this.documentHtml?.classList.remove('overflow-hidden');
       this.documentBody?.classList.remove('overflow-hidden');
     }, 300);
   };

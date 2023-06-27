@@ -1,4 +1,4 @@
-<section class="relative flex flex-col h-full mt-[2vh]" (click)="$event.stopPropagation()">
+<section class="relative flex flex-col h-full md:mt-[2vh]" (click)="$event.stopPropagation()">
     <button class="
     absolute 
     right-3
@@ -14,13 +14,16 @@
     </button>
     <app-swiper class="h-full" customClasses="group relative w-full h-full mb-3" [centeredSlides]="true"
         [expandedControls]="true" [slidesPerView]="1" [slides]="heroImages">
-        <swiper-slide class="w-full h-full md:px-[12vw] md:h-[calc(100%-75px-50px)]" *ngFor="let slide of heroImages">
+        <swiper-slide class="w-full h-[86vh] md:h-[84vh] flex justify-center items-center" *ngFor="let slide of heroImages">
             <img class="
+                mx-auto
+                max-h-[86vh] 
+                md:max-h-[84vh] 
+                md:max-w-[82.3vw]
                 cursor-pointer
-                h-full 
-                object-cover 
-                transition
-                w-full" [src]="slide" alt="Listing" height="300px" width="400px" />
+                h-auto
+                w-auto
+                transition" [src]="slide" alt="Listing" height="300px" width="400px" />
         </swiper-slide>
     </app-swiper>
 </section>
