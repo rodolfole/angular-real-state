@@ -1,41 +1,22 @@
-<div (click)="showToast()" class="border-[1px] cursor-pointer hover:shadow-md md:w-auto py-2 rounded-full shadow-sm transition w-full
+<div class="border-[1px] cursor-pointer hover:shadow-md md:w-auto py-2 rounded-full shadow-sm transition w-full
 ">
-    <div class="flex flex-row items-center justify-between">
-        <div class="text-sm font-semibold px-6">{{locationLabel}}</div>
-        <div class="
-            border-x-[1px] 
-            flex-1 
-            font-semibold 
-            hidden 
-            px-6 
-            sm:block 
-            text-center
-            text-sm 
-        ">
-            {{durationLabel}}
+    <div class="flex flex-row items-center justify-between pr-2">
+        <div class="text-sm font-semibold px-6">
+            Search <span class="max-sm:hidden">property by</span> location
         </div>
         <div class="
-            flex 
-            flex-row 
-            gap-3
-            items-center 
-            pl-6 
-            pr-2 
-            text-gray-600 
-            text-sm 
+            flex
+            items-center
+            justify-center
+            text-center
+            bg-red-700
+            p-2
+            rounded-full
+            text-white
+            h-[34px]
+            w-[34px]
         ">
-            <div class="hidden sm:block">{{guestLabel}}</div>
-            <div class="
-                text-center
-                bg-brown-500
-                p-2
-                rounded-full
-                text-white
-                h-[34px]
-                w-[34px]
-            ">
-                <i class="fa-solid fa-magnifying-glass text-sm"></i>
-            </div>
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
         </div>
     </div>
 </div>

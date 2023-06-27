@@ -8,5 +8,6 @@ import { Component, Input } from '@angular/core';
 export class ListingActionsComponent {
 
   @Input() listingId: string = "";
+  @Input() isMobile?: boolean;
 
 }

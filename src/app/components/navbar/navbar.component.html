@@ -1,18 +1,21 @@
 <div #navbar class="w-full z-50 transition-all duration-200"
-    [ngClass]="{'bg-white shadow-sm': isValidPage, 'fixed' : isMainPage || !isValidPage}">
+    [ngClass]="{'bg-white shadow-sm': isValidPage, 'fixed' : currentPage === '/' || !isValidPage}">
     <div class="border-b-[1px] border-transparent" [ngClass]="{'border-b-brown-100': isValidPage}">
         <app-container [expandHeight]="true"
-            [maxWidth]="isMainPage || !isValidPage ? 'xl:px-20 md:px-10' : 'xl:px-40 md:px-20'">
+            [maxWidth]="currentPage === '/' || !isValidPage ? 'xl:px-20 md:px-10' : 'xl:px-40 md:px-20'">
             <div class="h-20 flex flex-row items-center justify-between gap-3 md:gap-0">
                 <div class="group flex gap-2 items-center cursor-pointer" routerLink="/">
                     <app-logo></app-logo>
-                    <span class="font-mayennesans text-xl text-brown-900 group-hover:text-brown-700 transition-all">Real
+                    <span
+                        class="font-mayennesans text-xl text-brown-900 group-hover:text-brown-700 transition-all max-sm:hidden">Real
                         State</span>
                 </div>
-                <app-search *ngIf="isValidPage"></app-search>
-                <app-user-menu *ngIf="isValidPage" [currentUser]="currentUser"></app-user-menu>
+                <app-search *ngIf="isValidPage" class="w-full max-w-[300px]"
+                    [ngClass]="{'max-md:hidden': currentPage.includes('listings')}"></app-search>
+                <app-user-menu *ngIf="isValidPage" [currentUser]="currentUser"
+                    [ngClass]="{'max-md:hidden': currentPage.includes('listings')}"></app-user-menu>
             </div>
         </app-container>
     </div>
-    <app-categories [isMainPage]="isMainPage" [isScrolling]="isScrolling"></app-categories>
+    <app-categories [isMainPage]="currentPage === '/'" [isScrolling]="isScrolling"></app-categories>
 </div>

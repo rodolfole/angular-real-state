@@ -13,7 +13,9 @@ import { AgentsComponent } from './pages/agents/agents.component';
 import { SafeUserPipe } from './pipes/safe-user.pipe';
 import { SwiperDirective } from './directives/swiper.directive';
 
+import { GoogleMapsModule } from '@angular/google-maps';
 import { register } from 'swiper/element/bundle';
+import { FloatingFooterComponent } from './components/listings/floating-footer/floating-footer.component';
 register();
 
 @NgModule({
@@ -25,10 +27,12 @@ register();
     ComponentsModule,
     HttpClientModule,
     SafeUserPipe,
-    SwiperDirective
+    SwiperDirective,
+    FloatingFooterComponent,
+    GoogleMapsModule
   ],
   exports: [],
-  providers: [],
+  providers: [GoogleMapsModule],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

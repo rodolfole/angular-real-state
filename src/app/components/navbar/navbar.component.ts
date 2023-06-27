@@ -12,7 +12,7 @@ export class NavbarComponent {
   @ViewChild('navbar', { static: false }) navbar?: ElementRef<HTMLElement>;
 
   @Input() currentUser?: SafeUser | null = null;
-  isMainPage: boolean = true;
+  currentPage: string = "";
   isValidPage: boolean = true;
   isScrolling: boolean = false;
 
@@ -20,7 +20,7 @@ export class NavbarComponent {
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {
-        this.isMainPage = this.router.url === "/";
+        this.currentPage = this.router.url;
       }
 
       if (event instanceof ActivationEnd) {

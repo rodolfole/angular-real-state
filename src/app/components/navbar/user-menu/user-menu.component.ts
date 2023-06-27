@@ -10,7 +10,6 @@ import { SafeUser } from 'src/app/types';
 export class UserMenuComponent {
 
   @Input() currentUser?: SafeUser | null = null;
-  @ViewChild('loginModal', { static: false }) loginModal: ElementRef<HTMLElement> | null = null;
 
   rentModal: () => void = () => { };
 

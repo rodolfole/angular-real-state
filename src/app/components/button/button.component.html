@@ -1,8 +1,9 @@
-<button [disabled]="disabled" (click)="onClick($event)" class="
+<div [ngClass]="{'cursor-not-allowed' : disabled}">
+  <button [disabled]="disabled" (click)="onClick($event)" class="
     flex
     justify-center
     items-center
-    disabled:cursor-not-allowed 
+    disabled:pointer-events-none
     disabled:opacity-70 
     hover:opacity-80 
     relative 
@@ -16,10 +17,11 @@
         'border-[1px] font-light py-1 text-sm': small, 
         'border-2 font-semibold py-3 text-md': !small
     }">
-  <i *ngIf="icon" class="
+    <i *ngIf="icon" class="
       mr-3
       text-2xl
       leading-none
     " [ngClass]="icon"></i>
-  {{label}}
-</button>
+    {{label}}
+  </button>
+</div>

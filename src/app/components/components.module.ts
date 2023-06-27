@@ -19,7 +19,6 @@ import { MenuItemComponent } from './navbar/menu-item/menu-item.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { CategoriesComponent } from './navbar/categories/categories.component';
 import { CategoryBoxComponent } from './category-box/category-box.component';
-import { CategoryInputComponent } from './Inputs/category-input/category-input.component';
 import { AgentTagComponent } from './agent-tag/agent-tag.component';
 import { ListingActionsComponent } from './listings/listing-actions/listing-actions.component';
 import { ListingHeroComponent } from './listings/listing-hero/listing-hero.component';
@@ -43,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormControlPipe } from '../pipes/form-control.pipe';
 import { LoginModalComponent } from '../modals/login-modal/login-modal.component';
 import { HeroComponent } from '../modals/hero/hero.component';
+import { ContactComponent } from '../modals/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,6 @@ import { HeroComponent } from '../modals/hero/hero.component';
     ToasterComponent,
     CategoriesComponent,
     CategoryBoxComponent,
-    CategoryInputComponent,
     AgentTagComponent,
     ListingActionsComponent,
     ListingHeroComponent,
@@ -69,7 +68,6 @@ import { HeroComponent } from '../modals/hero/hero.component';
     ListingServicesComponent,
     ListingLocationComponent,
     ListingAgentsComponent,
-    AgentAvatarComponent,
     AgentContactBoxComponent,
     IconButtonComponent,
     FooterComponent,
@@ -77,6 +75,7 @@ import { HeroComponent } from '../modals/hero/hero.component';
     ReviewComponent,
   ],
   imports: [
+    AgentAvatarComponent,
     CommonModule,
     RouterModule,
     DateFnsModule,
@@ -88,7 +87,8 @@ import { HeroComponent } from '../modals/hero/hero.component';
     InputComponent,
     LoginModalComponent,
     HeroComponent,
-    SwiperComponent
+    SwiperComponent,
+    ContactComponent
   ],
   exports: [
     InputComponent,
@@ -121,4 +121,4 @@ import { HeroComponent } from '../modals/hero/hero.component';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

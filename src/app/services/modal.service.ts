@@ -13,6 +13,7 @@ interface Toast {
 interface ModalProps {
   showModal: boolean;
   isExpanded?: boolean;
+  autoSize?: boolean;
   content: TemplateRef<any> | null;
 }
 

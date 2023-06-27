@@ -1,4 +1,4 @@
-<app-sticky-card customClasses="top-32 ml-24 w-[400px] bg-white shadow-md">
+<app-sticky-card customClasses="top-32 ml-24 w-[400px] bg-white shadow-md max-lg:w-[350px] max-lg:ml-16">
     <div class="flex items-center">
         <div class="flex flex-col gap-1 flex-1">
             <p>{{listing!.title}}</p>
@@ -28,5 +28,9 @@
             <div>{{listing!.propertyArea}}mt<sup>2</sup></div>
         </div>
     </div>
-    <app-button label="Contact Agent"></app-button>
+    <app-button label="Contact Agent" (click)="handleClick(contactModalRef)"></app-button>
 </app-sticky-card>
+
+<ng-template #contactModalRef>
+    <app-contact [agent]="listing!.userId | safeUser"></app-contact>
+</ng-template>

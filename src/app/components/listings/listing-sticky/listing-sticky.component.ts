@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { ModalService } from 'src/app/services/modal.service';
 import { Listing } from 'src/app/types/listing';
 
 @Component({
@@ -9,5 +10,11 @@ import { Listing } from 'src/app/types/listing';
 export class ListingStickyComponent {
 
   @Input() listing?: Listing;
+
+  constructor(private modalService: ModalService) { }
+
+  handleClick = (contactModalRef: TemplateRef<HTMLElement> | null) => {
+    this.modalService.setShowModal({ showModal: true, autoSize: true, content: contactModalRef });
+  }
 
 }

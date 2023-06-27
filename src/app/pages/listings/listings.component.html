@@ -1,17 +1,17 @@
-<app-container maxWidth="xl:px-40 md:px-20">
+<app-container maxWidth="xl:px-40 md:px-20 max-md:!px-6 max-sm:!px-5">
     <app-listing-navbar [show]="showListingNavbar"></app-listing-navbar>
     <div id="listingHero" class="pt-8">
-        <app-heading title="Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion"
+        <app-heading [title]="listing!.title"
             titleSize="text-2xl leading-6"></app-heading>
         <div class="flex justify-between items-center text-sm mb-3">
-            <div class="flex items-center">
+            <div class="flex items-center max-md:flex-col-reverse max-md:gap-3 max-md:items-start">
                 <app-agent-tag tag="Featured Agent" icon="fas fa-medal"></app-agent-tag>
-                <div class="flex items-center justify-center relative w-4 h-full font-semibold text-slate-600">
+                <div class="flex items-center justify-center relative w-4 h-full font-semibold text-slate-600 max-md:hidden">
                     <span class="relative -top-[3px]">.</span>
                 </div>
-                <a href="/" class="underline font-semibold">Hildale, Utah, Estados Unidos</a>
+                <a href="/" class="underline font-semibold">{{listing!.locationValue}}</a>
             </div>
-            <app-listing-actions [listingId]="listingId"></app-listing-actions>
+            <app-listing-actions class="max-md:hidden" [listingId]="listingId"></app-listing-actions>
         </div>
         <app-listing-hero [listingId]="listingId" [images]="listingImages"></app-listing-hero>
     </div>
@@ -20,9 +20,10 @@
             <app-listing-details [listing]="listing"></app-listing-details>
             <app-listing-services [amenities]="listing!.amenities"></app-listing-services>
         </div>
-        <app-listing-sticky [listing]="listing"></app-listing-sticky>
+        <app-listing-sticky class="max-md:hidden" [listing]="listing"></app-listing-sticky>
     </div>
     <app-listing-location></app-listing-location>
     <app-listing-agents [agent]="listing!.userId | safeUser"></app-listing-agents>
 </app-container>
-<app-footer></app-footer>
+<app-floating-footer [listing]="listing"></app-floating-footer>
+<app-footer [bottomNavSpacing]="true"></app-footer>

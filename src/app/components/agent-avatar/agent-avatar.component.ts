@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SafeUser } from 'src/app/types';
@@ -10,7 +11,9 @@ interface AvatarIcon {
 @Component({
   selector: 'app-agent-avatar',
   templateUrl: './agent-avatar.component.html',
-  styleUrls: ['./agent-avatar.component.css']
+  styleUrls: ['./agent-avatar.component.css'],
+  imports: [CommonModule],
+  standalone: true
 })
 export class AgentAvatarComponent {
 
@@ -21,7 +24,7 @@ export class AgentAvatarComponent {
   @Input() disabled: boolean = false;
   @Input() navigate: boolean = true;
 
-  defaultImage: string = "../../../assets/images/agent.jpg";
+  defaultImage: string = "assets/images/placeholder.jpg";
 
   constructor(private router: Router) { }
 

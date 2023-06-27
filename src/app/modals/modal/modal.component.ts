@@ -15,6 +15,7 @@ export class ModalComponent {
   showModal: boolean = false;
   isOpen: boolean = false;
   isExpanded?: boolean;
+  autoSize?: boolean;
   content: TemplateRef<any> | null = null;
 
   documentHtml: HTMLElement | null = null;
@@ -26,11 +27,11 @@ export class ModalComponent {
 
     this.$showModalSub = this.modalService
       .getShowModal()
-      .subscribe(({ showModal, isExpanded, content }) => {
+      .subscribe(({ showModal, isExpanded, autoSize, content }) => {
 
         if (showModal) {
-          this.documentHtml?.classList.add('overflow-hidden');
-          this.documentBody?.classList.add('overflow-hidden');
+          this.documentHtml?.classList.add('overflow-clip');
+          this.documentBody?.classList.add('overflow-clip');
         }
         else return this.handleClose();
 
@@ -38,12 +39,13 @@ export class ModalComponent {
         this.content = content;
         this.showModal = showModal;
         this.isExpanded = isExpanded;
+        this.autoSize = autoSize;
       });
   }
 
   ngOnDestroy(): void {
-    this.documentHtml?.classList.remove('overflow-hidden');
-    this.documentBody?.classList.remove('overflow-hidden');
+    this.documentHtml?.classList.remove('overflow-clip');
+    this.documentBody?.classList.remove('overflow-clip');
     this.$showModalSub?.unsubscribe();
   }
 
@@ -51,8 +53,8 @@ export class ModalComponent {
     this.showModal = false;
     setTimeout(() => {
       this.isOpen = false;
-      this.documentHtml?.classList.remove('overflow-hidden');
-      this.documentBody?.classList.remove('overflow-hidden');
+      this.documentHtml?.classList.remove('overflow-clip');
+      this.documentBody?.classList.remove('overflow-clip');
       this.content = null;
     }, 300);
   };

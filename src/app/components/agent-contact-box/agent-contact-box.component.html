@@ -8,5 +8,9 @@
         <app-icon-button icon="fab fa-twitter"></app-icon-button>
         <app-icon-button icon="fab fa-facebook-f"></app-icon-button>
     </div>
-    <div class="max-w-xs"><app-button label="Contact Agent"></app-button></div>
+    <div class="max-w-xs"><app-button label="Contact Agent" (click)="handleClick(contactModalRef)"></app-button></div>
 </div>
+
+<ng-template #contactModalRef>
+    <app-contact [agent]="agentInfo"></app-contact>
+</ng-template>

@@ -28,7 +28,7 @@ export const listings: Listing[] = [
             emailVerified: "true",
             favoriteIds: [],
             id: "1",
-            image: "../../assets/images/agent.jpg",
+            image: "assets/images/agent.jpg",
             name: "Camila Herrera",
             hashedPassword: null
         },
@@ -63,7 +63,7 @@ export const listings: Listing[] = [
             emailVerified: "true",
             favoriteIds: [],
             id: "2",
-            image: "../../assets/images/placeholder.jpg",
+            image: "assets/images/placeholder.jpg",
             name: "Brenda Flores",
             hashedPassword: null
         },
