@@ -13,6 +13,7 @@ export class ListingHeroComponent {
 
   isOpen: boolean = false;
   heroImagesList: string[] = [];
+  initialSwiperSlide: number = 0;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -20,7 +21,7 @@ export class ListingHeroComponent {
   ) { }
 
   ngOnInit(): void {
-    this.heroImagesList = [...this.images].reverse().slice(0, 6);
+    this.heroImagesList = [...this.images].slice(2, 8);
     this.changeDetector.detectChanges();
   }
 
@@ -28,8 +29,9 @@ export class ListingHeroComponent {
     this.isOpen = !this.isOpen;
   }
 
-  handleHeroModal = (heroModalRef: TemplateRef<HTMLElement> | null, index?: number) => {
+  handleHeroModal = (heroModalRef: TemplateRef<HTMLElement> | null, index: number = 0) => {
     this.toggleOpen();
+    this.initialSwiperSlide = index;
     this.modalService.setShowModal({ showModal: true, content: heroModalRef, isExpanded: true });
   }
 }

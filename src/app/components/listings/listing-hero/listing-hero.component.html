@@ -49,7 +49,7 @@
     <div class="grid grid-cols-6 rounded-xl overflow-clip items-start justify-start h-32">
         <button class="group h-full max-w-full overflow-hidden" *ngFor="let image of heroImagesList; let i = index"
             (click)="
-            handleHeroModal(heroModal,i )">
+            handleHeroModal(heroModal, i + 2)">
             <img class=" h-full object-cover transition w-full group-hover:brightness-75
             group-hover:scale-110 " [src]=" image" alt="list-hero-img" width="400px" height="300px">
         </button>
@@ -57,5 +57,6 @@
 </section>
 
 <ng-template #heroModal>
-    <app-hero class="h-full max-w-[100vw] max-h-screen" [heroImages]="images"></app-hero>
+    <app-hero class="h-full max-w-[100vw] max-h-screen" [heroImages]="images" [initialSwiperSlide]="initialSwiperSlide">
+    </app-hero>
 </ng-template>

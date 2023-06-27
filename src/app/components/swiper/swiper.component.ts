@@ -24,6 +24,7 @@ export class SwiperComponent {
   @Input() showPagination: boolean = true;
   @Input() centeredSlides: boolean = false;
   @Input() expandedControls?: boolean;
+  @Input() initialSlide: number = 0;
 
   config: SwiperOptions = {}
 
@@ -31,8 +32,9 @@ export class SwiperComponent {
 
   constructor(private detector: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.config = {
+      initialSlide: this.initialSlide,
       modules: [Navigation, Pagination, A11y, Mousewheel],
       spaceBetween: 20,
       navigation: false,

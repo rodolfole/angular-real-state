@@ -2,7 +2,6 @@ import { NgFor } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
 import { SwiperComponent } from 'src/app/components/swiper/swiper.component';
 import { ModalService } from 'src/app/services/modal.service';
-import Swiper from 'swiper';
 
 @Component({
   selector: 'app-hero',
@@ -15,6 +14,7 @@ import Swiper from 'swiper';
 export class HeroComponent {
 
   @Input() heroImages: string[] = [];
+  @Input() initialSwiperSlide: number = 0;
 
   constructor(private modalService: ModalService) { }
 

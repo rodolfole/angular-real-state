@@ -26,7 +26,7 @@ export class ModalComponent {
 
     this.$showModalSub = this.modalService
       .getShowModal()
-      .subscribe(({ showModal, isExpanded, content, index }) => {
+      .subscribe(({ showModal, isExpanded, content }) => {
 
         if (showModal) {
           this.documentHtml?.classList.add('overflow-hidden');
@@ -53,6 +53,7 @@ export class ModalComponent {
       this.isOpen = false;
       this.documentHtml?.classList.remove('overflow-hidden');
       this.documentBody?.classList.remove('overflow-hidden');
+      this.content = null;
     }, 300);
   };
 
