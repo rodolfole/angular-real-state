@@ -72,7 +72,7 @@ import { ContactComponent } from '../modals/contact/contact.component';
     IconButtonComponent,
     FooterComponent,
     StickyCardComponent,
-    ReviewComponent,
+    ReviewComponent
   ],
   imports: [
     AgentAvatarComponent,

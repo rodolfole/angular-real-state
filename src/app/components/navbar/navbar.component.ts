@@ -20,7 +20,7 @@ export class NavbarComponent {
     this.router.events.subscribe((event) => {
 
       if (event instanceof NavigationEnd) {
-        this.currentPage = this.router.url;
+        this.currentPage = this.router.url.split("?")[0];
       }
 
       if (event instanceof ActivationEnd) {

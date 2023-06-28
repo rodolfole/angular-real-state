@@ -9,10 +9,19 @@ import { Category, categories } from 'src/app/mocks/categories';
 })
 export class CategoriesComponent {
 
-@Input() isMainPage: boolean = true;
-@Input() isScrolling: boolean = false;
+  @Input() isMainPage: boolean = true;
+  @Input() isScrolling: boolean = false;
 
   category: string = "Beach";
   categories: Category[] = categories;
+  isDrawerOpen: boolean = false;
+
+  constructor(
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe((param) => {
+      this.isDrawerOpen = JSON.parse(param['drawer_open']) || false;
+    })
+  }
 
 }

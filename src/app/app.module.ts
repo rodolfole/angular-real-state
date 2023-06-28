@@ -13,9 +13,11 @@ import { AgentsComponent } from './pages/agents/agents.component';
 import { SafeUserPipe } from './pipes/safe-user.pipe';
 import { SwiperDirective } from './directives/swiper.directive';
 
-import { GoogleMapsModule } from '@angular/google-maps';
 import { register } from 'swiper/element/bundle';
 import { FloatingFooterComponent } from './components/listings/floating-footer/floating-footer.component';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { environment } from '../environments/environment';
+import { MapboxComponent } from './components/mapbox/mapbox.component';
 register();
 
 @NgModule({
@@ -29,10 +31,15 @@ register();
     SafeUserPipe,
     SwiperDirective,
     FloatingFooterComponent,
-    GoogleMapsModule
+    NgxMapboxGLModule.withConfig({
+      accessToken: environment.MAPBOX_TOKEN,
+    }),
+    MapboxComponent
   ],
   exports: [],
-  providers: [GoogleMapsModule],
+  providers: [
+    NgxMapboxGLModule
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

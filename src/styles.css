@@ -16,3 +16,7 @@ body {
     @apply font-prodigysans;
     background-color: #f7f4f2;
 }
+
+.mapboxgl-ctrl .mapboxgl-ctrl-attrib {
+    display: none;
+}
