@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { differenceInDays } from 'date-fns';
 import { ModalService } from '../../../services/modal.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -21,8 +22,13 @@ export class SearchComponent {
   guestLabel: string = "";
   durationLabel: string = "";
   locationLabel: string = "";
+  form: FormGroup;
 
-  constructor(private modalService: ModalService) { }
+  constructor(private fb: FormBuilder, private modalService: ModalService) {
+    this.form = this.fb.group({
+      searchParam: [{ value: "", disabled: false }, Validators.required]
+    });
+  }
 
   getLocationLabel() {
     if (this.locationValue) {
@@ -59,4 +65,9 @@ export class SearchComponent {
   showToast() {
     this.modalService.setToast("Info", "Información");
   }
+
+  handleSubmit = () => {
+    this.form.disable()
+    console.log(this.form.value);
+  };
 }

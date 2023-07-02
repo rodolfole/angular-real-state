@@ -1,10 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
 import { SafeListing, SafeReservation } from 'src/app/types';
+import { HeartButtonComponent } from '../../heart-button/heart-button.component';
+import { SwiperComponent } from '../../swiper/swiper.component';
+import { SwiperDirective } from '../../../directives/swiper.directive';
+import { RouterModule } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-listing-card',
   templateUrl: './listing-card.component.html',
-  styleUrls: ['./listing-card.component.css']
+  styleUrls: ['./listing-card.component.css'],
+  imports: [HeartButtonComponent, SwiperComponent, RouterModule, NgIf, NgFor],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  standalone: true
 })
 export class ListingCardComponent {
 

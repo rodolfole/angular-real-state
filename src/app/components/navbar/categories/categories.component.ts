@@ -20,7 +20,7 @@ export class CategoriesComponent {
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe((param) => {
-      this.isDrawerOpen = JSON.parse(param['drawer_open']) || false;
+      this.isDrawerOpen = param['drawer_open'] && JSON.parse(param['drawer_open']);
     })
   }
 

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { SafeUser } from 'src/app/types';
@@ -5,7 +6,9 @@ import { SafeUser } from 'src/app/types';
 @Component({
   selector: 'app-heart-button',
   templateUrl: './heart-button.component.html',
-  styleUrls: ['./heart-button.component.css']
+  styleUrls: ['./heart-button.component.css'],
+  imports: [CommonModule],
+  standalone: true
 })
 export class HeartButtonComponent {
 

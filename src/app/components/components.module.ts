@@ -47,9 +47,7 @@ import { ContactComponent } from '../modals/contact/contact.component';
 @NgModule({
   declarations: [
     ContainerComponent,
-    ListingCardComponent,
     EmptyStateComponent,
-    HeartButtonComponent,
     NavbarComponent,
     LogoComponent,
     SearchComponent,
@@ -85,10 +83,12 @@ import { ContactComponent } from '../modals/contact/contact.component';
     ButtonComponent,
     HeadingComponent,
     InputComponent,
+    ListingCardComponent,
     LoginModalComponent,
     HeroComponent,
     SwiperComponent,
-    ContactComponent
+    ContactComponent,
+    HeartButtonComponent
   ],
   exports: [
     InputComponent,

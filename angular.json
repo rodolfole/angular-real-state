@@ -22,11 +22,11 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "mapbox-gl/dist/mapbox-gl.css"
+              "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "mapbox-gl/dist/mapbox-gl.css"
             ],
             "scripts": []
           },

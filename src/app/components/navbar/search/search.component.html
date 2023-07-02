@@ -1,9 +1,24 @@
 <div class="border-[1px] cursor-pointer hover:shadow-md md:w-auto py-2 rounded-full shadow-sm transition w-full
 ">
     <div class="flex flex-row items-center justify-between pr-2">
-        <div class="text-sm font-medium px-6">
-            Search <span class="max-sm:hidden">property by</span> location
-        </div>
+        <form [formGroup]="form" class="w-full">
+            <input class="
+                rounded-full
+                bg-transparent
+                disabled:cursor-not-allowed 
+                disabled:opacity-70 
+                text-sm 
+                font-medium 
+                px-3
+                mx-3
+                outline-none 
+                transition 
+                w-full
+                flex-1
+                h-[34px]
+                " formControlName="searchParam" id="searchParam" placeholder="Search property by location" type="text"
+                autocomplete="" />
+        </form>
         <div class="
             flex
             items-center
@@ -14,7 +29,7 @@
             rounded-full
             text-white
             h-[34px]
-            w-[34px]
+            min-w-[34px]
         ">
             <i class="fa-solid fa-magnifying-glass text-sm"></i>
         </div>
