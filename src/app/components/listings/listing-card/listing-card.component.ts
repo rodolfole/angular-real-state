@@ -4,13 +4,13 @@ import { HeartButtonComponent } from '../../heart-button/heart-button.component'
 import { SwiperComponent } from '../../swiper/swiper.component';
 import { SwiperDirective } from '../../../directives/swiper.directive';
 import { RouterModule } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-listing-card',
   templateUrl: './listing-card.component.html',
   styleUrls: ['./listing-card.component.css'],
-  imports: [HeartButtonComponent, SwiperComponent, RouterModule, NgIf, NgFor],
+  imports: [CommonModule, HeartButtonComponent, SwiperComponent, RouterModule, NgIf, NgFor],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true
 })
@@ -24,6 +24,7 @@ export class ListingCardComponent {
   @Input() reservation?: SafeReservation;
   @Input() showFavoritesBtn: boolean = true;
   @Input() showSwiper: boolean = true;
+  @Input() showDetails: boolean = true;
 
   location: any = null;
   reservationDate: string | null = null;

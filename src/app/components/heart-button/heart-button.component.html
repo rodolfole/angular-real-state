@@ -2,7 +2,7 @@
   relative
   transition
   cursor-pointer
-" [ngClass]="{'hover:opacity-80': !hasFavorited}">
+" [ngClass]="{'hover:opacity-90': !hasFavorited}">
   <i class="
     fa-regular 
     fa-heart 
@@ -14,6 +14,7 @@
     z-10
     "></i>
   <i class="
+    z-0
     fa-solid 
     fa-heart
     text-[20px]
@@ -21,5 +22,5 @@
     top-[5px]
     right-[5px]
     " [ngClass]="
-    hasFavorited ? 'text-rose-500' : 'text-brown-500/40'"></i>
+    hasFavorited ? 'text-rose-500' : 'text-black/50'"></i>
 </div>

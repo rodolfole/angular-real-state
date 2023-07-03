@@ -1,4 +1,4 @@
-<div class="group relative w-full" [ngClass]="customClasses">
+<div class="group relative w-full" [ngClass]="[customClasses, !showDetails ? 'max-h-[230px] min-w-[320px]' : '']">
     <ng-container [ngTemplateOutlet]="actions"></ng-container>
     <swiper-container fmSwiper [config]="config" init="false" class="w-full h-full" #swiperRef>
         <ng-content></ng-content>

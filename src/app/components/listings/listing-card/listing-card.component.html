@@ -1,4 +1,4 @@
-<div class="col-span-1 cursor-pointer group" [routerLink]="['/listings/' + data!.id]">
+<div class="col-span-1 cursor-pointer group" [ngClass]="{'shadow-[0_6px_20px_rgba(0,0,0,0.2)]': !showDetails}" [routerLink]="['/listings/' + data!.id]">
     <div class="relative flex flex-col gap-2 w-full bg-white rounded-xl">
         <div class="relative ">
             <div *ngIf="showFavoritesBtn" class="
@@ -11,7 +11,8 @@
                 </app-heart-button>
             </div>
             <app-swiper *ngIf="showSwiper && slides.length"
-                customClasses="group aspect-square overflow-hidden relative rounded-xl w-full mb-3">
+                customClasses="group aspect-square overflow-hidden relative rounded-xl w-full mb-3"
+                [showDetails]="showDetails">
                 <swiper-slide class="w-full h-full" *ngFor="let slide of slides">
                     <img class="
                             h-full 
@@ -44,17 +45,21 @@
             px-6
             z-10
             ">
-            <div class="font-semibold text-base line-clamp-1">
+            <div class="font-semibold text-base line-clamp-1" [ngClass]="{'text-sm': !showDetails}">
                 <!-- {{location?.region}}, {{location?.label}} -->
                 {{data!.title}}
             </div>
-            <div class="font-light text-neutral-500 text-sm line-clamp-1">
+            <div *ngIf="showDetails" class="font-light text-neutral-500 text-sm line-clamp-1">
                 {{reservationDate || data!.locationValue}}
             </div>
-            <div *ngIf="showSwiper" class="flex flex-row gap-1 items-center mt-2">
-                <div class="font-semibold">${{price}} <span class="text-xs">MXN</span></div>
+            <div *ngIf="showSwiper" class="flex flex-row gap-1 items-center mt-2"
+                [ngClass]="{'mt-1 text-base': !showDetails}">
+                <div class="font-semibold" [ngClass]="{'!font-medium': !showDetails}">
+                    ${{price}}
+                    <span class="text-xs">MXN</span>
+                </div>
             </div>
-            <div *ngIf="showSwiper" class="flex flex-row gap-6 items-center mt-3">
+            <div *ngIf="showSwiper && showDetails" class="flex flex-row gap-6 items-center mt-3">
                 <div class="flex flex-row items-center gap-2 text-brown-600">
                     <svg class="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
                         <use href="../../../../assets/icons/bed.svg#bed"></use>

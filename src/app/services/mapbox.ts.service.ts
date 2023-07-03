@@ -23,15 +23,15 @@ export interface PlacesResponse {
 export interface Feature {
   id: string;
   type: string;
-  place_type: string;
-  place_name: string;
-  place_name_es: string;
-  relevance: number;
-  properties: Properties;
-  text_es: string;
-  text: string;
-  center: number[];
-  context: Context[];
+  place_type?: string;
+  place_name?: string;
+  place_name_es?: string;
+  relevance?: number;
+  properties?: Properties;
+  text_es?: string;
+  text?: string;
+  center?: number[];
+  context?: Context[];
   geometry: Geometry;
 }
 

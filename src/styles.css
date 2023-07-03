@@ -20,3 +20,20 @@ body {
 .mapboxgl-ctrl .mapboxgl-ctrl-attrib {
     display: none;
 }
+
+.mapboxgl-popup-content {
+    padding: 0 !important;
+    border-radius: 12px !important;
+}
+
+.mapboxgl-popup-close-button {
+    z-index: 10;
+    left: 12px;
+    top: 12px !important;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 100% !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    font-size: 22px;
+}

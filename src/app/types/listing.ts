@@ -14,6 +14,7 @@ export type Listing = {
     propertyArea: number;
     guestCount: number;
     locationValue: string;
+    locationCoordinates: number[];
     userId: string | SafeUser;
     price: string;
 }
