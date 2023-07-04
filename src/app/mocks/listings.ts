@@ -33,6 +33,7 @@ export const listings: Listing[] = [
             name: "Camila Herrera",
             hashedPassword: null
         },
+        rating: 1.1,
         price: "270,000"
     },
     {
@@ -69,6 +70,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.2,
         price: "320,000"
     },
     {
@@ -105,6 +107,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.3,
         price: "430,000"
     },
     {
@@ -141,6 +144,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.4,
         price: "670,000"
     },
     {
@@ -177,6 +181,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.5,
         price: "515,000"
     },
     {
@@ -213,6 +218,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.6,
         price: "632,000"
     },
     {
@@ -249,6 +255,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.7,
         price: "745,000"
     },
     {
@@ -285,6 +292,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.8,
         price: "700,000"
     },
     {
@@ -321,6 +329,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 1.9,
         price: "260,000"
     },
     {
@@ -357,6 +366,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 2,
         price: "380,000"
     },
     {
@@ -393,6 +403,7 @@ export const listings: Listing[] = [
             name: "Brenda Flores",
             hashedPassword: null
         },
+        rating: 2.1,
         price: "180,000"
     }
 ]

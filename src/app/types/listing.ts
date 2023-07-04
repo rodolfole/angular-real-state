@@ -17,4 +17,5 @@ export type Listing = {
     locationCoordinates: number[];
     userId: string | SafeUser;
     price: string;
+    rating: number;
 }
