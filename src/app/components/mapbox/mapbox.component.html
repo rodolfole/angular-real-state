@@ -1,11 +1,11 @@
-<mgl-map class="h-full w-full" [style]="style" [zoom]="zoom" [center]="center" [attributionControl]="false"
-    [minZoom]="1">
+<mgl-map *ngIf="data" class="h-full w-full" [style]="style" [zoom]="zoom" [center]="center"
+    [attributionControl]="false" [minZoom]="1" [fitBounds]="fitBounds" [fitBoundsOptions]="fitBoundsOptions">
 
     <mgl-control mglGeolocate></mgl-control>
     <mgl-control mglNavigation [showCompass]="false"></mgl-control>
 
     <mgl-geojson-source #clusterComponent id="listings-tags" [cluster]="true" [clusterRadius]="80" [clusterMaxZoom]="24"
-        [data]="data" [clusterProperties]="clusterProperties">
+        [data]="data" [clusterProperties]="clusterProperties" [clusterMinPoints]="10">
     </mgl-geojson-source>
 
     <mgl-markers-for-clusters source="listings-tags">
@@ -55,7 +55,8 @@
                     transition
                     duration-200
                     " [ngClass]="{
-                        '!bg-slate-950 text-white': selectedListing?.properties?.['id'] 
+                        '!bg-slate-950 text-white': 
+                        selectedListing?.properties?.['featuredListing']?.split('_')[1]
                         === feature.properties.featuredListing.split('_')[1]
                     }">
                     <span>${{feature.properties.featuredListing.split("_").pop()}}</span>

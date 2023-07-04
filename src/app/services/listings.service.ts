@@ -1,5 +1,5 @@
 // Core Imports
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, catchError, map, throwError } from 'rxjs';
@@ -25,6 +25,8 @@ export class ListingsService {
 
   constructor(private http: HttpClient) { }
 
+  public emitFilterCategory: EventEmitter<string> = new EventEmitter();
+
   getListings(params: IListingsParams): Observable<Listing[]> {
 
     const url = `${environment.URI}/api/listings`;
@@ -36,5 +38,5 @@ export class ListingsService {
       })
     );
   }
-
+  
 }

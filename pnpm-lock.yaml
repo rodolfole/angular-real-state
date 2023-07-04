@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@angular/common':
     specifier: ^16.1.0
@@ -34,6 +38,9 @@ dependencies:
   ngx-mapbox-gl:
     specifier: ^10.0.0
     version: 10.0.0(@angular/common@16.1.1)(@angular/core@16.1.1)(mapbox-gl@2.15.0)(rxjs@7.8.1)
+  ngx-skeleton-loader:
+    specifier: ^8.0.0
+    version: 8.0.0(@angular/common@16.1.1)(@angular/core@16.1.1)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -5099,6 +5106,17 @@ packages:
       '@angular/core': 16.1.1(rxjs@7.8.1)(zone.js@0.13.1)
       mapbox-gl: 2.15.0
       rxjs: 7.8.1
+      tslib: 2.5.3
+    dev: false
+
+  /ngx-skeleton-loader@8.0.0(@angular/common@16.1.1)(@angular/core@16.1.1):
+    resolution: {integrity: sha512-SzvmGgaVjTrnHjySZ6IvoF6UvLnRjZcaX5Ha7ZvvuWed61BooaGF2tbbFS6ZomLnegO7VcjB+5+jzdkZULUARQ==}
+    peerDependencies:
+      '@angular/common': '>=16.0.0'
+      '@angular/core': '>=16.0.0'
+    dependencies:
+      '@angular/common': 16.1.1(@angular/core@16.1.1)(rxjs@7.8.1)
+      '@angular/core': 16.1.1(rxjs@7.8.1)(zone.js@0.13.1)
       tslib: 2.5.3
     dev: false
 

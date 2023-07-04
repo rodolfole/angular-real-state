@@ -1,5 +1,4 @@
 import { SafeUser } from './index';
-export type ListingCategory = "House" | "Residential" | "Apartment" | "Townhouse" | "Building" | "Condominium" | "Villa" | "Bungalow";
 
 export type Listing = {
     createdAt: string;
@@ -8,7 +7,7 @@ export type Listing = {
     description: string;
     images: string[];
     amenities?: string[];
-    category: ListingCategory;
+    category: string;
     roomCount: number;
     bathroomCount: number;
     propertyArea: number;

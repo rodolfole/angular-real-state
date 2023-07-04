@@ -1,10 +1,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, ViewChild } from '@angular/core';
-import { LngLatLike, Marker } from 'mapbox-gl';
+import { LngLatBoundsLike, LngLatLike, Marker } from 'mapbox-gl';
 import { NgxMapboxGLModule, PopupComponent } from 'ngx-mapbox-gl';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ListingCardComponent } from '../listings/listing-card/listing-card.component';
-import { listings } from 'src/app/mocks/listings';
 import { NgFor, NgIf, CommonModule } from '@angular/common';
+import { Listing } from 'src/app/types/listing';
+import { Subscription } from 'rxjs';
+import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
   selector: 'app-mapbox',
@@ -22,24 +24,32 @@ export class MapboxComponent {
   @Input() center: LngLatLike | undefined = [13.401200, 52.518964];
   @Input() zoom: [number] = [14];
   @Input() markers: Marker[] = [];
+  @Input() listings: Listing[] = [];
 
-  data: GeoJSON.FeatureCollection = this.getFormatedListings();
+  data: GeoJSON.FeatureCollection | undefined;
   form: FormGroup;
+  fitBounds: LngLatBoundsLike | undefined;
+  fitBoundsOptions = { padding: 40 };
   selectedListing: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties> | null = null;
   selectedListingCoordinates: [number, number] = [0, 0];
-  clusterProperties: object | undefined = this.getClusterProperties();
+  clusterProperties: object | undefined;
+  $categoryEmiterSubscription?: Subscription;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private listinsgService: ListingsService,
   ) {
     this.form = this.fb.group({
       coordinates: [{ value: "", disabled: false }],
     });
+    this.filterListingsByCategory();
+
   }
 
-  handleClick = (data: any) => {
-    console.log(data);
-
+  ngOnInit(): void {
+    this.centerMapIntoBounds();
+    this.getFormatedListings();
+    this.getClusterProperties();
   }
 
   handleOpenPopup = async (event: MouseEvent, listing: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties> | null) => {
@@ -58,18 +68,16 @@ export class MapboxComponent {
     // Return if incoming listing is null 
     if (!listing) return;
 
-    console.log(listing!.properties!['featuredListing']?.split('_')[1]);
-    
-
     this.selectedListingCoordinates = [listing.geometry.coordinates[0], listing.geometry.coordinates[1]];
     this.selectedListing = {
       ...listing,
       properties: {
         ...listing!.properties,
-        listing: listings.find(elem => elem.id === listing!.properties!['id']
-          || listing!.properties!['featuredListing']?.split('_')[1])
+        listing: this.listings.find(elem => elem.id === listing!.properties!['id']
+          || elem.id === listing!.properties!['featuredListing']?.split('_')[1])
       }
     };
+
   }
 
   handleClosePopUp = () => {
@@ -77,9 +85,9 @@ export class MapboxComponent {
     this.selectedListing = null;
   }
 
-  getFormatedListings(): GeoJSON.FeatureCollection {
+  getFormatedListings(): void {
 
-    const formatedListings: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties>[] = listings.map(listing => ({
+    const formatedListings: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties>[] = this.listings.map(listing => ({
       type: "Feature",
       properties: {
         id: listing.id,
@@ -97,17 +105,17 @@ export class MapboxComponent {
       features: formatedListings
     }
 
-    return geoJsonData;
+    this.data = geoJsonData;
   }
 
-  getClusterProperties(): object | undefined {
+  getClusterProperties(): void {
 
     const getFeaturedListing = ["get", "featuredListing"];
     const accumulatedListingRating = ["to-number", ["slice", ["accumulated"], 0, ["index-of", "_", ["accumulated"]]]];
     const currentListingRating = ["to-number", ["slice", getFeaturedListing, 0, ["index-of", "_", getFeaturedListing]]];
     const reduceInitialListing = ["concat", ["get", "rating"], "_", ["get", "id"], "_", ["get", "price"]];
 
-    return {
+    this.clusterProperties = {
       featuredListing: [
         [
           "case",
@@ -119,6 +127,48 @@ export class MapboxComponent {
         reduceInitialListing
       ],
     };
+  }
+
+  getSWCoordinates(coordinatesCollection: number[][]): LngLatLike {
+    const lowestLng = Math.min(
+      ...coordinatesCollection.map((coordinates) => coordinates[0])
+    );
+    const lowestLat = Math.min(
+      ...coordinatesCollection.map((coordinates) => coordinates[1])
+    );
+
+    return [lowestLng, lowestLat];
+  }
+
+  getNECoordinates(coordinatesCollection: number[][]): LngLatLike {
+    const highestLng = Math.max(
+      ...coordinatesCollection.map((coordinates) => coordinates[0])
+    );
+    const highestLat = Math.max(
+      ...coordinatesCollection.map((coordinates) => coordinates[1])
+    );
+
+    return [highestLng, highestLat];
+  }
+
+  calcBoundsFromCoordinates(coordinatesCollection: number[][]): [LngLatLike, LngLatLike] {
+    return [
+      this.getSWCoordinates(coordinatesCollection),
+      this.getNECoordinates(coordinatesCollection),
+    ];
+  }
+
+  centerMapIntoBounds(): void {
+    const listOfCoordinates: number[][] = this.listings.map(listing => listing.locationCoordinates);
+    const bounds: [LngLatLike, LngLatLike] = this.calcBoundsFromCoordinates(listOfCoordinates);
+    this.fitBounds = bounds;
+  }
+
+  filterListingsByCategory() {
+    this.$categoryEmiterSubscription = this.listinsgService.emitFilterCategory.subscribe((category) => {
+      this.listings = [...this.listings.filter(listing => listing.category === category)];
+      this.getFormatedListings()
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
   selector: 'app-category-box',
@@ -10,29 +11,29 @@ export class CategoryBoxComponent {
 
   @Input() icon: string | null = null;
   @Input() label: string | null = null;
-  @Input() selected?: boolean;
+  @Input() selectedTab?: string;
 
   params: any = "";
 
-  constructor(public router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    public router: Router,
+    private listingService: ListingsService
+  ) {
+    this.route.queryParams.subscribe((param) => {
+      this.selectedTab = param['tab_id'] || "House";
+      this.fliterByCategory(this.selectedTab!);
+    });
+  }
 
-  handleClick = () => {
-    let currentQuery = {};
+  fliterByCategory = (category: string) => {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab_id: category },
+      queryParamsHandling: "merge"
+    });
 
-    if (this.params) {
-      currentQuery = this.params.toString();
-    }
-
-    const updatedQuery: any = {
-      ...currentQuery,
-      category: this.label,
-    };
-
-    if (this.params?.get("category") === this.label) {
-      delete updatedQuery.category;
-    }
-
-    this.router.navigate(["/"], { queryParams: updatedQuery });
+    this.listingService.emitFilterCategory.emit(category);
   }
 
 }

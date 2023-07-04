@@ -1,24 +1,49 @@
-<ng-container #emptyState *ngIf="!listings.length">
-    <app-empty-state [showReset]="true"></app-empty-state>
+<ng-container #emptyState *ngIf="!listings.length && !isLoading">
+    <app-empty-state [showReset]="true" (clicked)="valResp($event)"></app-empty-state>
 </ng-container>
 
-<app-container *ngIf="listings.length">
+<app-container>
 
-    <ng-container *ngIf="!isDrawerOpen">
+    <div [ngClass]="{'hidden': isDrawerOpen}">
         <div class="
-                gap-6
-                grid 
-                grid-cols-4
-                pt-52
-                max-[1128px]:grid-cols-3
-                max-[950px]:grid-cols-2
-                max-sm:grid-cols-1
-                rounded
-              ">
-            <app-listing-card *ngFor="let listing of listings" [data]="listing">
-            </app-listing-card>
+                    gap-6
+                    grid 
+                    grid-cols-4
+                    pt-52
+                    max-[1128px]:grid-cols-3
+                    max-[950px]:grid-cols-2
+                    max-sm:grid-cols-1
+                    rounded
+                  ">
+            <ng-container *ngIf="!isLoading">
+                <app-listing-card *ngFor="let listing of listings" [data]="listing">
+                </app-listing-card>
+
+            </ng-container>
+
+            <ng-container *ngIf="isLoading">
+                <ngx-skeleton-loader appearance="custom-content" *ngFor="let item of [].constructor(20); let i = index">
+                    <div class="flex flex-col gap-2 w-full">
+                        <div class="
+                        group 
+                        aspect-square 
+                        overflow-clip 
+                        rounded-xl 
+                        w-full 
+                        mb-3 
+                        h-72
+                        bg-black/10">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex h-5 w-9/12 rounded-[5px] bg-black/10"></div>
+                            <div class="flex h-5 w-2/4 rounded-[5px] bg-black/10"></div>
+                            <div class="flex h-5 w-5/12 rounded-[5px] bg-black/10"></div>
+                        </div>
+                    </div>
+                </ngx-skeleton-loader>
+            </ng-container>
         </div>
-    </ng-container>
+    </div>
 
     <ng-container *ngIf="!isDrawerOpen" [ngTemplateOutlet]="toogleDrawerBtn"
         [ngTemplateOutletContext]="{$implicit: 'fas fa-map', label: 'See on the map'}"></ng-container>
@@ -27,7 +52,8 @@
 
 </app-container>
 
-<app-mapbox *ngIf="isDrawerOpen" class="pt-[calc(81.6px+80.8px)] w-full flex h-screen"></app-mapbox>
+<app-mapbox *ngIf="!isLoading" [ngClass]="{'hidden': !isDrawerOpen}"
+    class="pt-[calc(81.6px+80.8px)] w-full flex h-screen" [listings]="listings"></app-mapbox>
 
 <ng-template #toogleDrawerBtn let-icon let-label="label">
     <div class="flex w-full justify-center items-center fixed bottom-7 left-0 z-50 pointer-events-none">
@@ -48,5 +74,11 @@
             <span class="font-semibold text-sm">{{label}}</span>
             <i [ngClass]="icon"></i>
         </button>
+    </div>
+</ng-template>
+
+<ng-template #dummyListingCard>
+    <div class="flex flex-col rounded-lg w-full h-full  max-h-64">
+
     </div>
 </ng-template>

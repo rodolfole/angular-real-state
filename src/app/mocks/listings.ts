@@ -20,7 +20,7 @@ export const listings: Listing[] = [
         bathroomCount: 4,
         guestCount: 3,
         locationValue: "Peshastin, Washington, Estados Unidos",
-        locationCoordinates: [13.4032, 52.5163],
+        locationCoordinates: [2.2137, 46.2276],
         propertyArea: 530,
         userId: {
             createdAt: "",
@@ -52,12 +52,12 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "Apartment",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [-3.6887, 40.391],
+        locationCoordinates: [12.5674, 41.8719],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -89,12 +89,12 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "Villa",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.424436, 52.513275],
+        locationCoordinates: [14.5501, 47.5162],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -126,12 +126,12 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "Townhouse",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.4077, 52.5124],
+        locationCoordinates: [19.1451, 51.9194],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -163,12 +163,12 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "Townhouse",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.418042, 52.517487],
+        locationCoordinates: [10.4515, 51.1657],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -205,7 +205,7 @@ export const listings: Listing[] = [
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.413948, 52.507876],
+        locationCoordinates: [4.4699, 50.5039],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -237,12 +237,12 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "House",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.410912, 52.503827],
+        locationCoordinates: [2.3522, 48.8566],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -279,7 +279,7 @@ export const listings: Listing[] = [
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.407994, 52.506165],
+        locationCoordinates: [27.9534, 53.7098],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -316,7 +316,7 @@ export const listings: Listing[] = [
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.407469, 52.512095],
+        locationCoordinates: [24.9668, 45.9432],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -348,12 +348,12 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "Condominium",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
         locationValue: "Hildale, Utah, Estados Unidos",
-        locationCoordinates: [13.4033, 52.5189],
+        locationCoordinates: [15.2000, 45.1000],
         propertyArea: 320,
         userId: {
             createdAt: "",
@@ -385,7 +385,7 @@ export const listings: Listing[] = [
             "tv",
             "washing_machine"
         ],
-        category: "Bungalow",
+        category: "Building",
         roomCount: 3,
         bathroomCount: 2,
         guestCount: 1,
