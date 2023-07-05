@@ -13,25 +13,27 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     super();
   }
 
-  canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext) {
     const isPublic = this.reflector.getAllAndOverride(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
     if (isPublic) return true;
-    
-    return super.canActivate(context) && isPublic;
+
+    const isAuthenticated = (await super.canActivate(context)) as boolean;
+
+    return isAuthenticated;
   }
 
-  // handleRequest(err, user, info) {
-  //   if (err || !user) {
-  //     throw err || new UnauthorizedException();
-  //   }
-  //   return user;
-  // }
+  handleRequest(err, user, info) {
+    if (err || !user) {
+      throw err || new UnauthorizedException();
+    }
+    return user;
+  }
 }
 
-// export const AuthGuardProvider = {
-//   provide: APP_GUARD,
-//   useClass: JwtAuthGuard,
-// };
+export const AuthGuardProvider = {
+  provide: APP_GUARD,
+  useClass: JwtAuthGuard,
+};

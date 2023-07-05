@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@angular/common':
     specifier: ^16.1.0
@@ -7188,3 +7184,7 @@ packages:
     resolution: {integrity: sha512-+bIeDAFEBYuXRuU3qGQvzdPap+N1zjM4KkBAiiQuVVCrHrhjDuY6VkUhNa5+U27+9w0q3fbKiMCbpJ0XzMmSWA==}
     dependencies:
       tslib: 2.5.3
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

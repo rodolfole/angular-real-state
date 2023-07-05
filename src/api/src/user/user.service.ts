@@ -1,15 +1,15 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import * as argon from 'argon2';
 
-import { RegisterDto } from 'src/auth/dto/register.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthService } from '../auth/auth.service';
+import { RegisterDto } from '../auth/dto/register.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class UserService {
   constructor(
-    private readonly _prismaService: PrismaService,
     private readonly _authService: AuthService,
+    private readonly _prismaService: PrismaService,
   ) {}
 
   async register({ email, name, password }: RegisterDto) {

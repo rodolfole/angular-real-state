@@ -10,31 +10,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum ListingCategory {
+  Apartment
+  Building
+  Bungalow
+  Condominium
+  House
+  Residential
+  Townhouse
+  Villa
+}
+
+enum Role {
+  Admin
+  Agent
+  New
+}
+
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
+  createdAt      DateTime  @default(now())
   email          String?   @unique
   emailVerified  DateTime?
-  image          String?
-  hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
   favoriteIds    String[]  @db.ObjectId
+  hashedPassword String?
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  image          String?
   listings       Listing[]
+  name           String?
+  phone          String?
+  role           Role      @default(New)
+  updatedAt      DateTime  @updatedAt
 }
 
 model Listing {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
-  description   String
-  imageSrc      String
-  createdAt     DateTime @default(now())
-  category      String
-  roomCount     Int
+  amenities     String[]
   bathroomCount Int
+  category      String
+  createdAt     DateTime @default(now())
+  description   String
   guestCount    Int
-  locationValue String
-  userId        String   @db.ObjectId
-  price         Int
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  images        String[]
+  locationCoordinates Int[]
+  price         String
+  propertyArea  Int
+  rating Float
+  roomCount     Int
+  title         String
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String   @db.ObjectId
 }

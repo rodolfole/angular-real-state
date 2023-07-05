@@ -1,15 +1,14 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
+
+import { LoginDto } from './dto/login.dto';
+import { PrismaService } from '../prisma/prisma.service';
 import { JwtPayload, Tokens } from './types';
 
 @Injectable()
 export class AuthService {
-
   constructor(
     private config: ConfigService,
     private jwtService: JwtService,
@@ -57,8 +56,6 @@ export class AuthService {
     };
   }
 
-  
-
   logout() {
     return {};
   }
@@ -77,13 +74,5 @@ export class AuthService {
     const tokens = await this.getTokens(user.id, user.email);
 
     return tokens;
-  }
-
-  getUserInfo() {
-    return {
-      id: 1,
-      name: 'John',
-      email: 'text@example.com',
-    };
   }
 }
