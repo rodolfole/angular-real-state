@@ -1,4 +1,4 @@
-<div #navbar class="w-full z-50 transition-all duration-200"
+<div #navbar class="w-full z-[60] transition-all duration-200"
     [ngClass]="{'bg-white shadow-sm': isValidPage, 'fixed' : currentPage === '/' || !isValidPage}">
     <div class="border-b-[1px] border-transparent" [ngClass]="{'border-b-brown-100': isValidPage}">
         <app-container [expandHeight]="true"
@@ -10,7 +10,7 @@
                         class="font-mayennesans text-xl text-brown-900 group-hover:text-brown-700 transition-all max-sm:hidden">Real
                         State</span>
                 </div>
-                <app-search *ngIf="isValidPage" class="w-full max-w-[300px]"
+                <app-search *ngIf="isValidPage" class="flex flex-1 items-center justify-center"
                     [ngClass]="{'max-md:hidden': currentPage.includes('listings')}"></app-search>
                 <app-user-menu *ngIf="isValidPage" [currentUser]="currentUser"
                     [ngClass]="{'max-md:hidden': currentPage.includes('listings')}"></app-user-menu>

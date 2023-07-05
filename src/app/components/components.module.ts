@@ -43,6 +43,8 @@ import { FormControlPipe } from '../pipes/form-control.pipe';
 import { LoginModalComponent } from '../modals/login-modal/login-modal.component';
 import { HeroComponent } from '../modals/hero/hero.component';
 import { ContactComponent } from '../modals/contact/contact.component';
+import { SearchMenuComponent } from './navbar/search-menu/search-menu.component';
+import { OutsideClickDirective } from '../directives/outside-click.directive';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { ContactComponent } from '../modals/contact/contact.component';
     HeroComponent,
     SwiperComponent,
     ContactComponent,
-    HeartButtonComponent
+    HeartButtonComponent,
+    SearchMenuComponent,
+    OutsideClickDirective
   ],
   exports: [
     InputComponent,

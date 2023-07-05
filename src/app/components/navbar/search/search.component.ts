@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { differenceInDays } from 'date-fns';
-import { ModalService } from '../../../services/modal.service';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Feature, MapboxService } from 'src/app/services/mapbox.ts.service';
+import { OutsideClickDirective } from 'src/app/directives/outside-click.directive';
 
 @Component({
   selector: 'app-search',
@@ -10,64 +11,67 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SearchComponent {
 
-  searchModal: () => void = () => { };
-  // const params = useSearchParams();
-  // const { getByValue } = useCountries();
+  @ViewChild(OutsideClickDirective) outsideClickDirective?: OutsideClickDirective;
 
-  locationValue: string = "";
-  startDate: string = "";
-  endDate: string = ""
-  guestCount: number = 0;
+  $formSubscription?: Subscription;
 
-  guestLabel: string = "";
-  durationLabel: string = "";
-  locationLabel: string = "";
   form: FormGroup;
+  locations: Feature[] = [];
+  preventMenuClose: boolean = false;
+  isMenuVisible: boolean = false;
 
-  constructor(private fb: FormBuilder, private modalService: ModalService) {
-    this.form = this.fb.group({
+  constructor(
+    private fb: FormBuilder,
+    private mapboxService: MapboxService
+  ) {
+    this.form = this.initForm();
+    this.handleFormChanges();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  getScrollHeight() {
+    if (window.scrollY > 0 && this.isMenuVisible)
+      this.isMenuVisible = false;
+  }
+
+  showMenu(isVisible?: boolean) {
+    this.outsideClickDirective?.showMenu(isVisible);
+  }
+
+  preventCloseOnClick() {
+    this.outsideClickDirective?.preventCloseOnClick();
+  }
+
+  ngOnDestroy(): void {
+    this.$formSubscription?.unsubscribe();
+  }
+
+  handleFormChanges() {
+    this.$formSubscription =
+      this.form.valueChanges.pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      ).subscribe(value => {
+
+        // Check that form "searchParam" is null
+        if (!value.searchParam) {
+          this.locations = [];
+          this.isMenuVisible = false;
+        }
+        else {
+          const getLocationsSubscription = this.mapboxService.searchPlaceByTerm(value.searchParam).subscribe(locations => {
+            this.isMenuVisible = true;
+            this.locations = locations;
+
+            getLocationsSubscription.unsubscribe();
+          });
+        }
+      });
+  }
+
+  initForm(): FormGroup {
+    return this.fb.group({
       searchParam: [{ value: "", disabled: false }, Validators.required]
     });
   }
-
-  getLocationLabel() {
-    if (this.locationValue) {
-      // return getByValue(locationValue as string)?.label;
-      return "";
-    }
-
-    return "Anywhere";
-  }
-  getDurationLabel() {
-    if (this.startDate && this.endDate) {
-      const start = new Date(this.startDate as string);
-      const end = new Date(this.endDate as string);
-      let diff = differenceInDays(end, start);
-
-      if (diff === 0) {
-        diff = 1;
-      }
-
-      return `${diff} Days`;
-    }
-
-    return "Any Week";
-  }
-
-  getGuestLabel() {
-    if (this.guestCount) {
-      return `${this.guestCount} Guests`;
-    }
-
-    return "Add Guests";
-  }
-
-  showToast() {
-    this.modalService.setToast("Info", "Información");
-  }
-
-  handleSubmit = () => {
-    this.form.disable()
-    console.log(this.form.value);
-  };
 }

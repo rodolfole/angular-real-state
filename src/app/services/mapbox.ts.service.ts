@@ -89,13 +89,13 @@ interface SearchApiProps {
 @Injectable({
   providedIn: 'root'
 })
-export class MapboxTsService {
+export class MapboxService {
 
   constructor(private http: HttpClient) { }
 
   searchPlaceByTerm(query: string): Observable<Feature[]> {
 
-    const apiUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places';
+    const apiUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/';
 
     const params = {
       access_token: environment.MAPBOX_TOKEN,
