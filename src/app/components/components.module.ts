@@ -44,6 +44,7 @@ import { LoginModalComponent } from '../modals/login-modal/login-modal.component
 import { HeroComponent } from '../modals/hero/hero.component';
 import { ContactComponent } from '../modals/contact/contact.component';
 import { SearchMenuComponent } from './navbar/search-menu/search-menu.component';
+import { OutsideClickDirective } from '../directives/outside-click.directive';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { SearchMenuComponent } from './navbar/search-menu/search-menu.component'
     ContactComponent,
     HeartButtonComponent,
     SearchMenuComponent,
+    OutsideClickDirective
   ],
   exports: [
     InputComponent,
