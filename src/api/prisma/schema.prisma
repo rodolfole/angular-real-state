@@ -46,17 +46,29 @@ model Listing {
   amenities     String[]
   bathroomCount Int
   category      String
-  createdAt     DateTime @default(now())
+  createdAt     DateTime  @default(now())
   description   String
   guestCount    Int
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   images        String[]
-  locationCoordinates Int[]
+  location      Location?
   price         String
   propertyArea  Int
-  rating Float
+  rating        Float
   roomCount     Int
   title         String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String   @db.ObjectId
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String    @db.ObjectId
+}
+
+model Location {
+  coordinates Float[]
+  country     String
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  listing     Listing @relation(fields: [listingId], references: [id])
+  listingId   String  @unique @db.ObjectId
+  place       String
+  postCode    Int
+  region      String
+  street      String
 }

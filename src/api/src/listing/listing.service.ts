@@ -7,11 +7,14 @@ import { ListingDto } from './dto/listing.dto';
 export class ListingService {
   constructor(private readonly _prismaService: PrismaService) {}
 
-  async create(listing: ListingDto, userId: string) {
+  async create({ location, ...listing }: ListingDto, userId: string) {
     return await this._prismaService.listing.create({
       data: {
         ...listing,
-        userId,
+        user: { create: { id: userId } },
+        location: {
+          create: location,
+        },
       },
     });
   }
@@ -27,7 +30,7 @@ export class ListingService {
 
   async getListings() {
     return await this._prismaService.listing.findMany({
-      include: { user: true },
+      include: { user: true, location: true },
     });
   }
 }

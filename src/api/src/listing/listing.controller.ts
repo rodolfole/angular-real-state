@@ -27,15 +27,15 @@ export class ListingController {
   @Get(':listingId')
   @HttpCode(HttpStatus.OK)
   listing(@Param('listingId') listingId: string) {
-    console.log({listingId});
-    
-    return this._listingService.getOneListing(listingId)
+    console.log({ listingId });
+
+    return this._listingService.getOneListing(listingId);
   }
 
   @Public()
   @Get()
   @HttpCode(HttpStatus.OK)
   listings() {
-    return this._listingService.getListings()
+    return this._listingService.getListings();
   }
 }
