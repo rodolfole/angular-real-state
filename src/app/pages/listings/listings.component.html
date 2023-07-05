@@ -9,7 +9,9 @@
                 <div class="flex items-center justify-center relative w-4 h-full font-semibold text-slate-600 max-md:hidden">
                     <span class="relative -top-[3px]">.</span>
                 </div>
-                <a href="/" class="underline font-semibold">{{listing!.locationValue}}</a>
+                <a href="/" class="underline font-semibold">
+                    {{listing!.location.place + ", " + listing!.location.region + ", " + listing!.location.country}}
+                </a>
             </div>
             <app-listing-actions class="max-md:hidden" [listingId]="listingId"></app-listing-actions>
         </div>

@@ -1,20 +1,28 @@
 import { SafeUser } from './index';
 
+export type Location = {
+  coordinates: number[];
+  country: string;
+  region: string;
+  postCode: number;
+  place: string;
+  street: string;
+};
+
 export type Listing = {
-  amenities?: string[];
-  bathroomCount: number;
-  category: string;
-  createdAt: Date;
-  description: string;
-  guestCount: number;
+  createdAt: string;
   id: string;
-  images: string[];
-  locationCoordinates: number[];
-  locationValue: string;
-  price: string;
-  propertyArea: number;
-  rating: number;
-  roomCount: number;
   title: string;
+  description: string;
+  images: string[];
+  amenities?: string[];
+  category: string;
+  roomCount: number;
+  bathroomCount: number;
+  propertyArea: number;
+  guestCount: number;
+  location: Location;
   userId: string | SafeUser;
+  price: string;
+  rating: number;
 };

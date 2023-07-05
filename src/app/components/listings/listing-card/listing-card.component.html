@@ -1,4 +1,5 @@
-<div class="col-span-1 cursor-pointer group" [ngClass]="{'shadow-[0_6px_20px_rgba(0,0,0,0.2)]': !showDetails}" [routerLink]="['/listings/' + data!.id]">
+<div class="col-span-1 cursor-pointer group" [ngClass]="{'shadow-[0_6px_20px_rgba(0,0,0,0.2)]': !showDetails}"
+    [routerLink]="['/listings/' + data!.id]">
     <div class="relative flex flex-col gap-2 w-full bg-white rounded-xl">
         <div class="relative ">
             <div *ngIf="showFavoritesBtn" class="
@@ -46,11 +47,12 @@
             z-10
             ">
             <div class="font-semibold text-base line-clamp-1" [ngClass]="{'text-sm': !showDetails}">
-                <!-- {{location?.region}}, {{location?.label}} -->
-                {{data!.title}}
+                {{showDetails
+                ? data!.title
+                : data!.location.place + ", " + data!.location.region + ", " + data!.location.country}}
             </div>
             <div *ngIf="showDetails" class="font-light text-neutral-500 text-sm line-clamp-1">
-                {{reservationDate || data!.locationValue}}
+                {{data!.location.place + ", " + data!.location.region + ", " + data!.location.country}}
             </div>
             <div *ngIf="showSwiper" class="flex flex-row gap-1 items-center mt-2"
                 [ngClass]="{'mt-1 text-base': !showDetails}">

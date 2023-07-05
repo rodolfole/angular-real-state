@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, ViewChild } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { LngLatBoundsLike, LngLatLike, Marker } from 'mapbox-gl';
 import { NgxMapboxGLModule, PopupComponent } from 'ngx-mapbox-gl';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -25,11 +25,12 @@ export class MapboxComponent {
   @Input() zoom: [number] = [14];
   @Input() markers: Marker[] = [];
   @Input() listings: Listing[] = [];
+  @Input() isDrawerOpen: boolean = false;
 
   data: GeoJSON.FeatureCollection | undefined;
   form: FormGroup;
   fitBounds: LngLatBoundsLike | undefined;
-  fitBoundsOptions = { padding: 40 };
+  fitBoundsOptions = { padding: 40, duration: 0 }; // 4000
   selectedListing: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties> | null = null;
   selectedListingCoordinates: [number, number] = [0, 0];
   clusterProperties: object | undefined;
@@ -43,13 +44,21 @@ export class MapboxComponent {
       coordinates: [{ value: "", disabled: false }],
     });
     this.filterListingsByCategory();
-
   }
 
   ngOnInit(): void {
-    this.centerMapIntoBounds();
     this.getFormatedListings();
     this.getClusterProperties();
+  }
+
+  ngOnDestroy(): void {
+    this.$categoryEmiterSubscription?.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isDrawerOpen'] && this.isDrawerOpen) {
+      this.centerMapIntoBounds();
+    }
   }
 
   handleOpenPopup = async (event: MouseEvent, listing: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties> | null) => {
@@ -96,7 +105,7 @@ export class MapboxComponent {
       },
       geometry: {
         type: "Point",
-        coordinates: listing.locationCoordinates
+        coordinates: listing.location.coordinates
       }
     }));
 
@@ -159,7 +168,7 @@ export class MapboxComponent {
   }
 
   centerMapIntoBounds(): void {
-    const listOfCoordinates: number[][] = this.listings.map(listing => listing.locationCoordinates);
+    const listOfCoordinates: number[][] = this.listings.map(listing => listing.location.coordinates);
     const bounds: [LngLatLike, LngLatLike] = this.calcBoundsFromCoordinates(listOfCoordinates);
     this.fitBounds = bounds;
   }
@@ -167,7 +176,8 @@ export class MapboxComponent {
   filterListingsByCategory() {
     this.$categoryEmiterSubscription = this.listinsgService.emitFilterCategory.subscribe((category) => {
       this.listings = [...this.listings.filter(listing => listing.category === category)];
-      this.getFormatedListings()
+      this.getFormatedListings();
+      this.centerMapIntoBounds();
     });
   }
 
