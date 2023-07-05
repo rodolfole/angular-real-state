@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { differenceInDays } from 'date-fns';
 import { ModalService } from '../../../services/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Feature, MapboxService } from 'src/app/services/mapbox.ts.service';
 
 @Component({
   selector: 'app-search',
@@ -14,20 +16,31 @@ export class SearchComponent {
   // const params = useSearchParams();
   // const { getByValue } = useCountries();
 
+  $formSubscription?: Subscription;
   locationValue: string = "";
   startDate: string = "";
   endDate: string = ""
   guestCount: number = 0;
-
   guestLabel: string = "";
   durationLabel: string = "";
   locationLabel: string = "";
-  form: FormGroup;
 
-  constructor(private fb: FormBuilder, private modalService: ModalService) {
+  form: FormGroup;
+  locations: Feature[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private modalService: ModalService,
+    private mapboxService: MapboxService
+  ) {
     this.form = this.fb.group({
       searchParam: [{ value: "", disabled: false }, Validators.required]
     });
+    this.handleFormChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.$formSubscription?.unsubscribe();
   }
 
   getLocationLabel() {
@@ -38,6 +51,7 @@ export class SearchComponent {
 
     return "Anywhere";
   }
+  
   getDurationLabel() {
     if (this.startDate && this.endDate) {
       const start = new Date(this.startDate as string);
@@ -70,4 +84,23 @@ export class SearchComponent {
     this.form.disable()
     console.log(this.form.value);
   };
+
+  handleFormChanges() {
+    this.$formSubscription =
+      this.form.valueChanges.pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      ).subscribe(value => {
+
+        // Check that form "searchParam" is null
+        if (!value.searchParam) this.locations = [];
+        else {
+          const getLocationsSubscription = this.mapboxService.searchPlaceByTerm(value.searchParam).subscribe(locations => {
+            this.locations = locations;
+
+            getLocationsSubscription.unsubscribe();
+          });
+        }
+      });
+  }
 }
