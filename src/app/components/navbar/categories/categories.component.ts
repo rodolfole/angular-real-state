@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Category, categories } from 'src/app/mocks/categories';
 
 @Component({

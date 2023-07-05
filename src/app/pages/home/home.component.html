@@ -53,7 +53,8 @@
 </app-container>
 
 <app-mapbox *ngIf="!isLoading" [ngClass]="{'hidden': !isDrawerOpen}"
-    class="pt-[calc(81.6px+80.8px)] w-full flex h-screen" [listings]="listings"></app-mapbox>
+    class="pt-[calc(81.6px+80.8px)] w-full flex h-screen" [listings]="listings"
+    [isDrawerOpen]="isDrawerOpen"></app-mapbox>
 
 <ng-template #toogleDrawerBtn let-icon let-label="label">
     <div class="flex w-full justify-center items-center fixed bottom-7 left-0 z-50 pointer-events-none">

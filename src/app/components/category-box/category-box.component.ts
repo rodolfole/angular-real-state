@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListingsService } from 'src/app/services/listings.service';
 
@@ -22,8 +22,13 @@ export class CategoryBoxComponent {
   ) {
     this.route.queryParams.subscribe((param) => {
       this.selectedTab = param['tab_id'] || "House";
-      this.fliterByCategory(this.selectedTab!);
     });
+  }
+
+  ngOnChanges(): void {
+    if (this.label) {
+      if (this.selectedTab === this.label) this.fliterByCategory(this.selectedTab!);
+    }
   }
 
   fliterByCategory = (category: string) => {

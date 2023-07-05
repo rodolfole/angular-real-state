@@ -1,5 +1,14 @@
 import { SafeUser } from './index';
 
+export type Location = {
+    coordinates: number[];
+    country: string;
+    region: string;
+    postCode: number;
+    place: string;
+    street: string;
+}
+
 export type Listing = {
     createdAt: string;
     id: string;
@@ -12,8 +21,7 @@ export type Listing = {
     bathroomCount: number;
     propertyArea: number;
     guestCount: number;
-    locationValue: string;
-    locationCoordinates: number[];
+    location: Location;
     userId: string | SafeUser;
     price: string;
     rating: number;
