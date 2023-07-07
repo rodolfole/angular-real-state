@@ -6,25 +6,10 @@ import { environment } from 'src/environments/environment';
 import { SafeUser } from '../types';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private http: HttpClient) { }
-
-  user: SafeUser | null = null;
-
-  getCurrentUser(): Observable<SafeUser> {
-
-    const url = `${environment.URI}/api/users`;
-
-    return this.http.get(url).pipe(
-      map((resp: any) => resp),
-      catchError((err) => {
-        return throwError(() => err);
-      })
-    );
-  }
+  constructor(private http: HttpClient) {}
 
   registerUser(user: any) {
     const url = `${environment.URI}/api/user/register`;
@@ -37,11 +22,21 @@ export class UserService {
     );
   }
 
-  getAgentById(id: string): Observable<SafeUser> {
+  getAgentById(agentId: string): Observable<SafeUser> {
+    const url = `${environment.URI}/api/user/agent/${agentId}`;
 
-    const url = `${environment.URI}/api/users/agent`;
+    return this.http.get(url).pipe(
+      map((resp: any) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
 
-    return this.http.get(url, { params: { id } }).pipe(
+  contactAgent(from: string, message: string) {
+    const url = `${environment.URI}/api/user/contact`;
+
+    return this.http.post(url, { from, message }).pipe(
       map((resp: any) => resp),
       catchError((err) => {
         return throwError(() => err);

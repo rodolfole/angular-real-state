@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 
 import { Public } from '../auth/decorators/public.decorator';
 import { RegisterDto } from '../auth/dto/register.dto';
@@ -31,5 +39,12 @@ export class UserController {
       ok: true,
       msg: 'Message sended',
     };
+  }
+
+  @Public()
+  @Get('agent/:agentId')
+  @HttpCode(HttpStatus.OK)
+  getAgent(@Param('agentId') agentId: string) {
+    return this._userService.getAgent(agentId);
   }
 }

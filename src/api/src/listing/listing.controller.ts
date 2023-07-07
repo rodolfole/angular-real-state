@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { GetCurrentUserId } from '../auth/decorators/get-current-user-id.decorator';
@@ -35,7 +36,9 @@ export class ListingController {
   @Public()
   @Get()
   @HttpCode(HttpStatus.OK)
-  listings() {
-    return this._listingService.getListings();
+  listings(@Query() query) {
+    console.log({ query });
+
+    return this._listingService.getListings(query);
   }
 }

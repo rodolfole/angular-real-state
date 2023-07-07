@@ -22,7 +22,7 @@ export type Listing = {
   propertyArea: number;
   guestCount: number;
   location: Location;
-  userId: string | SafeUser;
+  user: SafeUser;
   price: string;
   rating: number;
 };

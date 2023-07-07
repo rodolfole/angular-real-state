@@ -20,11 +20,18 @@ import { ListingsComponent } from './pages/listings/listings.component';
 import { AgentsComponent } from './pages/agents/agents.component';
 import { FloatingFooterComponent } from './components/listings/floating-footer/floating-footer.component';
 import { MapboxComponent } from './components/mapbox/mapbox.component';
+import { TOKEN_PROVIDER } from './interceptors/token.interceptor';
 
 register();
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, PageNotFoundComponent, ListingsComponent, AgentsComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    ListingsComponent,
+    AgentsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,13 +45,11 @@ register();
       accessToken: environment.MAPBOX_TOKEN,
     }),
     NgxSkeletonLoaderModule.forRoot({ animation: 'pulse' }),
-    MapboxComponent
+    MapboxComponent,
   ],
   exports: [],
-  providers: [
-    NgxMapboxGLModule
-  ],
+  providers: [NgxMapboxGLModule, TOKEN_PROVIDER],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

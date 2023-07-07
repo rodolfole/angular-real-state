@@ -3,6 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingDto } from './dto/listing.dto';
 
+interface QueryListing {
+  category: string;
+  userId: string;
+}
+
 @Injectable()
 export class ListingService {
   constructor(private readonly _prismaService: PrismaService) {}
@@ -24,13 +29,17 @@ export class ListingService {
       where: {
         id: listingId,
       },
-      include: { user: true },
+      include: { location: true, user: true },
     });
   }
 
-  async getListings() {
+  async getListings({ category, userId }: QueryListing) {
     return await this._prismaService.listing.findMany({
-      include: { user: true, location: true },
+      where: {
+        ...(category ? { category } : {}),
+        ...(userId ? { userId } : {}),
+      },
+      include: { location: true, user: true },
     });
   }
 }

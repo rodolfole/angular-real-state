@@ -1,480 +1,8 @@
 import { Listing } from '../types/listing';
 
 export const listings: Listing[] = [
-    {
-        createdAt: "2023/06/22",
-        id: "1",
-        title: "Buckingham Palace",
-        description: "Fames tincidunt volutpat elit malesuada senectus. Interdum purus, iaculis feugiat duis nunc aliquam. Feugiat diam quam augue vel pharetra adipiscing. Ultricies ridiculus venenatis non erat nunc volutpat, odio a, ante. Volutpat pharetra rhoncus cras malesuada a ipsum. Phasellus a, arcu, amet purus phasellus tristique.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "security_box",
-            "security_camera",
-            "tv",
-        ],
-        category: "Residential",
-        roomCount: 8,
-        bathroomCount: 4,
-        guestCount: 3,
-        location: {
-            coordinates: [2.2137, 46.2276],
-            country: "United States",
-            region: "Washington",
-            postCode: 98847,
-            place: "Peshastin",
-            street: "Allen Lane"
-        },
-        propertyArea: 530,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user1@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "1",
-            image: "assets/images/agent.jpg",
-            name: "Camila Herrera",
-            hashedPassword: null
-        },
-        rating: 1.1,
-        price: "270,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "2",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Apartment",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [12.5674, 41.8719],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Canyon Street"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.2,
-        price: "320,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "3",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Villa",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [14.5501, 47.5162],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "E Government Avenue N"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.3,
-        price: "430,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "4",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Townhouse",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [19.1451, 51.9194],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Memorial Street"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.4,
-        price: "670,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "5",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Townhouse",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [10.4515, 51.1657],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "W Newel Avenue N"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.5,
-        price: "515,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "6",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Bungalow",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [4.4699, 50.5039],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "N Willow Street W"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.6,
-        price: "632,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "7",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "House",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [2.3522, 48.8566],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Pinion Street"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.7,
-        price: "745,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "8",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Bungalow",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [27.9534, 53.7098],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Nibbelink Road"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.8,
-        price: "700,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "9",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Bungalow",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [24.9668, 45.9432],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Saunders Road"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 1.9,
-        price: "260,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "10",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Condominium",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [15.2000, 45.1000],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Stewart Ranch Road"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 2,
-        price: "380,000"
-    },
-    {
-        createdAt: "2023/03/16",
-        id: "11",
-        title: "Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion",
-        description: "Tortor consectetur et pharetra dui interdum gravida. Ullamcorper sit mollis tincidunt ultrices. Consectetur facilisis ac cursus at faucibus. Pellentesque ullamcorper aliquam at donec eu bibendum viverra diam accumsan. Magna lectus id non in aliquam purus, sed luctus eu. Eu eu sit est egestas est sed netus.",
-        images: [],
-        amenities: [
-            "air_conditioner",
-            "fridge",
-            "garage",
-            "gym",
-            "security_box",
-            "security_camera",
-            "tv",
-            "washing_machine"
-        ],
-        category: "Building",
-        roomCount: 3,
-        bathroomCount: 2,
-        guestCount: 1,
-        location: {
-            coordinates: [13.4065, 52.51],
-            country: "United States",
-            region: "Utah",
-            postCode: 84784,
-            place: "Hildale",
-            street: "Old Blewett Pass Highway"
-        },
-        propertyArea: 320,
-        userId: {
-            createdAt: "",
-            updatedAt: "",
-            email: "user2@example.com",
-            emailVerified: "true",
-            favoriteIds: [],
-            id: "2",
-            image: "assets/images/placeholder.jpg",
-            name: "Brenda Flores",
-            hashedPassword: null
-        },
-        rating: 2.1,
-        price: "180,000"
-    }
-]
   {
-    createdAt: new Date('2023/06/22'),
+    createdAt: '2023/06/22',
     id: '1',
     title: 'Buckingham Palace',
     description:
@@ -492,10 +20,16 @@ export const listings: Listing[] = [
     roomCount: 8,
     bathroomCount: 4,
     guestCount: 3,
-    locationValue: 'Peshastin, Washington, Estados Unidos',
-    locationCoordinates: [2.2137, 46.2276],
+    location: {
+      coordinates: [2.2137, 46.2276],
+      country: 'United States',
+      region: 'Washington',
+      postCode: 98847,
+      place: 'Peshastin',
+      street: 'Allen Lane',
+    },
     propertyArea: 530,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user1@example.com',
@@ -512,7 +46,7 @@ export const listings: Listing[] = [
     price: '270,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '2',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -532,10 +66,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [12.5674, 41.8719],
+    location: {
+      coordinates: [12.5674, 41.8719],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Canyon Street',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -552,7 +92,7 @@ export const listings: Listing[] = [
     price: '320,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '3',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -572,10 +112,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [14.5501, 47.5162],
+    location: {
+      coordinates: [14.5501, 47.5162],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'E Government Avenue N',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -592,7 +138,7 @@ export const listings: Listing[] = [
     price: '430,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '4',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -612,10 +158,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [19.1451, 51.9194],
+    location: {
+      coordinates: [19.1451, 51.9194],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Memorial Street',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -632,7 +184,7 @@ export const listings: Listing[] = [
     price: '670,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '5',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -652,10 +204,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [10.4515, 51.1657],
+    location: {
+      coordinates: [10.4515, 51.1657],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'W Newel Avenue N',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -672,7 +230,7 @@ export const listings: Listing[] = [
     price: '515,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '6',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -692,10 +250,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [4.4699, 50.5039],
+    location: {
+      coordinates: [4.4699, 50.5039],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'N Willow Street W',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -712,7 +276,7 @@ export const listings: Listing[] = [
     price: '632,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '7',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -732,10 +296,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [2.3522, 48.8566],
+    location: {
+      coordinates: [2.3522, 48.8566],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Pinion Street',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -752,7 +322,7 @@ export const listings: Listing[] = [
     price: '745,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '8',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -772,10 +342,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [27.9534, 53.7098],
+    location: {
+      coordinates: [27.9534, 53.7098],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Nibbelink Road',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -792,7 +368,7 @@ export const listings: Listing[] = [
     price: '700,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '9',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -812,10 +388,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [24.9668, 45.9432],
+    location: {
+      coordinates: [24.9668, 45.9432],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Saunders Road',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -832,7 +414,7 @@ export const listings: Listing[] = [
     price: '260,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '10',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -852,10 +434,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [15.2, 45.1],
+    location: {
+      coordinates: [15.2, 45.1],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Stewart Ranch Road',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',
@@ -872,7 +460,7 @@ export const listings: Listing[] = [
     price: '380,000',
   },
   {
-    createdAt: new Date('2023/03/16'),
+    createdAt: '2023/03/16',
     id: '11',
     title: 'Zion EcoCabin: jacuzzi privado, vistas al cañón de Zion',
     description:
@@ -892,10 +480,16 @@ export const listings: Listing[] = [
     roomCount: 3,
     bathroomCount: 2,
     guestCount: 1,
-    locationValue: 'Hildale, Utah, Estados Unidos',
-    locationCoordinates: [13.4065, 52.51],
+    location: {
+      coordinates: [13.4065, 52.51],
+      country: 'United States',
+      region: 'Utah',
+      postCode: 84784,
+      place: 'Hildale',
+      street: 'Old Blewett Pass Highway',
+    },
     propertyArea: 320,
-    userId: {
+    user: {
       createdAt: '',
       updatedAt: '',
       email: 'user2@example.com',

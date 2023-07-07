@@ -1,43 +1,41 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { listings } from 'src/app/mocks/listings';
+import { ListingsService } from 'src/app/services/listings.service';
 import { Listing } from 'src/app/types/listing';
 
 @Component({
   selector: 'app-listings',
   templateUrl: './listings.component.html',
-  styleUrls: ['./listings.component.css']
+  styleUrls: ['./listings.component.css'],
 })
 export class ListingsComponent {
+  @ViewChild('listingInfo', { static: false })
+  listingInfoSection?: ElementRef<HTMLDivElement>;
 
-  @ViewChild('listingInfo', { static: false }) listingInfoSection?: ElementRef<HTMLDivElement>;
-
-
-  listingId: string = "";
   listing?: Listing;
-  listingImages: string[] = [];
   showListingNavbar: boolean = false;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private listingsService: ListingsService
+  ) {
     this.route.params.subscribe(async (param) => {
-      this.listingId = param['id'];
+      this.listingsService.getListingById(param['id']).subscribe((listing) => {
+        this.listing = listing;
+      });
     });
-
-    this.listingImages = [...Array(10).entries()].map((_, i) => `assets/images/${i + 1}.webp`);
-    this.listing = listings[0];
-
   }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-
     const listingInfoSectionElement = this.listingInfoSection?.nativeElement;
 
     if (!listingInfoSectionElement) return;
 
-    if (window.scrollY >= listingInfoSectionElement.offsetTop) { this.showListingNavbar = true; }
-    else { this.showListingNavbar = false; }
-
+    if (window.scrollY >= listingInfoSectionElement.offsetTop) {
+      this.showListingNavbar = true;
+    } else {
+      this.showListingNavbar = false;
+    }
   }
-
 }
