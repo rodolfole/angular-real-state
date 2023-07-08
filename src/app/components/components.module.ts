@@ -48,10 +48,8 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
 
 @NgModule({
   declarations: [
-    ContainerComponent,
     EmptyStateComponent,
     NavbarComponent,
-    LogoComponent,
     SearchComponent,
     UserMenuComponent,
     AvatarComponent,
@@ -76,7 +74,9 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
   ],
   imports: [
     AgentAvatarComponent,
+    ContainerComponent,
     CommonModule,
+    LogoComponent,
     RouterModule,
     DateFnsModule,
     SafeUserPipe,

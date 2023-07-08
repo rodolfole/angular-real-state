@@ -10,7 +10,7 @@ export class NavbarComponent {
   @ViewChild('navbar', { static: false }) navbar?: ElementRef<HTMLElement>;
 
   currentPage: string = '';
-  isValidPage: boolean = true;
+  hideNavbar: boolean = true;
   isScrolling: boolean = false;
 
   constructor(private router: Router) {
@@ -20,7 +20,7 @@ export class NavbarComponent {
       }
 
       if (event instanceof ActivationEnd) {
-        this.isValidPage = event.snapshot.data['pageNotFound'] !== true;
+        this.hideNavbar = event.snapshot.data['hideNavbar'] || false;
       }
     });
   }

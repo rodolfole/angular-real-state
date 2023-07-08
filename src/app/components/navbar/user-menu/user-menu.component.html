@@ -1,6 +1,6 @@
 <div class="relative">
   <div class="flex flex-row items-center gap-3">
-    <button (click)="(onSell)" class="
+    <button (click)="onSell()" class="
       hidden 
       md:block 
       text-sm 
@@ -66,7 +66,7 @@
         <app-menu-item label="My favorites" routerLink="/favorites"></app-menu-item>
         <app-menu-item label="My reservations" routerLink="/reservations"></app-menu-item>
         <app-menu-item label="My properties" routerLink="/properties"></app-menu-item>
-        <app-menu-item label="Airbnb your home" [onClick]="onSell"></app-menu-item>
+        <app-menu-item label="Sell your home" [onClick]="onSell"></app-menu-item>
         <hr />
         <app-menu-item label="Logout" [onClick]="handleSignOut"></app-menu-item>
       </ng-container>

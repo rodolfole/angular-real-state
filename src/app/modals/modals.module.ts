@@ -14,7 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ComponentsModule,
     ModalComponent,
     FormsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule
+  ],
   exports: [
     ModalComponent,
     RegisterModalComponent,

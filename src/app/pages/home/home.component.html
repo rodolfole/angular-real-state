@@ -24,7 +24,7 @@
 </app-container>
 
 <ng-template #skeleton>
-  <ngx-skeleton-loader appearance="custom-content" *ngFor="let item of [].constructor(20); let i = index">
+  <ngx-skeleton-loader appearance="custom-content" *ngFor="let item of [].constructor(4); let i = index">
     <div class="flex flex-col gap-2 w-full">
       <div class="group aspect-square overflow-clip rounded-xl w-full mb-3 h-72 bg-black/10"></div>
       <div class="flex flex-col gap-2">
@@ -36,8 +36,9 @@
   </ngx-skeleton-loader>
 </ng-template>
 
-<app-mapbox [ngClass]="{ hidden: !isDrawerOpen }" class="relative pt-[calc(81.6px+80.8px)] w-full flex items-center h-screen"
-  [listings]="listings" [isDrawerOpen]="isDrawerOpen"></app-mapbox>
+<app-mapbox [ngClass]="{ hidden: !isDrawerOpen }"
+  class="relative pt-[calc(81.6px+80.8px)] w-full flex items-center h-screen" [listings]="listings"
+  [isDrawerOpen]="isDrawerOpen"></app-mapbox>
 
 <ng-template #toogleDrawerBtn let-icon let-label="label">
   <div class="flex w-full justify-center items-center fixed bottom-7 left-0 z-50 pointer-events-none">

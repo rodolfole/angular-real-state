@@ -1,4 +1,5 @@
 import { Component, HostListener, TemplateRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OutsideClickDirective } from 'src/app/directives/outside-click.directive';
 import { LoginModalComponent } from 'src/app/modals/login-modal/login-modal.component';
@@ -23,7 +24,9 @@ export class UserMenuComponent {
 
   constructor(
     private modalService: ModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.getCurrentUser();
     this.getUserFromEmitter();
@@ -44,7 +47,21 @@ export class UserMenuComponent {
   };
 
   onSell = () => {
-    this.toggleOpen();
+    const isLoggedIn = !!this.authService.getCurrentUser();
+
+    if (!isLoggedIn) {
+      this.router.navigate(['/become-an-agent'], {
+        relativeTo: this.route
+      });
+    } else {
+      this.modalService.setModalData({
+        component: LoginModalComponent,
+        title: 'Login',
+        data: { loginAction: 'Login' },
+        maxWidth: "max-w-[600px]",
+        enableClose: true
+      });
+    }
   };
 
   handleSignOut = () => {
