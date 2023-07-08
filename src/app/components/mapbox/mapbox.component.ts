@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ListingCardComponent } from '../listings/listing-card/listing-card.component';
 import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { Listing } from 'src/app/types/listing';
-import { Subscription } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
@@ -27,14 +27,16 @@ export class MapboxComponent {
   @Input() listings: Listing[] = [];
   @Input() isDrawerOpen: boolean = false;
 
-  data: GeoJSON.FeatureCollection | undefined;
+  $categoryEmiterSubscription?: Subscription;
+
+  data: GeoJSON.FeatureCollection | undefined = undefined;
   form: FormGroup;
   fitBounds: LngLatBoundsLike | undefined;
   fitBoundsOptions = { padding: 40, duration: 0 }; // 4000
+  isLoading: boolean = true;
   selectedListing: GeoJSON.Feature<GeoJSON.Point, GeoJSON.GeoJsonProperties> | null = null;
   selectedListingCoordinates: [number, number] = [0, 0];
   clusterProperties: object | undefined;
-  $categoryEmiterSubscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -46,17 +48,13 @@ export class MapboxComponent {
     this.filterListingsByCategory();
   }
 
-  ngOnInit(): void {
-    this.getFormatedListings();
-    this.getClusterProperties();
-  }
-
   ngOnDestroy(): void {
     this.$categoryEmiterSubscription?.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isDrawerOpen'] && this.isDrawerOpen) {
+      this.isDrawerOpen = changes['isDrawerOpen'].currentValue;
       this.centerMapIntoBounds();
     }
   }
@@ -174,11 +172,17 @@ export class MapboxComponent {
   }
 
   filterListingsByCategory() {
-    this.$categoryEmiterSubscription = this.listinsgService.emitFilterCategory.subscribe((category) => {
-      this.listings = [...this.listings.filter(listing => listing.category === category)];
-      this.getFormatedListings();
-      this.centerMapIntoBounds();
-    });
+    this.$categoryEmiterSubscription =
+      this.listinsgService.emitFilterCategory.subscribe(async ({ isLoading, listings }) => {
+
+        if (listings) {
+          this.listings = [...listings];
+          this.getFormatedListings();
+          this.centerMapIntoBounds();
+        }
+
+        this.isLoading = isLoading;
+      });
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
@@ -31,14 +32,14 @@ export class CategoryBoxComponent {
     }
   }
 
-  fliterByCategory = (category: string) => {
+  fliterByCategory = async (category: string) => {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { tab_id: category },
       queryParamsHandling: "merge"
     });
 
-    this.listingService.emitFilterCategory.emit(category);
+    this.listingService.filterListingsByCategory(category);
   }
 
 }

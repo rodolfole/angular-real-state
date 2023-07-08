@@ -1,3 +1,21 @@
+<div *ngIf="isLoading" class="
+    absolute 
+    top-[190px] 
+    flex 
+    items-center 
+    justify-center 
+    space-x-2 
+    bg-white
+    px-4
+    py-3
+    shadow-lg
+    left-[calc(50%-(72px/2))]
+    rounded-lg">
+    <div class="w-2 h-2 bg-black/70 rounded-full animate-bounce animate-duration-[300ms]"></div>
+    <div class="w-2 h-2 bg-black/70 rounded-full animate-bounce animate-delay-100 animate-duration-[300ms]"></div>
+    <div class="w-2 h-2 bg-black/70 rounded-full animate-bounce animate-delay-200 animate-duration-[300ms]"></div>
+</div>
+
 <ng-container *ngIf="data">
     <mgl-map class="h-full w-full" [style]="style" [attributionControl]="false" [minZoom]="1" [fitBounds]="fitBounds"
         [fitBoundsOptions]="fitBoundsOptions">

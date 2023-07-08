@@ -2,14 +2,13 @@
   flex 
   flex-col 
   gap-2 
-  h-[60vh]
+  h-screen
   items-center 
   justify-center
-  pt-56
 ">
     <app-heading [center]="true" [title]="title" [subtitle]="subtitle" />
     <div class="w-48 mt-4">
-        <app-button *ngIf="showReset" label="Remove all filters" [routerLink]="['/']" [outline]="true" (onClick)="this.clicked.emit('RESET')">
+        <app-button label="Remove all filters" [routerLink]="['/']" [outline]="true" (onClick)="handleResetCategories()">
         </app-button>
     </div>
 </div>

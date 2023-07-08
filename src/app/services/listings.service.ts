@@ -2,7 +2,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, lastValueFrom, map, throwError } from 'rxjs';
 
 import { Listing } from '../types/listing';
 import { environment } from '../../environments/environment';
@@ -13,17 +13,17 @@ export interface IListingsParams {
 }
 
 export interface ListingsByCategory {
-  listings: Listing[];
-  category: string;
+  listings?: Listing[];
+  isLoading: boolean;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class ListingsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  public emitFilterCategory: EventEmitter<string> = new EventEmitter();
+  public emitFilterCategory: EventEmitter<ListingsByCategory> = new EventEmitter();
 
   getListings(params?: IListingsParams): Observable<Listing[]> {
     const url = `${environment.URI}/api/listings`;
@@ -45,5 +45,11 @@ export class ListingsService {
         return throwError(() => err);
       })
     );
+  }
+
+  async filterListingsByCategory(category: string) {
+    this.emitFilterCategory.emit({ isLoading: true });
+    const newListingsByCategory = await lastValueFrom(this.getListings({ category }));
+    this.emitFilterCategory.emit({ isLoading: false, listings: newListingsByCategory });
   }
 }

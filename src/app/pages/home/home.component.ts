@@ -4,7 +4,7 @@ import { Listing } from 'src/app/types/listing';
 import { ListingsService } from 'src/app/services/listings.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +31,7 @@ export class HomeComponent {
     this.getListingsByCategory();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.$categoryEmiterSubscription?.unsubscribe();
@@ -49,14 +49,10 @@ export class HomeComponent {
 
   getListingsByCategory() {
     this.$categoryEmiterSubscription =
-      this.listinsgService.emitFilterCategory.subscribe((category) => {
-        this.listinsgService.getListings({ category }).subscribe((listings) => {
-          this.listings = listings;
-        });
-        this.listings = [
-          ...this.listings.filter((listing) => listing.category === category),
-        ];
-        this.isLoading = false;
+      this.listinsgService.emitFilterCategory.subscribe(async ({ isLoading, listings }) => {
+        if (listings) this.listings = [...listings];
+        this.isLoading = isLoading;
+
         this.changeDetector.detectChanges();
       });
   }

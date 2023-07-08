@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
   selector: 'app-empty-state',
@@ -7,9 +8,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class EmptyStateComponent {
 
-  @Input() showReset?: boolean;
   @Input() subtitle?: string = "Try changing or removing some of your filters.";
   @Input() title?: string = "No exact matches";
-  @Output() clicked = new EventEmitter<string>();
+
+  constructor(private listingService: ListingsService) { }
+
+  handleResetCategories = () => {
+    this.listingService.filterListingsByCategory('House');
+  }
 
 }
