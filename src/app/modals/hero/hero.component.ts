@@ -3,6 +3,12 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
 import { SwiperComponent } from 'src/app/components/swiper/swiper.component';
 import { ModalService } from 'src/app/services/modal.service';
 
+export interface HeroDialogData {
+  heroImages: string[];
+  initialSwiperSlide: number;
+}
+
+
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
@@ -13,13 +19,12 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class HeroComponent {
 
-  @Input() heroImages: string[] = [];
-  @Input() initialSwiperSlide: number = 0;
+  @Input() data?: HeroDialogData;
 
   constructor(private modalService: ModalService) { }
 
   handleClose = () => {
-    this.modalService.setShowModal({ showModal: false, content: null });
+    this.modalService.toggleModal.emit(false);
   }
 
 }

@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input, TemplateRef } from '@angular/core';
+import { HeroComponent } from 'src/app/modals/hero/hero.component';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -13,8 +14,7 @@ export class ListingHeroComponent {
 
   isOpen: boolean = false;
   heroImagesList: string[] = [];
-  initialSwiperSlide: number = 0;
-
+  
   constructor(
     private changeDetector: ChangeDetectorRef,
     private modalService: ModalService
@@ -29,9 +29,15 @@ export class ListingHeroComponent {
     this.isOpen = !this.isOpen;
   }
 
-  handleHeroModal = (heroModalRef: TemplateRef<HTMLElement> | null, index: number = 0) => {
+  handleHeroModal = (index: number = 0) => {
     this.toggleOpen();
-    this.initialSwiperSlide = index;
-    this.modalService.setShowModal({ showModal: true, content: heroModalRef, isExpanded: true });
+    this.modalService.setModalData({
+      component: HeroComponent,
+      title: '',
+      data: { heroImages: this.heroImagesList, initialSwiperSlide: index },
+      maxWidth: "max-w-full",
+      enableClose: true,
+      isExpanded: true
+    });
   }
 }

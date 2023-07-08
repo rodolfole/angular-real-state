@@ -20,7 +20,7 @@
     " [ngClass]="{
         'opacity-100 pointer-events-auto': show
     }">
-    <app-container maxWidth="xl:px-40 md:px-20" [expandHeight]="true">
+    <app-container maxWidth="xl:px-40 md:px-20 flex" [expandHeight]="true" [ngClass]="{'hidden': !show}">
         <ul class="flex gap-6 items-center text-brown-950 font-medium text-base h-20 max-md:hidden">
             <li class="
                 flex
@@ -71,6 +71,7 @@
                 Location
             </li>
         </ul>
-        <app-listing-actions class="flex justify-end items-center h-full w-full" [isMobile]="true"></app-listing-actions>
+        <app-listing-actions class="flex justify-end items-center h-full w-full"
+            [isMobile]="true"></app-listing-actions>
     </app-container>
 </nav>

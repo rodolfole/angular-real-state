@@ -1,8 +1,5 @@
 <div class="flex flex-col flex-1 gap-3">
-  <p
-    class="font-semibold"
-    [ngClass]="isSticky ? 'font-mayennesans text-2xl' : 'text-xl'"
-  >
+  <p class="font-semibold" [ngClass]="isSticky ? 'font-mayennesans text-2xl' : 'text-xl'">
     Contact details
   </p>
   <span>{{ agentInfo?.phone }}</span>
@@ -14,17 +11,6 @@
     <app-icon-button icon="fab fa-facebook-f"></app-icon-button>
   </div>
   <div class="max-w-xs">
-    <app-button
-      label="Contact Agent"
-      (click)="handleClick(contactModalRef, loginModal)"
-    ></app-button>
+    <app-button label="Contact Agent" (click)="handleOpenModal()"></app-button>
   </div>
 </div>
-
-<ng-template #contactModalRef>
-  <app-contact [agent]="agentInfo"></app-contact>
-</ng-template>
-
-<ng-template #loginModal>
-  <app-login-modal class="h-full" loginAction="Login"></app-login-modal>
-</ng-template>

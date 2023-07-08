@@ -1,62 +1,83 @@
-import { Component, TemplateRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ModalContentDirective } from 'src/app/directives/modal-content.directive';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-modal',
+  standalone: true,
+  imports: [CommonModule, ModalContentDirective],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
 
-  // @Output() getModalAction: EventEmitter<LoginAction> = new EventEmitter<LoginAction>();
-  $showModalSub: Subscription | null = null;
+  @ViewChild(ModalContentDirective, { static: true }) modalContent!: ModalContentDirective;
 
+  modalDataSubscription$?: Subscription;
+  closeModalSubscription$?: Subscription;
+
+  title: string = "";
   showModal: boolean = false;
-  isOpen: boolean = false;
-  isExpanded?: boolean;
-  autoSize?: boolean;
-  content: TemplateRef<any> | null = null;
+  maxWidth: string = "max-sm:max-w-[95%] max-w-[80%] lg:max-w-[800px]";
+  closeOnBackdropClick?: boolean = false;
+  isExpanded?: boolean = false;
 
-  documentHtml: HTMLElement | null = null;
   documentBody: HTMLElement | null = null;
 
   constructor(private modalService: ModalService) {
-    this.documentHtml = document.querySelector('html');
     this.documentBody = document.querySelector('body');
+  }
 
-    this.$showModalSub = this.modalService
-      .getShowModal()
-      .subscribe(({ showModal, isExpanded, autoSize, content }) => {
-
-        if (showModal) {
-          this.documentHtml?.classList.add('overflow-clip');
-          this.documentBody?.classList.add('overflow-clip');
-        }
-        else return this.handleClose();
-
-        this.isOpen = true;
-        this.content = content;
-        this.showModal = showModal;
-        this.isExpanded = isExpanded;
-        this.autoSize = autoSize;
-      });
+  ngOnInit(): void {
+    this.loadModalContent();
+    this.closeModal();
   }
 
   ngOnDestroy(): void {
-    this.documentHtml?.classList.remove('overflow-clip');
-    this.documentBody?.classList.remove('overflow-clip');
-    this.$showModalSub?.unsubscribe();
+    this.modalDataSubscription$?.unsubscribe();
+    this.closeModalSubscription$?.unsubscribe();
   }
 
-  handleClose = () => {
-    this.showModal = false;
-    setTimeout(() => {
-      this.isOpen = false;
-      this.documentHtml?.classList.remove('overflow-clip');
-      this.documentBody?.classList.remove('overflow-clip');
-      this.content = null;
-    }, 300);
-  };
+  closeModal() {
+    this.closeModalSubscription$ = this.modalService.toggleModal.subscribe((isShowing) => {
+      if (!isShowing) this.showModal = false;
+    });
+  }
+
+  loadModalContent() {
+    this.modalDataSubscription$ = this.modalService.getModalData().subscribe(({
+      title,
+      component,
+      data,
+      enableClose,
+      maxWidth,
+      isExpanded
+    }) => {
+
+      this.hangleOverflow();
+      this.title = title;
+      this.closeOnBackdropClick = enableClose;
+      this.isExpanded = isExpanded;
+
+      if (maxWidth) this.maxWidth = maxWidth;
+
+      const viewContainerRef = this.modalContent.viewContainerRef;
+      viewContainerRef.clear();
+
+      const componentRef = viewContainerRef.createComponent<any>(component);
+      this.showModal = true;
+      componentRef.instance.data = data;
+    })
+  }
+
+  hangleOverflow() {
+    this.documentBody?.classList.add('overflow-clip');
+  }
+
+  handleClose() {
+    this.modalService.toggleModal.emit(false);
+  }
 
 }

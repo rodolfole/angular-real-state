@@ -17,12 +17,12 @@
             hover:bg-brown-100/90
             active:scale-95
             z-10
-            " (click)="handleHeroModal(heroModal)">
+            " (click)="handleHeroModal()">
             <app-logo logoSize="h-6 w-6" logoColor="text-800"></app-logo>
             <span class="font-semibold">View all photos</span>
         </button>
-        <button class="group max-h-[50vh] min-h-[350px] h-full w-full max-w-full overflow-hidden rounded-xl"
-            (click)="handleHeroModal(heroModal, 0)">
+        <button class="group h-full max-h-[360px] lg:max-h-[370px] 3xl:max-h-[390px] w-full max-w-full overflow-hidden rounded-xl"
+            (click)="handleHeroModal(0)">
             <img class="
             w-full 
             h-full 
@@ -33,8 +33,8 @@
             group-hover:brightness-75
             " [src]="images[0]" alt="main-hero-img" width="100%%" height="auto">
         </button>
-        <button class="w-full max-w-full h-full group overflow-hidden rounded-xl max-lg:hidden"
-            (click)="handleHeroModal(heroModal, 1)">
+        <button class="w-full max-w-full h-full max-h-[360px] lg:max-h-[370px] 3xl:max-h-[390px] group overflow-hidden rounded-xl max-lg:hidden"
+            (click)="handleHeroModal(1)">
             <img class="
             w-full 
             h-full 
@@ -53,14 +53,9 @@
             'max-md:hidden': i === 5 || i === 4,
             'max-sm:hidden': i === 5 || i === 4 || i === 3,
         }" *ngFor="let image of heroImagesList; let i = index" (click)="
-            handleHeroModal(heroModal, i + 2)">
+            handleHeroModal(i + 2)">
             <img class=" h-full object-cover transition w-full group-hover:brightness-75
             group-hover:scale-110 " [src]=" image" alt="list-hero-img" width="400px" height="300px">
         </button>
     </div>
 </section>
-
-<ng-template #heroModal>
-    <app-hero class="h-full max-w-[100vw] max-h-screen" [heroImages]="images" [initialSwiperSlide]="initialSwiperSlide">
-    </app-hero>
-</ng-template>

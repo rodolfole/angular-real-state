@@ -1,5 +1,8 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, HostListener, TemplateRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { OutsideClickDirective } from 'src/app/directives/outside-click.directive';
+import { LoginModalComponent } from 'src/app/modals/login-modal/login-modal.component';
+import { RegisterModalComponent } from 'src/app/modals/register-modal/register-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginAction, ModalService } from 'src/app/services/modal.service';
 import { SafeUser } from 'src/app/types';
@@ -10,6 +13,9 @@ import { SafeUser } from 'src/app/types';
   styleUrls: ['./user-menu.component.css'],
 })
 export class UserMenuComponent {
+
+  @ViewChild(OutsideClickDirective) outsideClickDirective?: OutsideClickDirective;
+
   userFromEmitterSubscription$?: Subscription;
   currentUser?: SafeUser | null = null;
   isOpen: boolean = false;
@@ -23,6 +29,12 @@ export class UserMenuComponent {
     this.getUserFromEmitter();
   }
 
+  @HostListener('window:scroll', ['$event'])
+  getScrollHeight() {
+    if (window.scrollY > 0 && this.isOpen)
+      this.isOpen = false;
+  }
+
   ngOnDestroy(): void {
     this.userFromEmitterSubscription$?.unsubscribe();
   }
@@ -31,19 +43,26 @@ export class UserMenuComponent {
     this.isOpen = !this.isOpen;
   };
 
-  onSell = () => {};
+  onSell = () => {
+    this.toggleOpen();
+  };
 
   handleSignOut = () => {
     this.authService.logout();
   };
 
-  handleloginModal = (
-    loginModalRef: TemplateRef<HTMLElement> | null,
-    loginAction: LoginAction
-  ) => {
+  handleloginModal = (loginAction: LoginAction) => {
     this.toggleOpen();
     this.loginAction = loginAction;
-    this.modalService.setShowModal({ showModal: true, content: loginModalRef });
+
+    this.modalService.setModalData({
+      component: loginAction === 'Login' ? LoginModalComponent : RegisterModalComponent,
+      title: loginAction,
+      data: { loginAction },
+      maxWidth: "max-w-[600px]",
+      enableClose: true
+    });
+
   };
 
   getLoginAction = (): LoginAction => {
@@ -61,5 +80,13 @@ export class UserMenuComponent {
         this.currentUser = user;
       }
     );
+  }
+
+  preventCloseOnClick() {
+    this.outsideClickDirective?.preventCloseOnClick();
+  }
+
+  showMenu(isVisible?: boolean) {
+    this.outsideClickDirective?.showMenu(isVisible);
   }
 }

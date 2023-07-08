@@ -13,6 +13,11 @@ import { HeadingComponent } from 'src/app/components/heading/heading.component';
 import { InputComponent } from 'src/app/components/Inputs/input/input.component';
 import { AuthService } from 'src/app/services/auth.service';
 
+export interface LoginDialogData {
+  loginAction?: LoginAction;
+}
+
+
 @Component({
   selector: 'app-login-modal',
   templateUrl: './login-modal.component.html',
@@ -27,11 +32,10 @@ import { AuthService } from 'src/app/services/auth.service';
   standalone: true,
 })
 export class LoginModalComponent {
-  isLoading: boolean = false;
-  errors: boolean = false;
-  @Input() getLoginAction?: () => LoginAction | void = () => {};
-  @Input() loginAction?: LoginAction;
 
+  @Input() data?: LoginDialogData;
+  
+  errors: boolean = false;
   form: FormGroup;
 
   constructor(
@@ -40,31 +44,18 @@ export class LoginModalComponent {
     private modalService: ModalService,
     private authService: AuthService
   ) {
-    this.form = this.fb.group({
-      name: [{ value: '', disabled: false }],
-      email: [
-        { value: '', disabled: false },
-        [Validators.required, Validators.email],
-      ],
-      password: [{ value: '', disabled: false }, Validators.required],
-    });
+    this.form = this.initForm();
   }
 
-  ngOnInit(): void {}
-
   handleClose = () => {
-    this.modalService.setShowModal({ showModal: false, content: null });
+    this.modalService.toggleModal.emit(false);
   };
 
   handleSubmit = () => {
     this.form.disable();
 
-    if (
-      this.getLoginAction?.() === 'Register' ||
-      this.loginAction === 'Register'
-    ) {
+    if (this.data?.loginAction === 'Register') {
       this.userService.registerUser(this.form.value).subscribe((resp) => {
-        console.log('enviado a service', resp);
         this.handleClose();
       });
     } else {
@@ -76,10 +67,21 @@ export class LoginModalComponent {
     }
   };
 
+  initForm(): FormGroup {
+    return this.fb.group({
+      name: [{ value: '', disabled: false }],
+      email: [
+        { value: '', disabled: false },
+        [Validators.required, Validators.email],
+      ],
+      password: [{ value: '', disabled: false }, Validators.required],
+    });
+  }
+
   onToggle() {
     // loginModal.onClose();
     // registerModal.onOpen();
   }
 
-  signIn = (action?: string) => {};
+  signIn = (action?: string) => { };
 }

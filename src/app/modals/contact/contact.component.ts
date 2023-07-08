@@ -49,8 +49,8 @@ export class ContactComponent {
   }
 
   handleClose = () => {
-    this.modalService.setShowModal({ showModal: false, content: null });
-  };
+    this.modalService.toggleModal.emit(false);
+  }
 
   handleSubmit = () => {
     if (this.authService.getCurrentUser())

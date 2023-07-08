@@ -42,10 +42,6 @@
   </div>
   <app-button
     label="Contact Agent"
-    (click)="handleClick(contactModalRef)"
+    (click)="handleClick()"
   ></app-button>
 </app-sticky-card>
-
-<ng-template #contactModalRef>
-  <app-contact [agent]="listing!.user"></app-contact>
-</ng-template>

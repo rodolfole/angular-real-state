@@ -13,8 +13,8 @@
         <i class="fa fa-xmark fa-xl"></i>
     </button>
     <app-swiper class="h-full" customClasses="group relative w-full h-full mb-3" [centeredSlides]="true"
-        [expandedControls]="true" [slidesPerView]="1" [slides]="heroImages" [initialSlide]="initialSwiperSlide">
-        <swiper-slide class="w-full h-[86vh] md:h-[84vh] flex justify-center items-center" *ngFor="let slide of heroImages">
+        [expandedControls]="true" [slidesPerView]="1" [slides]="data!.heroImages" [initialSlide]="data!.initialSwiperSlide">
+        <swiper-slide class="w-full h-[86vh] md:h-[84vh] flex justify-center items-center" *ngFor="let slide of data!.heroImages">
             <img class="
                 mx-auto
                 max-h-[86vh] 
