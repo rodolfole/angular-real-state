@@ -56,7 +56,6 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
     MenuItemComponent,
     ToasterComponent,
     CategoriesComponent,
-    CategoryBoxComponent,
     AgentTagComponent,
     ListingActionsComponent,
     ListingHeroComponent,
@@ -74,6 +73,7 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
   ],
   imports: [
     AgentAvatarComponent,
+    CategoryBoxComponent,
     ContainerComponent,
     CommonModule,
     LogoComponent,

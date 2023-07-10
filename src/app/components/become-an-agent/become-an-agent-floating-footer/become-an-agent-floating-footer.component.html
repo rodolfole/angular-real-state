@@ -1,0 +1,45 @@
+<section class="flex flex-col w-full fixed bottom-0 left-0">
+    <div class="flex w-full bg-neutral-200 h-[6px]"></div>
+    <app-container class="block w-full bg-white">
+        <div class="flex items-center justify-between w-full h-20">
+            <div [ngClass]="{'cursor-not-allowed': currentRoute === 'about-your-home'}">
+                <button class="
+                    rounded-xl 
+                    py-3 
+                    px-5 
+                    text-zinc-900 
+                    font-semibold 
+                    w-full 
+                    max-w-[150px]
+                    hover:bg-neutral-100
+                    active:scale-95
+                    transition
+                    duration-200
+                    underline
+                " [ngClass]="{'pointer-events-none opacity-50': currentRoute === 'about-your-home'}"
+                    (click)="handleStep(false)">
+                    Back
+                </button>
+            </div>
+            <div [ngClass]="{'cursor-not-allowed': currentRoute === 'publish'}">
+                <button class="
+                    rounded-xl 
+                    py-3 
+                    px-5 
+                    bg-zinc-900 
+                    text-white 
+                    font-semibold 
+                    w-full 
+                    max-w-[150px]
+                    hover:bg-zinc-700
+                    active:scale-95
+                    transition
+                    duration-200
+                    " [ngClass]="{'pointer-events-none opacity-50': currentRoute === 'publish'}"
+                    (click)="handleStep(true)">
+                    Next
+                </button>
+            </div>
+        </div>
+    </app-container>
+</section>

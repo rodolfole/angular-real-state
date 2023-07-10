@@ -1,18 +1,21 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
 import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
   selector: 'app-category-box',
   templateUrl: './category-box.component.html',
-  styleUrls: ['./category-box.component.css']
+  styleUrls: ['./category-box.component.css'],
+  imports: [CommonModule,],
+  standalone: true
 })
 export class CategoryBoxComponent {
 
   @Input() icon: string | null = null;
   @Input() label: string | null = null;
   @Input() selectedTab?: string;
+  @Input() disabled?: boolean;
 
   params: any = "";
 
@@ -33,6 +36,7 @@ export class CategoryBoxComponent {
   }
 
   fliterByCategory = async (category: string) => {
+    if (this.disabled) return;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { tab_id: category },
