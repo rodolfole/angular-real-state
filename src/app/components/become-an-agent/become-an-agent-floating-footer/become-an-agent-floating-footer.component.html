@@ -21,7 +21,7 @@
                     Back
                 </button>
             </div>
-            <div [ngClass]="{'cursor-not-allowed': currentRoute === 'publish'}">
+            <div [ngClass]="{'cursor-not-allowed': currentRoute === 'publish' || !isFormValid}">
                 <button class="
                     rounded-xl 
                     py-3 
@@ -35,7 +35,7 @@
                     active:scale-95
                     transition
                     duration-200
-                    " [ngClass]="{'pointer-events-none opacity-50': currentRoute === 'publish'}"
+                    " [ngClass]="{'pointer-events-none opacity-50': currentRoute === 'publish' || !isFormValid}"
                     (click)="handleStep(true)">
                     Next
                 </button>

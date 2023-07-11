@@ -10,7 +10,7 @@ interface QueryListing {
 
 @Injectable()
 export class ListingService {
-  constructor(private readonly _prismaService: PrismaService) {}
+  constructor(private readonly _prismaService: PrismaService) { }
 
   async create({ location, ...listing }: ListingDto, userId: string) {
     return await this._prismaService.listing.create({
@@ -39,7 +39,7 @@ export class ListingService {
         ...(category ? { category } : {}),
         ...(userId ? { userId } : {}),
       },
-      include: { location: true, user: true },
+      include: { location: true, user: true, features: true },
     });
   }
 }

@@ -87,7 +87,7 @@
           >
             <use href="../../../../assets/icons/bed.svg#bed"></use>
           </svg>
-          <div>{{ data!.roomCount }}</div>
+          <div>{{ data!.features.roomCount }}</div>
         </div>
         <div class="flex flex-row items-center gap-2 text-brown-600">
           <svg
@@ -97,7 +97,7 @@
           >
             <use href="../../../../assets/icons/tub.svg#tub"></use>
           </svg>
-          <div>{{ data!.bathroomCount }}</div>
+          <div>{{ data!.features.bathroomCount }}</div>
         </div>
         <div class="flex flex-row items-center gap-2 text-brown-600">
           <svg
@@ -107,7 +107,7 @@
           >
             <use href="../../../../assets/icons/home.svg#home"></use>
           </svg>
-          <div>{{ data!.propertyArea }}mt<sup>2</sup></div>
+          <div>{{ data!.features.propertyArea }}mt<sup>2</sup></div>
         </div>
       </div>
       <app-button

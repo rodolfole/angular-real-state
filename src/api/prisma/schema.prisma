@@ -44,18 +44,15 @@ model User {
 
 model Listing {
   amenities     String[]
-  bathroomCount Int
   category      String
   createdAt     DateTime  @default(now())
   description   String
-  guestCount    Int
+  features      Features?
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   images        String[]
   location      Location?
   price         String
-  propertyArea  Int
   rating        Float
-  roomCount     Int
   title         String
   user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String    @db.ObjectId
@@ -71,4 +68,13 @@ model Location {
   postCode    Int
   region      String
   street      String
+}
+
+model Features {
+  bathroomCount Int
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  listing       Listing @relation(fields: [listingId], references: [id])
+  listingId     String  @unique @db.ObjectId
+  propertyArea  Int
+  roomCount     Int
 }

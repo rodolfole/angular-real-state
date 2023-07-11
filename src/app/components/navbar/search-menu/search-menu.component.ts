@@ -12,10 +12,10 @@ import { Feature } from 'src/app/services/mapbox.ts.service';
 export class SearchMenuComponent {
 
   @Input() locations: Feature[] = [];
+  @Input() customClasses?: string[] | string;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['locations'] && this.locations.length) {
-
     }
   }
 

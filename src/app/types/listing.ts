@@ -10,19 +10,20 @@ export type Location = {
 };
 
 export type Listing = {
-  createdAt: string;
-  id: string;
-  title: string;
-  description: string;
-  images: string[];
   amenities?: string[];
   category: string;
-  roomCount: number;
-  bathroomCount: number;
-  propertyArea: number;
-  guestCount: number;
+  createdAt: string;
+  description: string;
+  id: string;
+  images: string[];
   location: Location;
-  user: SafeUser;
   price: string;
   rating: number;
+  title: string;
+  user: SafeUser;
+  features: {
+    roomCount: number;
+    bathroomCount: number;
+    propertyArea: number;
+  },
 };

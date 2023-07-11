@@ -1,17 +1,29 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, HostListener, Input, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Feature, MapboxService } from 'src/app/services/mapbox.ts.service';
 import { OutsideClickDirective } from 'src/app/directives/outside-click.directive';
+import { CommonModule } from '@angular/common';
+import { SearchMenuComponent } from '../search-menu/search-menu.component';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  imports: [
+    CommonModule,
+    OutsideClickDirective,
+    SearchMenuComponent,
+    ReactiveFormsModule
+  ],
+  standalone: true
 })
 export class SearchComponent {
 
   @ViewChild(OutsideClickDirective) outsideClickDirective?: OutsideClickDirective;
+
+  @Input() placeholder: string = "Search property by location";
+  @Input() isExpanded: boolean = false;
 
   $formSubscription?: Subscription;
 
@@ -22,7 +34,8 @@ export class SearchComponent {
 
   constructor(
     private fb: FormBuilder,
-    private mapboxService: MapboxService
+    private mapboxService: MapboxService,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.form = this.initForm();
     this.handleFormChanges();
@@ -30,12 +43,16 @@ export class SearchComponent {
 
   @HostListener('window:scroll', ['$event'])
   getScrollHeight() {
-    if (window.scrollY > 0 && this.isMenuVisible)
+    if (window.scrollY > 0 && this.isMenuVisible && !this.isExpanded)
       this.isMenuVisible = false;
   }
 
+  ngOnInit(): void {
+    this.changeDetector.detectChanges();
+  }
+
   showMenu(isVisible?: boolean) {
-    this.outsideClickDirective?.showMenu(isVisible);
+    if (!!this.form.value.searchParam) this.outsideClickDirective?.showMenu(isVisible);
   }
 
   preventCloseOnClick() {

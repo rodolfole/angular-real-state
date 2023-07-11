@@ -1,7 +1,7 @@
 <div class="flex flex-col w-full">
     <app-become-an-agent-navbar></app-become-an-agent-navbar>
     <div class="w-full h-screen flex pt-20 pb-[86px] bg-white">
-        <app-container class="block w-full h-full" [expandHeight]="true">
+        <app-container class="block w-full h-full max-h-full overflow-auto" [expandHeight]="true">
             <router-outlet></router-outlet>
         </app-container>
     </div>

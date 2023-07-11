@@ -17,7 +17,7 @@
       formatPrice ? 'pl-9' : 'pl-4'
     ]" [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [required]="required" [id]="id"
     placeholder=" " [type]="type" autocomplete="" />
-  <label class="
+  <label *ngIf="label" class="
     pointer-events-none
     -translate-y-3 
     absolute 

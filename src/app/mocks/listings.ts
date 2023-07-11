@@ -17,9 +17,11 @@ export const listings: Listing[] = [
       'tv',
     ],
     category: 'Residential',
-    roomCount: 8,
-    bathroomCount: 4,
-    guestCount: 3,
+    features: {
+      roomCount: 8,
+      bathroomCount: 4,
+      propertyArea: 530,
+    },
     location: {
       coordinates: [2.2137, 46.2276],
       country: 'United States',
@@ -28,7 +30,6 @@ export const listings: Listing[] = [
       place: 'Peshastin',
       street: 'Allen Lane',
     },
-    propertyArea: 530,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -63,9 +64,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Apartment',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [12.5674, 41.8719],
       country: 'United States',
@@ -74,7 +77,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Canyon Street',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -109,9 +111,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Villa',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [14.5501, 47.5162],
       country: 'United States',
@@ -120,7 +124,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'E Government Avenue N',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -155,9 +158,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Townhouse',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [19.1451, 51.9194],
       country: 'United States',
@@ -166,7 +171,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Memorial Street',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -201,9 +205,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Townhouse',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [10.4515, 51.1657],
       country: 'United States',
@@ -212,7 +218,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'W Newel Avenue N',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -247,9 +252,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Bungalow',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [4.4699, 50.5039],
       country: 'United States',
@@ -258,7 +265,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'N Willow Street W',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -293,9 +299,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'House',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [2.3522, 48.8566],
       country: 'United States',
@@ -304,7 +312,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Pinion Street',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -339,9 +346,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Bungalow',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [27.9534, 53.7098],
       country: 'United States',
@@ -350,7 +359,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Nibbelink Road',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -385,9 +393,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Bungalow',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [24.9668, 45.9432],
       country: 'United States',
@@ -396,7 +406,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Saunders Road',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -431,9 +440,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Condominium',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [15.2, 45.1],
       country: 'United States',
@@ -442,7 +453,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Stewart Ranch Road',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',
@@ -477,9 +487,11 @@ export const listings: Listing[] = [
       'washing_machine',
     ],
     category: 'Building',
-    roomCount: 3,
-    bathroomCount: 2,
-    guestCount: 1,
+    features: {
+      roomCount: 3,
+      bathroomCount: 2,
+      propertyArea: 320,
+    },
     location: {
       coordinates: [13.4065, 52.51],
       country: 'United States',
@@ -488,7 +500,6 @@ export const listings: Listing[] = [
       place: 'Hildale',
       street: 'Old Blewett Pass Highway',
     },
-    propertyArea: 320,
     user: {
       createdAt: '',
       updatedAt: '',

@@ -50,7 +50,6 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
   declarations: [
     EmptyStateComponent,
     NavbarComponent,
-    SearchComponent,
     UserMenuComponent,
     AvatarComponent,
     MenuItemComponent,
@@ -92,7 +91,8 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
     ContactComponent,
     HeartButtonComponent,
     SearchMenuComponent,
-    OutsideClickDirective
+    OutsideClickDirective,
+    SearchComponent,
   ],
   exports: [
     InputComponent,
