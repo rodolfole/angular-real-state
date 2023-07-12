@@ -29,7 +29,7 @@ export class ListingService {
       where: {
         id: listingId,
       },
-      include: { location: true, user: true },
+      include: { location: true, user: true, features: true },
     });
   }
 

@@ -16,6 +16,7 @@ export class CategoryBoxComponent {
   @Input() label: string | null = null;
   @Input() selectedTab?: string;
   @Input() disabled?: boolean;
+  @Input() customTextColor: boolean = false;
 
   params: any = "";
 

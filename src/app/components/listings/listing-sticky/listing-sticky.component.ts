@@ -16,6 +16,11 @@ export class ListingStickyComponent {
 
   constructor(private authService: AuthService, private modalService: ModalService) { }
 
+  ngOnInit(): void {
+    console.log(this.listing);
+    
+  }
+
   handleClick = () => {
     const isLoggedIn = !!this.authService.getCurrentUser();
 

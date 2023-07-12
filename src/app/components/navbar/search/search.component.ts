@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Feature, MapboxService } from 'src/app/services/mapbox.ts.service';
@@ -24,8 +24,10 @@ export class SearchComponent {
 
   @Input() placeholder: string = "Search property by location";
   @Input() isExpanded: boolean = false;
+  @Output() location?: Feature;
 
-  $formSubscription?: Subscription;
+  formSubscription$?: Subscription;
+  handleCloseMenuSub$?: Subscription;
 
   form: FormGroup;
   locations: Feature[] = [];
@@ -39,6 +41,7 @@ export class SearchComponent {
   ) {
     this.form = this.initForm();
     this.handleFormChanges();
+    this.handleHideMenu();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -60,11 +63,19 @@ export class SearchComponent {
   }
 
   ngOnDestroy(): void {
-    this.$formSubscription?.unsubscribe();
+    this.formSubscription$?.unsubscribe();
+    this.handleCloseMenuSub$?.unsubscribe();
+  }
+
+  handleHideMenu() {
+    this.handleCloseMenuSub$ = this.mapboxService.emitSelectedLocation.subscribe(({ placeName }) => {
+      this.form.setValue({ searchParam: placeName });
+      this.isMenuVisible = false;
+    });
   }
 
   handleFormChanges() {
-    this.$formSubscription =
+    this.formSubscription$ =
       this.form.valueChanges.pipe(
         debounceTime(1000),
         distinctUntilChanged()

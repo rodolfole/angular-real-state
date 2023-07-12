@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Listing } from '../types/listing';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Listing, Location } from '../types/listing';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -42,7 +42,6 @@ export interface Context {
   text_es: string;
   language: Language;
   language_es: Language;
-
 }
 
 export enum Language {
@@ -86,10 +85,17 @@ interface SearchApiProps {
   proximity: string;
 }
 
+interface FormatedLocation {
+  location: Location,
+  placeName: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class MapboxService {
+
+  public emitSelectedLocation: EventEmitter<FormatedLocation> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -107,5 +113,22 @@ export class MapboxService {
 
     return this.http.get<PlacesResponse>(apiUrl + query + '.json', { params: params })
       .pipe(map((res: PlacesResponse) => res.features));
+  }
+
+  formatFeatureToLocation(feature: Feature): FormatedLocation {
+    const [country, region, placeAndPostCode, address] = feature.place_name!.split(",").reverse().map(elem => elem.trim());
+    const [place, postCode] = placeAndPostCode ? placeAndPostCode.match(/[^\d]+|\d+/g)!.reverse()!.map(elem => elem.trim()) : [];
+
+    return {
+      location: {
+        coordinates: feature.geometry.coordinates,
+        country,
+        region,
+        place,
+        postCode: postCode ? Number(postCode) : undefined,
+        address
+      },
+      placeName: feature.place_name!
+    }
   }
 }

@@ -17,6 +17,7 @@ export class BecomeAnAgentFloatingFooterComponent {
 
   formSubscription$?: Subscription;
   becomeAnAgentServiceSub$?: Subscription;
+  routerEventsSubscription$?: Subscription;
 
   stepsRoutes = [
     'about-your-home',
@@ -38,33 +39,29 @@ export class BecomeAnAgentFloatingFooterComponent {
   currentRoute: string = "";
 
   constructor(private router: Router, private becomeAnAgentService: BecomeAnAgentService) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = this.router.url.split('become-an-agent/')[1] || 'about-your-home';
-
-        if (!this.becomeAnAgentServiceSub$) this.checkFormsValidity();
-      }
-    });
+    this.checkFormsValidity();
   }
 
   ngOnDestroy(): void {
     this.becomeAnAgentServiceSub$?.unsubscribe();
+    this.routerEventsSubscription$?.unsubscribe();
   }
 
-  checkFormsValidity() {    
+  checkFormsValidity() {
     this.becomeAnAgentServiceSub$ = this.becomeAnAgentService.emitFilterCategory.subscribe(
-      ({ formGroupRef, stepRoute }) => {
+      ({ formGroupRef, stepRoute, isStepIntro }) => {
 
-        if (this.currentRoute === stepRoute && formGroupRef.valid) this.isFormValid = true;
+        this.currentRoute = this.router.url.split('become-an-agent/')[1] || 'about-your-home';
+
+        if (isStepIntro || (this.currentRoute === stepRoute && formGroupRef?.valid)) this.isFormValid = true;
         else this.isFormValid = false;
 
-        console.log("Hey");
-
+        // Return If "formGroupRef" is undefined
+        if (!formGroupRef || !stepRoute) return;
 
         // Unsubscribe any possible subscription in "formSubscription$" before resubscribing to incoming one
-        // setTimeout(() => this.handleFormChanges(formGroupRef, stepRoute), 10);
-
-        // this.formSubscription$?.unsubscribe();
+        this.formSubscription$?.unsubscribe();
+        this.handleFormChanges(formGroupRef, stepRoute);
       }
     );
   }
@@ -80,8 +77,6 @@ export class BecomeAnAgentFloatingFooterComponent {
       form.valueChanges.pipe(
         distinctUntilChanged()
       ).subscribe(() => {
-        console.log(form.valid);
-
         if (this.currentRoute === stepRoute && form.valid) this.isFormValid = true;
         else this.isFormValid = false;
       });

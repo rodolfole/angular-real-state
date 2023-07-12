@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from '../../navbar/search/search.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
+import { MapboxService } from 'src/app/services/mapbox.ts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-become-an-agent-location',
@@ -13,30 +15,40 @@ import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 })
 export class BecomeAnAgentLocationComponent {
 
+  getLocationSub$?: Subscription;
+
   form: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private becomeAnAgentService: BecomeAnAgentService) {
-    // this.form = this.initForm();
+  constructor(
+    private formBuilder: FormBuilder,
+    private becomeAnAgentService: BecomeAnAgentService,
+    private mapboxService: MapboxService
+  ) {
+    this.form = this.initForm();
     this.becomeAnAgentService.emitFilterCategory.emit({ formGroupRef: this.form, stepRoute: 'location' });
+    this.getSelectedLocation();
   }
 
-  // initForm(): FormGroup {
-  //   return this.formBuilder.group({
-  //     roomCount: [
-  //       {
-  //         value: 1,
-  //         disabled: false
-  //       },
-  //       Validators.required
-  //     ],
-  //     bathroomCount: [
-  //       {
-  //         value: 1,
-  //         disabled: false
-  //       },
-  //       Validators.required
-  //     ],
-  //   });
-  // }
+  ngOnDestroy(): void {
+    this.getLocationSub$?.unsubscribe();
+  }
+
+  getSelectedLocation() {
+    this.getLocationSub$ = this.mapboxService.emitSelectedLocation.subscribe(({ location }) => {
+      this.form.setValue({ location });
+    });
+  }
+
+  initForm(): FormGroup {
+    return this.formBuilder.group({
+      location: [
+        {
+          value: null,
+          disabled: false
+        },
+        Validators.required
+      ]
+    });
+  }
 
 }

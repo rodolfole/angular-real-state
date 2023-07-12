@@ -3,32 +3,6 @@
         <strong class="text-3xl font-semibold">
             Which of these options best describes your property?
         </strong>
-        <ul class="grid w-full gap-6 md:grid-cols-3">
-            <li class="flex flex-1 flex-col rounded-xl gap-2 h-24" *ngFor="let category of categories">
-                <input type="checkbox" [id]="category.label" value="" class="hidden peer" required="">
-                <label [for]="category.label" class="
-                    flex 
-                    flex-col 
-                    items-center 
-                    justify-center 
-                    w-full 
-                    h-full
-                    p-5 
-                    border
-                    border-neutral-200 
-                    rounded-lg 
-                    cursor-pointer 
-                    transition
-                    active:scale-95
-                    peer-checked:border-brown-800
-                    peer-checked:border-2
-                    hover:bg-neutral-100">
-                    <div class="block">
-                        <app-category-box [label]="category.label" [icon]="category.icon"
-                            [disabled]="true"></app-category-box>
-                    </div>
-                </label>
-            </li>
-        </ul>
+        <app-checkbox-group [formGroupRef]="form" checkboxElementName="category"></app-checkbox-group>
     </div>
 </section>

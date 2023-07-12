@@ -28,7 +28,7 @@ export const listings: Listing[] = [
       region: 'Washington',
       postCode: 98847,
       place: 'Peshastin',
-      street: 'Allen Lane',
+      address: 'Allen Lane',
     },
     user: {
       createdAt: '',
@@ -75,7 +75,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Canyon Street',
+      address: 'Canyon address',
     },
     user: {
       createdAt: '',
@@ -108,7 +108,7 @@ export const listings: Listing[] = [
       'security_box',
       'security_camera',
       'tv',
-      'washing_machine',
+      'washing_machine'
     ],
     category: 'Villa',
     features: {
@@ -122,7 +122,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'E Government Avenue N',
+      address: 'E Government Avenue N',
     },
     user: {
       createdAt: '',
@@ -169,7 +169,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Memorial Street',
+      address: 'Memorial address',
     },
     user: {
       createdAt: '',
@@ -216,7 +216,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'W Newel Avenue N',
+      address: 'W Newel Avenue N',
     },
     user: {
       createdAt: '',
@@ -263,7 +263,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'N Willow Street W',
+      address: 'N Willow address W',
     },
     user: {
       createdAt: '',
@@ -310,7 +310,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Pinion Street',
+      address: 'Pinion address',
     },
     user: {
       createdAt: '',
@@ -357,7 +357,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Nibbelink Road',
+      address: 'Nibbelink Road',
     },
     user: {
       createdAt: '',
@@ -404,7 +404,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Saunders Road',
+      address: 'Saunders Road',
     },
     user: {
       createdAt: '',
@@ -451,7 +451,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Stewart Ranch Road',
+      address: 'Stewart Ranch Road',
     },
     user: {
       createdAt: '',
@@ -498,7 +498,7 @@ export const listings: Listing[] = [
       region: 'Utah',
       postCode: 84784,
       place: 'Hildale',
-      street: 'Old Blewett Pass Highway',
+      address: 'Old Blewett Pass Highway',
     },
     user: {
       createdAt: '',

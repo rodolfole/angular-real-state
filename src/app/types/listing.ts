@@ -3,10 +3,10 @@ import { SafeUser } from './index';
 export type Location = {
   coordinates: number[];
   country: string;
-  region: string;
-  postCode: number;
-  place: string;
-  street: string;
+  region?: string;
+  place?: string;
+  postCode?: number;
+  address?: string;
 };
 
 export type Listing = {
