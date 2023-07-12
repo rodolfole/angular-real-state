@@ -1,1 +1,43 @@
-<p>become-an-agent-photos works!</p>
+<section class="flex items-center justify-center w-full h-full animate-fade-up">
+    <div class="flex flex-col flex-1 gap-6 max-w-[630px]">
+        <ng-container *ngIf="!imagesList.length" [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{
+                $implicit: 'Add some photos of your house category property', 
+                subtitle: 'To start, you will need 5 photos. Later you can add more or make changes.'
+            }"></ng-container>
+        <ng-container *ngIf="imagesList.length" [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{
+                $implicit: 'Choose at least 5 photos', 
+                subtitle: 'Drag the photo to change its place'
+            }"></ng-container>
+
+        <div class="relative group flex flex-1 flex-col items-center w-full">
+            <div class="max-w-xl">
+                <label
+                    class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                    <span class="flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <span class="font-medium text-gray-600">
+                            Drop files to Attach, or
+                            <span class="text-blue-600 underline">browse</span>
+                        </span>
+                    </span>
+                    <input type="file" name="file_upload" class="hidden">
+                </label>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #header let-title let-subtitle="subtitle">
+    <header class="flex flex-col flex-1 gap-2">
+        <strong class="text-3xl font-semibold">
+            {{title}}
+        </strong>
+        <span class="text-neutral-500 text-lg">
+            {{subtitle}}
+        </span>
+    </header>
+</ng-template>

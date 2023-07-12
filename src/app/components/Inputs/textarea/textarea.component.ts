@@ -17,6 +17,7 @@ export class TextareaComponent {
   @Input() formGroupRef: FormGroup = new FormGroup({});
   @Input() id: string | null = null;
   @Input() label: string | null = null;
+  @Input() placeholder: string = " ";
   @Input() required: boolean = false;
   @Input() rows: number = 3;
   @Input() cols: number = 50;

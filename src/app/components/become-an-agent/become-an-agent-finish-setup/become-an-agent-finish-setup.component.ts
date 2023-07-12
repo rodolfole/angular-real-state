@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 
 @Component({
   selector: 'app-become-an-agent-finish-setup',
@@ -9,5 +10,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./become-an-agent-finish-setup.component.css']
 })
 export class BecomeAnAgentFinishSetupComponent {
+
+  constructor(private becomeAnAgentService: BecomeAnAgentService) {
+    this.becomeAnAgentService.emitFilterCategory.emit({ isStepIntro: true });
+  }
 
 }
