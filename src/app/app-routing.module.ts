@@ -18,7 +18,6 @@ import { BecomeAnAgentDescriptionComponent } from './components/become-an-agent/
 import { BecomeAnAgentFinishSetupComponent } from './components/become-an-agent/become-an-agent-finish-setup/become-an-agent-finish-setup.component';
 import { BecomeAnAgentPriceComponent } from './components/become-an-agent/become-an-agent-price/become-an-agent-price.component';
 import { BecomeAnAgentReceiptComponent } from './components/become-an-agent/become-an-agent-receipt/become-an-agent-receipt.component';
-import { BecomeAnAgentPublishComponent } from './components/become-an-agent/become-an-agent-publish/become-an-agent-publish.component';
 
 // import { LoginGuard } from './guards/login.guard';
 
@@ -83,10 +82,6 @@ const routes: Routes = [
       {
         path: "receipt",
         component: BecomeAnAgentReceiptComponent
-      },
-      {
-        path: "publish",
-        component: BecomeAnAgentPublishComponent
       }
     ]
   },

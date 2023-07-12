@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormControlPipe } from 'src/app/pipes/form-control.pipe';
+import { FormGroup } from '@angular/forms';
+
 @Component({
   selector: 'app-counter',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormControlPipe],
+  imports: [CommonModule],
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.css']
 })

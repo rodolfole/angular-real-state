@@ -31,8 +31,7 @@ export class BecomeAnAgentFloatingFooterComponent {
     'description',
     'finish-setup',
     'price',
-    'receipt',
-    'publish'
+    'receipt'
   ]
 
   isFormValid: boolean = false;

@@ -35,9 +35,11 @@
                     active:scale-95
                     transition
                     duration-200
-                    " [ngClass]="{'pointer-events-none opacity-50': currentRoute === 'publish' || !isFormValid}"
-                    (click)="handleStep(true)">
-                    Next
+                    " [ngClass]="{
+                        'pointer-events-none opacity-50': !isFormValid,
+                        '!bg-red-700': currentRoute === 'receipt'
+                    }" (click)="handleStep(true)">
+                    {{currentRoute !== 'receipt' ? 'Next' : 'Publish'}}
                 </button>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 
 @Component({
   selector: 'app-become-an-agent-receipt',
@@ -10,4 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class BecomeAnAgentReceiptComponent {
 
+  constructor(private becomeAnAgentService: BecomeAnAgentService) {
+    this.becomeAnAgentService.emitFilterCategory.emit({ isStepIntro: true });
+  }
 }
