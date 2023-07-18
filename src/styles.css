@@ -38,3 +38,43 @@ body {
     background-color: rgba(0, 0, 0, 0.5) !important;
     font-size: 22px;
 }
+
+ngx-dropzone-preview>img {
+    @apply transition;
+    @apply duration-200;
+    @apply object-cover;
+    @apply w-auto;
+    @apply h-full;
+}
+
+ngx-dropzone-preview:hover>img {
+    @apply scale-105;
+}
+
+ngx-dropzone-remove-badge {
+    @apply !opacity-100;
+    @apply z-50;
+    @apply !h-8;
+    @apply !w-8;
+    @apply !bg-white;
+    @apply !opacity-70;
+    @apply transition;
+    @apply duration-200;
+    @apply border;
+    @apply border-gray-100;
+    @apply shadow-md;
+    @apply !right-3;
+    @apply !top-3;
+}
+
+ngx-dropzone-remove-badge:hover {
+    @apply !opacity-100;
+}
+
+ngx-dropzone-remove-badge:active {
+    @apply scale-95;
+}
+
+ngx-dropzone-remove-badge>svg>line {
+    @apply !stroke-neutral-950;
+}
