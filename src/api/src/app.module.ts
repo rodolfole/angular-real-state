@@ -9,6 +9,8 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { ListingModule } from './listing/listing.module';
 
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+
 @Module({
   imports: [
     AuthModule,
@@ -25,6 +27,7 @@ import { ListingModule } from './listing/listing.module';
     }),
     PrismaModule,
     UserModule,
+    CloudinaryModule,
   ],
   providers: [
     {
@@ -32,5 +35,6 @@ import { ListingModule } from './listing/listing.module';
       useClass: JwtAuthGuard,
     },
   ],
+  controllers: [],
 })
 export class AppModule {}

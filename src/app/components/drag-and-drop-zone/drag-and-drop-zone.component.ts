@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgxDropzoneChangeEvent, NgxDropzoneModule } from 'ngx-dropzone';
 import { CloudinaryService, ResourceType, UploadState } from 'src/app/services/cloudinary.service';
 import { Subscription } from 'rxjs';
-import { Base64ImagePipe } from 'src/app/pipes/base64-image.pipe';
+import { ImagePreviewPipe } from 'src/app/pipes/image-preview.pipe';
+import { ProgressLoaderComponent } from '../progress-loader/progress-loader.component';
 
 export enum AcceptedFiles {
   all = "*",
@@ -15,12 +16,13 @@ export enum AcceptedFiles {
 interface AddedFiles extends Partial<UploadState> {
   filePreview: File;
   index: number;
+  isDeleting?: boolean;
 }
 
 @Component({
   selector: 'app-drag-and-drop-zone',
   standalone: true,
-  imports: [CommonModule, NgxDropzoneModule, Base64ImagePipe],
+  imports: [CommonModule, NgxDropzoneModule, ImagePreviewPipe, ProgressLoaderComponent],
   templateUrl: './drag-and-drop-zone.component.html',
   styleUrls: ['./drag-and-drop-zone.component.css']
 })
@@ -51,23 +53,37 @@ export class DragAndDropZoneComponent {
     event.addedFiles.forEach((file, index) => {
       this.files.push({ filePreview: file, index });
 
-      // this.uploadFilesSub$ = this.cloudinaryService.uploadFiles({
-      //   file: event.addedFiles[0],
-      //   folder: "AngularRealState",
-      //   resourceType: ResourceType.image
-      // }).subscribe(({ progress, state, file }) => {
+      this.uploadFilesSub$ = this.cloudinaryService.uploadFiles({
+        file,
+        folder: "AngularRealState",
+        resourceType: ResourceType.image
+      }).subscribe(({ progress, state, file }) => {
 
-      //   this.files[index].progress = progress;
-      //   this.files[index].state = state;
-      //   this.files[index].file = file;
+        this.files[index].progress = progress;
+        this.files[index].state = state;
+        this.files[index].file = file;
 
-      // });
+      });
     });
 
   }
 
-  hanleOnRemove(event: File) {
-    this.files.splice(this.files.findIndex(file => file.filePreview === event), 1);
+  hanleOnRemove(event: File, public_id: string) {
+
+    const deletingFileIndex = this.files.findIndex(file => file.filePreview === event);
+
+    this.files[deletingFileIndex].isDeleting = true;
+
+    const deleteFilesSub$ = this.cloudinaryService.deleteFiles(
+      {
+        public_ids: [public_id],
+        resourceType: ResourceType.image
+      }
+    ).subscribe(() => {
+
+      this.files.splice(deletingFileIndex, 1);
+      deleteFilesSub$.unsubscribe();
+    });
   }
 
 }

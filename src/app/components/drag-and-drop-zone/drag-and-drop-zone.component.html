@@ -18,7 +18,8 @@
     </ngx-dropzone-label>
 
     <ngx-dropzone-preview class="!bg-gradient-to-r from-neutral-50 to-neutral-50 !p-0" *ngFor="let file of files"
-        [removable]="true" [file]="file.filePreview" (removed)="hanleOnRemove(file.filePreview)">
+        [removable]="!!file.file && !file.isDeleting" [file]="file.filePreview"
+        (removed)="hanleOnRemove(file.filePreview, file.file!.public_id)">
 
         <ngx-dropzone-label *ngIf="file.state && file.state !== 'DONE'" class="
             absolute
@@ -33,11 +34,11 @@
             float-left
             rounded-full
             !m-0
-            z-50" style="background: conic-gradient(rgb(29, 29, 29) var(--percentage), white 0deg);"
+            !z-50" style="background: conic-gradient(white var(--percentage), black 0deg);"
             [ngStyle]="{'--percentage': (file.progress! * 3.6) + 'deg'}">
             <span class="
-                bg-white
-                text-brown-950 
+                bg-black
+                text-white
                 rounded-full 
                 text-sm
                 inset-0
@@ -52,19 +53,43 @@
             </span>
         </ngx-dropzone-label>
 
+        <ngx-dropzone-label *ngIf="file.isDeleting" class="
+            absolute
+            right-3
+            top-3
+            h-8
+            w-8
+            flex
+            items-center
+            justify-center
+            rounded-full
+            !m-0
+            !z-50">
+            <app-progress-loader size="h-full w-full"></app-progress-loader>
+        </ngx-dropzone-label>
+
         <ngx-dropzone-label class="flex items-center justify-center w-full h-full !m-0">
-            <img class="w-auto h-full" [src]="file.file?.url || (file.filePreview | base64Image | async)"
-                [alt]="file.index" width="200" height="300">
+            <img class="w-auto h-full" [ngClass]="{'hidden': !(file.filePreview | imagePreview | async)}"
+                [src]="file.file?.url || (file.filePreview | imagePreview | async )" [alt]="file.index" width="200"
+                height="300">
+
+            <i class="far fa-image text-5xl text-[rgb(29, 29, 29)] animate-pulse"
+                *ngIf="!file.file?.url && !(file.filePreview | imagePreview | async )"></i>
+
         </ngx-dropzone-label>
 
     </ngx-dropzone-preview>
 
-    <div *ngIf="files.length" class="
-        pointer-events-none 
+    <ngx-dropzone-preview *ngIf="files.length" class="
         border 
         border-dashed
-        border-gray-300 
-        rounded-md flex 
+        !border-gray-500
+        !bg-gradient-to-r 
+        from-transparent 
+        to-trafrom-transparent 
+        !p-0 
+        rounded-md 
+        flex 
         flex-1 
         flex-col
         items-center
@@ -74,10 +99,13 @@
         h-[228px]
         overflow-clip
         min-w-[250px]
+        hover:shadow-[inset_0_0_0_0.5px_black]
         hover:border-solid
         hover:border-black
         ">
-        <i class="fas fa-plus text-4xl"></i>
-        <span class="text-base font-medium">Add more</span>
-    </div>
+        <ngx-dropzone-label class="flex items-center justify-center flex-col w-full h-full !m-0">
+            <i class="fas fa-plus text-4xl"></i>
+            <span class="text-base font-medium">Add more</span>
+        </ngx-dropzone-label>
+    </ngx-dropzone-preview>
 </ngx-dropzone>

@@ -1,6 +1,6 @@
 ngx-dropzone {
     @apply border;
-    @apply border-gray-300;
+    @apply border-gray-500;
     @apply border-dashed;
     @apply gap-4;
 }
@@ -19,8 +19,7 @@ ngx-dropzone-preview:first-of-type {
     @apply w-full;
     @apply !min-w-full;
     @apply !max-w-full;
-    @apply !h-full;
-    @apply !max-h-[480px];
+    @apply !h-[480px];
 }
 
 ngx-dropzone-preview:not(:first-of-type) {

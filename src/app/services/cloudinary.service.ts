@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpProgressEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, scan, throwError } from 'rxjs';
+import { Observable, catchError, map, scan, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface UploadResponseContext {
@@ -8,22 +8,6 @@ interface UploadResponseContext {
     alt: string;
     caption: string;
   }
-}
-
-export interface UploadResponse {
-  asset_id: string;
-  bytes: number;
-  context: UploadResponseContext;
-  created_at: Date;
-  format: string;
-  height: number;
-  original_extension: string;
-  original_filename: string;
-  public_id: string;
-  resource_type: ResourceType;
-  tags: string[];
-  url: string;
-  width: number;
 }
 
 export interface UploadState {
@@ -50,10 +34,43 @@ export interface UploadParams {
   tags?: string
 }
 
+export interface DeleteParams {
+  resourceType: ResourceType;
+  public_ids: string[];
+}
+
+export interface UploadResponse {
+  asset_id: string;
+  bytes: number;
+  context: UploadResponseContext;
+  created_at: Date;
+  format: string;
+  height: number;
+  original_extension: string;
+  original_filename: string;
+  public_id: string;
+  resource_type: ResourceType;
+  tags: string[];
+  url: string;
+  width: number;
+}
+
+export interface DeleteResponse {
+  deleted: {
+    [key: string]: string
+  },
+  partial: boolean;
+  rate_limit_allowed: number;
+  rate_limit_remaining: number;
+  rate_limit_reset_at: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CloudinaryService {
+
+  cloudinaryApi: string = 'https://api.cloudinary.com/v1_1/';
 
   constructor(private http: HttpClient) { }
 
@@ -89,16 +106,14 @@ export class CloudinaryService {
     return upload
   }
 
-  upload = (): (source: Observable<HttpEvent<unknown>>) => Observable<UploadState> => {
+  uploadState = (): (source: Observable<HttpEvent<unknown>>) => Observable<UploadState> => {
     const initialState: UploadState = { state: 'PENDING', progress: 0 }
     return (source) => source.pipe(scan(this.calculateState, initialState))
   }
 
   uploadFiles(props: UploadParams): Observable<UploadState> {
 
-    const apiUrl = 'https://api.cloudinary.com/v1_1/';
-
-    const endPointUrl = apiUrl + environment.CLOUDINARY_NAME + "/" + props.resourceType + "/upload";
+    const endPointUrl = this.cloudinaryApi + environment.CLOUDINARY_NAME + "/" + props.resourceType + "/upload";
 
     const data = new FormData();
 
@@ -108,9 +123,20 @@ export class CloudinaryService {
     if (props.context) data.append('context', `alt=${props.context.alt}|caption=${props.context.caption}`);
     if (props.tags) data.append('tags', props.tags);
 
-    return this.http.post<UploadResponse>(endPointUrl, data, { reportProgress: true, observe: 'events' })
+    return this.http.post<UploadParams>(endPointUrl, data, { reportProgress: true, observe: 'events' })
       .pipe(
-        this.upload(),
+        this.uploadState(),
+        catchError(this.errorMgmt));
+  }
+
+  deleteFiles(props: DeleteParams): Observable<DeleteResponse> {
+    const url = `${environment.URI}/api/cloudinary`;
+
+    const data = { public_ids: props.public_ids };
+
+    return this.http.delete<DeleteResponse>(url, { params: data })
+      .pipe(
+        map((res: DeleteResponse) => res),
         catchError(this.errorMgmt));
   }
 

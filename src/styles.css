@@ -39,16 +39,10 @@ body {
     font-size: 22px;
 }
 
-ngx-dropzone-preview>img {
-    @apply transition;
-    @apply duration-200;
+ngx-dropzone-preview:first-of-type img {
     @apply object-cover;
-    @apply w-auto;
+    @apply w-full;
     @apply h-full;
-}
-
-ngx-dropzone-preview:hover>img {
-    @apply scale-105;
 }
 
 ngx-dropzone-remove-badge {
@@ -69,6 +63,7 @@ ngx-dropzone-remove-badge {
 
 ngx-dropzone-remove-badge:hover {
     @apply !opacity-100;
+    @apply scale-105;
 }
 
 ngx-dropzone-remove-badge:active {

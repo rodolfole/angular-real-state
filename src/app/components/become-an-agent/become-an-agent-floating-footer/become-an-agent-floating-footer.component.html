@@ -1,8 +1,16 @@
 <section class="flex flex-col w-full fixed bottom-0 left-0">
-    <div class="flex w-full bg-neutral-200 h-[6px]"></div>
+    <div class="relative flex w-full bg-neutral-200 h-[6px]">
+        <div class="flex w-[var(--steper-progress)] h-full bg-black transition-[width] duration-700"
+            [ngClass]="{ '!bg-red-700': currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute}"
+            [ngStyle]="{'--steper-progress': (stepsRoutes | steper : 'GetProgress' : currentRoute) + '%'}"></div>
+        <div class="absolute h-full w-full flex justify-evenly">
+            <div class="bg-white h-full flex w-[6px]"
+                *ngFor="let item of [].constructor(stepsRoutes | steper : 'GetSteps')"></div>
+        </div>
+    </div>
     <app-container class="block w-full bg-white">
         <div class="flex items-center justify-between w-full h-20">
-            <div [ngClass]="{'cursor-not-allowed': currentRoute === 'about-your-home'}">
+            <div [ngClass]="{'cursor-not-allowed': currentRoute === stepsRoutes[0].stepRoute}">
                 <button class="
                     rounded-xl 
                     py-3 
@@ -16,12 +24,13 @@
                     transition
                     duration-200
                     underline
-                " [ngClass]="{'pointer-events-none opacity-50': currentRoute === 'about-your-home'}"
+                " [ngClass]="{'pointer-events-none opacity-50': currentRoute === stepsRoutes[0].stepRoute}"
                     (click)="handleStep(false)">
                     Back
                 </button>
             </div>
-            <div [ngClass]="{'cursor-not-allowed': currentRoute === 'publish' || !isFormValid}">
+            <div
+                [ngClass]="{'cursor-not-allowed': currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute || !isFormValid}">
                 <button class="
                     rounded-xl 
                     py-3 
@@ -37,9 +46,9 @@
                     duration-200
                     " [ngClass]="{
                         'pointer-events-none opacity-50': !isFormValid,
-                        '!bg-red-700': currentRoute === 'receipt'
+                        '!bg-red-700': currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute
                     }" (click)="handleStep(true)">
-                    {{currentRoute !== 'receipt' ? 'Next' : 'Publish'}}
+                    {{currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute ? 'Next' : 'Publish'}}
                 </button>
             </div>
         </div>

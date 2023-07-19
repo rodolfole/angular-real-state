@@ -1,38 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from '../../container/container.component';
 import { NavigationEnd, Router } from '@angular/router';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 import { Subscription, distinctUntilChanged } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { StepRoute } from 'src/app/pages/become-an-agent/become-an-agent.component';
+import { SteperPipe } from 'src/app/pipes/steper.pipe';
 
 @Component({
   selector: 'app-become-an-agent-floating-footer',
   standalone: true,
-  imports: [CommonModule, ContainerComponent],
+  imports: [CommonModule, ContainerComponent, SteperPipe],
   templateUrl: './become-an-agent-floating-footer.component.html',
   styleUrls: ['./become-an-agent-floating-footer.component.css']
 })
 export class BecomeAnAgentFloatingFooterComponent {
 
+  @Input() stepsRoutes: StepRoute[] = [];
+
   formSubscription$?: Subscription;
   becomeAnAgentServiceSub$?: Subscription;
   routerEventsSubscription$?: Subscription;
-
-  stepsRoutes = [
-    'about-your-home',
-    'structure',
-    'location',
-    'features',
-    'stand-out',
-    'amenities',
-    'photos',
-    'title',
-    'description',
-    'finish-setup',
-    'price',
-    'receipt'
-  ]
 
   isFormValid: boolean = false;
   currentRoute: string = "";
@@ -66,8 +55,8 @@ export class BecomeAnAgentFloatingFooterComponent {
   }
 
   handleStep(isNext: boolean) {
-    const currentRouteIndex = this.stepsRoutes.findIndex(elem => elem === this.currentRoute);
-    const stepRoute = isNext ? this.stepsRoutes[currentRouteIndex + 1] : this.stepsRoutes[currentRouteIndex + -1];
+    const currentRouteIndex = this.stepsRoutes.findIndex(elem => elem.stepRoute === this.currentRoute);
+    const stepRoute = isNext ? this.stepsRoutes[currentRouteIndex + 1].stepRoute : this.stepsRoutes[currentRouteIndex + -1].stepRoute;
     this.router.navigate([`/become-an-agent/${stepRoute}`]);
   }
 
