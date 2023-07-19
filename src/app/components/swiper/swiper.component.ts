@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { SwiperDirective } from 'src/app/directives/swiper.directive';
+import { ListingImage } from 'src/app/types/listing';
 import { Navigation, Pagination, A11y, Mousewheel, SwiperOptions, Swiper } from 'swiper';
 import { register } from 'swiper/element/bundle';
 
@@ -19,7 +20,7 @@ export class SwiperComponent {
 
   @Input() innerActions: boolean = true;
   @Input() customClasses: string = "";
-  @Input() slides?: string[];
+  @Input() slides?: ListingImage[];
   @Input() slidesPerView?: number;
   @Input() showPagination: boolean = true;
   @Input() centeredSlides: boolean = false;
@@ -49,7 +50,7 @@ export class SwiperComponent {
             renderBullet: (index, className) => {
               return `
               <span class=${className}>
-                <img class="pagination-image" style="--url:url(${this.slides![index]})">
+                <img class="pagination-image" style="--url:url(${this.slides![index].url})">
                 </img>
               </span>
               `

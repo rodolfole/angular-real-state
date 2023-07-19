@@ -2,12 +2,12 @@ import { NgFor } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
 import { SwiperComponent } from 'src/app/components/swiper/swiper.component';
 import { ModalService } from 'src/app/services/modal.service';
+import { ListingImage } from 'src/app/types/listing';
 
 export interface HeroDialogData {
-  heroImages: string[];
+  heroImages: ListingImage[];
   initialSwiperSlide: number;
 }
-
 
 @Component({
   selector: 'app-hero',

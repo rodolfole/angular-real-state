@@ -1,22 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxDropzoneChangeEvent, NgxDropzoneModule } from 'ngx-dropzone';
-import { CloudinaryService, ResourceType, UploadState } from 'src/app/services/cloudinary.service';
+import { AddedFiles, CloudinaryService, ResourceType } from 'src/app/services/cloudinary.service';
 import { Subscription } from 'rxjs';
 import { ImagePreviewPipe } from 'src/app/pipes/image-preview.pipe';
 import { ProgressLoaderComponent } from '../progress-loader/progress-loader.component';
+import { FormGroup } from '@angular/forms';
 
 export enum AcceptedFiles {
   all = "*",
   images = "image/jpeg,image/jpg,image/png,image/webp,image/svg",
   documents = "application/pdf,application/doc,application/docx",
   video = "video/mp4,video/x-m4v,video/*"
-}
-
-interface AddedFiles extends Partial<UploadState> {
-  filePreview: File;
-  index: number;
-  isDeleting?: boolean;
 }
 
 @Component({
@@ -30,6 +25,8 @@ export class DragAndDropZoneComponent {
 
   uploadFilesSub$?: Subscription;
 
+  @Input() formControlName: string = "";
+  @Input() formGroupRef: FormGroup = new FormGroup({});
   @Input() wrapperClasses: string = "";
   @Input() zoneClasses: string = "!min-h-[360px] mb-[20px]";
   @Input() multiple: boolean = true;
@@ -63,6 +60,10 @@ export class DragAndDropZoneComponent {
         this.files[index].state = state;
         this.files[index].file = file;
 
+        if (file) {
+          this.cloudinaryService.emitSelectedFiles.emit(this.files.filter(file => file.file));
+        }
+
       });
     });
 
@@ -82,6 +83,9 @@ export class DragAndDropZoneComponent {
     ).subscribe(() => {
 
       this.files.splice(deletingFileIndex, 1);
+
+      this.cloudinaryService.emitSelectedFiles.emit(this.files);
+
       deleteFilesSub$.unsubscribe();
     });
   }

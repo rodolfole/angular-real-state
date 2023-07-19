@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, TemplateRef } from '@angular/core';
 import { HeroComponent } from 'src/app/modals/hero/hero.component';
 import { ModalService } from 'src/app/services/modal.service';
+import { ListingImage } from 'src/app/types/listing';
 
 @Component({
   selector: 'app-listing-hero',
@@ -10,10 +11,10 @@ import { ModalService } from 'src/app/services/modal.service';
 export class ListingHeroComponent {
 
   @Input() listingId: string = "";
-  @Input() images: string[] = [];
+  @Input() images: ListingImage[] = [];
 
   isOpen: boolean = false;
-  heroImagesList: string[] = [];
+  heroImagesList: ListingImage[] = [];
   
   constructor(
     private changeDetector: ChangeDetectorRef,

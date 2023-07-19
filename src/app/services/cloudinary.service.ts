@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpProgressEvent, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable, catchError, map, scan, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -14,6 +14,12 @@ export interface UploadState {
   progress: number
   state: 'PENDING' | 'IN_PROGRESS' | 'DONE',
   file?: UploadResponse
+}
+
+export interface AddedFiles extends Partial<UploadState> {
+  filePreview: File;
+  index: number;
+  isDeleting?: boolean;
 }
 
 export enum ResourceType {
@@ -71,6 +77,8 @@ export interface DeleteResponse {
 export class CloudinaryService {
 
   cloudinaryApi: string = 'https://api.cloudinary.com/v1_1/';
+
+  public emitSelectedFiles: EventEmitter<AddedFiles[]> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 

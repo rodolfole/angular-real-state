@@ -9,13 +9,18 @@ export type Location = {
   address?: string;
 };
 
+export type ListingImage = {
+  url: string;
+  public_id: string;
+}
+
 export type Listing = {
   amenities?: string[];
   category: string;
   createdAt: string;
   description: string;
   id: string;
-  images: string[];
+  images: ListingImage[];
   location: Location;
   price: string;
   rating: number;
