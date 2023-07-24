@@ -41,6 +41,9 @@ dependencies:
   ng2-file-upload:
     specifier: ^3.0.0
     version: 3.0.0(@angular/common@16.1.1)(@angular/core@16.1.1)
+  ngx-cookie-service:
+    specifier: ^16.0.0
+    version: 16.0.0(@angular/common@16.1.1)(@angular/core@16.1.1)
   ngx-date-fns:
     specifier: ^10.0.1
     version: 10.0.1(@angular/common@16.1.1)(@angular/core@16.1.1)(date-fns@2.30.0)
@@ -5123,6 +5126,17 @@ packages:
     peerDependencies:
       '@angular/common': ^14.0.0
       '@angular/core': ^14.0.0
+    dependencies:
+      '@angular/common': 16.1.1(@angular/core@16.1.1)(rxjs@7.8.1)
+      '@angular/core': 16.1.1(rxjs@7.8.1)(zone.js@0.13.1)
+      tslib: 2.5.3
+    dev: false
+
+  /ngx-cookie-service@16.0.0(@angular/common@16.1.1)(@angular/core@16.1.1):
+    resolution: {integrity: sha512-bD0F8/I6Y7lfP1THeQDR70hv1SSEfFOjJqF1tnLphNBvR9EwkITO2KSOtfag7VH5CHT16PRIqv8XaGRDbCNAmA==}
+    peerDependencies:
+      '@angular/common': ^16.0.0
+      '@angular/core': ^16.0.0
     dependencies:
       '@angular/common': 16.1.1(@angular/core@16.1.1)(rxjs@7.8.1)
       '@angular/core': 16.1.1(rxjs@7.8.1)(zone.js@0.13.1)

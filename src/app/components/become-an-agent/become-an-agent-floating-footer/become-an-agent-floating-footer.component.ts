@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from '../../container/container.component';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 import { Subscription, distinctUntilChanged } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { StepRoute } from 'src/app/pages/become-an-agent/become-an-agent.component';
 import { SteperPipe } from 'src/app/pipes/steper.pipe';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-become-an-agent-floating-footer',
@@ -26,7 +27,12 @@ export class BecomeAnAgentFloatingFooterComponent {
   isFormValid: boolean = false;
   currentRoute: string = "";
 
-  constructor(private router: Router, private becomeAnAgentService: BecomeAnAgentService) {
+  constructor(
+    private router: Router,
+    private becomeAnAgentService: BecomeAnAgentService,
+    private cookieService: CookieService
+  ) {
+    this.checkCurrentStep();
     this.checkFormsValidity();
   }
 
@@ -35,11 +41,19 @@ export class BecomeAnAgentFloatingFooterComponent {
     this.routerEventsSubscription$?.unsubscribe();
   }
 
+  checkCurrentStep() {
+    const currentRoute = this.getCurrentRoute();
+    this.cookieService.get(this.currentRoute);
+  }
+
   checkFormsValidity() {
     this.becomeAnAgentServiceSub$ = this.becomeAnAgentService.emitFilterCategory.subscribe(
       ({ formGroupRef, stepRoute, isStepIntro }) => {
 
-        this.currentRoute = this.router.url.split('become-an-agent/')[1] || 'about-your-home';
+        this.currentRoute = this.getCurrentRoute();
+
+        // Save active route step into a the cookie "active-route"
+        this.cookieService.set('active-route', this.currentRoute);
 
         if (isStepIntro || (this.currentRoute === stepRoute && formGroupRef?.valid)) this.isFormValid = true;
         else this.isFormValid = false;
@@ -52,6 +66,11 @@ export class BecomeAnAgentFloatingFooterComponent {
         this.handleFormChanges(formGroupRef, stepRoute);
       }
     );
+  }
+
+  getCurrentRoute(): string {
+    const currentRoute = this.router.url.split('become-an-agent/')[1] || 'about-your-home';
+    return currentRoute;
   }
 
   handleStep(isNext: boolean) {
@@ -67,6 +86,9 @@ export class BecomeAnAgentFloatingFooterComponent {
       ).subscribe(() => {
         if (this.currentRoute === stepRoute && form.valid) this.isFormValid = true;
         else this.isFormValid = false;
+
+        this.cookieService.set(this.currentRoute, JSON.stringify(form));
+
       });
   }
 
