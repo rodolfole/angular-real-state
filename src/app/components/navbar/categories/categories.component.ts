@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Category, categories } from 'src/app/mocks/categories';
+import { categories } from 'src/app/mocks/categories';
+import { Category } from 'src/app/types/category';
 
 @Component({
   selector: 'app-categories',

@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckboxGroupComponent } from '../../Inputs/checkbox-group/checkbox-group.component';
-import { Amenity, amenities } from 'src/app/mocks/amenities';
+import { Amenity } from 'src/app/types/amenity';
+import { amenities } from 'src/app/mocks/amenities';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormService } from 'src/app/services/reactive-form.service';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';

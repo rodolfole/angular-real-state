@@ -1,7 +1,4 @@
-export interface Amenity {
-    label: string;
-    icon: string;
-}
+import { Amenity } from "../types/amenity";
 
 export const amenities: Amenity[] = [
     {

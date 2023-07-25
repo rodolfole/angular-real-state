@@ -1,8 +1,5 @@
-export interface Category {
-    label: string;
-    icon: string;
-    description: string;
-}
+import { Category } from "../types/category";
+
 
 export const categories: Category[] = [
     {

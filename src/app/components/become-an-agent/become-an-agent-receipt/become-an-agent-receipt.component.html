@@ -45,12 +45,12 @@
                         <span>Show preview</span>
                     </div>
                     <img class="group-hover:scale-105 transition duration-200 object-cover w-full h-full"
-                        src="assets/images/house.jpg" alt="full_preview" width="300" height="300">
+                        [src]="stepperData!.images[0].url" alt="full_preview" width="300" height="300">
                 </div>
                 <div class="flex w-full justify-between pb-1">
                     <div class="flex flex-1 items-start flex-col gap-1">
-                        <span>House example</span>
-                        <strong>$100,000</strong>
+                        <span>{{stepperData!.title}}</span>
+                        <strong>${{stepperData!.price | safePrice}}</strong>
                     </div>
                     <span>New</span>
                 </div>

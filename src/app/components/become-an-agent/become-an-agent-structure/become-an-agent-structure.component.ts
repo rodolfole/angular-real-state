@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Category, categories } from 'src/app/mocks/categories';
-import { AbstractControlOptions, FormBuilder, FormGroup } from '@angular/forms';
+import { categories } from 'src/app/mocks/categories';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 import { CheckboxGroupComponent } from '../../Inputs/checkbox-group/checkbox-group.component';
 import { ReactiveFormService } from 'src/app/services/reactive-form.service';
+import { Category } from 'src/app/types/category';
 
 @Component({
   selector: 'app-become-an-agent-structure',
