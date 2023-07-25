@@ -31,5 +31,5 @@ export type Listing = {
     roomCount: number;
     bathroomCount: number;
     propertyArea: number;
-  },
+  }
 };

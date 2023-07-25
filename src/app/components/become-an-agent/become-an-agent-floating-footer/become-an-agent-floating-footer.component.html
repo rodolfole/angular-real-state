@@ -10,7 +10,7 @@
     </div>
     <app-container class="block w-full bg-white">
         <div class="flex items-center justify-between w-full h-20">
-            <div [ngClass]="{'cursor-not-allowed': currentRoute === stepsRoutes[0].stepRoute}">
+            <div [ngClass]="{'cursor-not-allowed': currentRoute === stepsRoutes[0].stepRoute || isSaving}">
                 <button class="
                     rounded-xl 
                     py-3 
@@ -24,13 +24,13 @@
                     transition
                     duration-200
                     underline
-                " [ngClass]="{'pointer-events-none opacity-50': currentRoute === stepsRoutes[0].stepRoute}"
+                " [ngClass]="{'pointer-events-none opacity-50': currentRoute === stepsRoutes[0].stepRoute || isSaving}"
                     (click)="handleStep(false)">
                     Back
                 </button>
             </div>
             <div
-                [ngClass]="{'cursor-not-allowed': currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute || !isFormValid}">
+                [ngClass]="{'cursor-not-allowed': (currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute && !isFormValid) || isSaving}">
                 <button class="
                     rounded-xl 
                     py-3 
@@ -45,9 +45,10 @@
                     transition
                     duration-200
                     " [ngClass]="{
-                        'pointer-events-none opacity-50': !isFormValid,
+                        'pointer-events-none opacity-50': (currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute && !isFormValid) || isSaving,
                         '!bg-red-700': currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute
-                    }" (click)="handleStep(true)">
+                    }"
+                    (click)="currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute ? createListing(): handleStep(true)">
                     {{currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute ? 'Next' : 'Publish'}}
                 </button>
             </div>

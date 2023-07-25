@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContainerComponent } from '../../container/container.component';
 import { Router } from '@angular/router';
@@ -8,6 +8,8 @@ import { FormGroup } from '@angular/forms';
 import { StepRoute, stepsRoutes } from 'src/app/mocks/steps';
 import { SteperPipe } from 'src/app/pipes/steper.pipe';
 import { CookieService } from 'ngx-cookie-service';
+import { ListingsService } from 'src/app/services/listings.service';
+import { Listing } from 'src/app/types/listing';
 
 interface CurrentStepValifity {
   isValid: boolean;
@@ -24,26 +26,32 @@ interface CurrentStepValifity {
   styleUrls: ['./become-an-agent-floating-footer.component.css']
 })
 export class BecomeAnAgentFloatingFooterComponent {
-  
+
   formSubscription$?: Subscription;
   becomeAnAgentServiceSub$?: Subscription;
   routerEventsSubscription$?: Subscription;
-  
-  stepsRoutes: StepRoute[] = stepsRoutes;
-  isFormValid: boolean = false;
+  getStepperDataSub$?: Subscription;
+
   currentRoute: string = "";
+  stepsRoutes: StepRoute[] = stepsRoutes;
+  stepperListingData?: Listing;
+  isFormValid: boolean = false;
+  isSaving: boolean = false;
 
   constructor(
     private router: Router,
     private becomeAnAgentService: BecomeAnAgentService,
+    private listingService: ListingsService,
     private cookieService: CookieService
   ) {
     this.checkFormsValidity();
+    this.getStepperData();
   }
 
   ngOnDestroy(): void {
     this.becomeAnAgentServiceSub$?.unsubscribe();
     this.routerEventsSubscription$?.unsubscribe();
+    this.getStepperDataSub$?.unsubscribe();
   }
 
   checkCurrentStepValidity(): CurrentStepValifity {
@@ -111,6 +119,23 @@ export class BecomeAnAgentFloatingFooterComponent {
         this.handleFormChanges(formGroupRef, stepRoute);
       }
     );
+  }
+
+  createListing() {
+    this.isSaving = true;
+    this.listingService.emitIsSaving.emit(true);
+    const createListingSub$ = this.listingService.createListing(this.stepperListingData!).subscribe(({ listing }) => {
+
+      this.isSaving = false;
+      this.listingService.emitIsSaving.emit(false);
+      createListingSub$.unsubscribe();
+    });
+  }
+
+  getStepperData() {
+    this.getStepperDataSub$ = this.listingService.emitStepperData.subscribe((listing) => {
+      this.stepperListingData = listing;
+    });
   }
 
   getValidStepDataFromCookie(currentStepFormData: string): CurrentStepValifity {

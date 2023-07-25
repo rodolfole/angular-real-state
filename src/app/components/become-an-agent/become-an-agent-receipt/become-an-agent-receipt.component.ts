@@ -7,6 +7,7 @@ import { Category } from 'src/app/types/category';
 import { Amenity } from 'src/app/types/amenity';
 import { Listing } from 'src/app/types/listing';
 import { SafePricePipe } from 'src/app/pipes/safe-price.pipe';
+import { ListingsService } from 'src/app/services/listings.service';
 
 interface SelectedCategory {
   disabled: boolean;
@@ -34,6 +35,7 @@ export class BecomeAnAgentReceiptComponent {
 
   constructor(
     private becomeAnAgentService: BecomeAnAgentService,
+    private listingService: ListingsService,
     private cookieService: CookieService
   ) {
     this.becomeAnAgentService.emitFilterCategory.emit({ isLastStep: true, stepRoute: "receipt" });
@@ -91,6 +93,8 @@ export class BecomeAnAgentReceiptComponent {
     const mergedStepperData = Object.assign({}, ...stepperData);
 
     this.stepperData = mergedStepperData;
+
+    this.listingService.emitStepperData.emit(mergedStepperData);
 
   }
 }

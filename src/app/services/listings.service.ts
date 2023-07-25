@@ -17,6 +17,12 @@ export interface ListingsByCategory {
   isLoading: boolean;
 }
 
+interface ListingResponse {
+  ok: boolean;
+  listing?: Listing;
+  listings?: Listing[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,6 +30,8 @@ export class ListingsService {
   constructor(private http: HttpClient) { }
 
   public emitFilterCategory: EventEmitter<ListingsByCategory> = new EventEmitter();
+  public emitStepperData: EventEmitter<Listing> = new EventEmitter();
+  public emitIsSaving: EventEmitter<boolean> = new EventEmitter();
 
   getListings(params?: IListingsParams): Observable<Listing[]> {
     const url = `${environment.URI}/api/listings`;
@@ -51,5 +59,18 @@ export class ListingsService {
     this.emitFilterCategory.emit({ isLoading: true });
     const newListingsByCategory = await lastValueFrom(this.getListings({ category }));
     this.emitFilterCategory.emit({ isLoading: false, listings: newListingsByCategory });
+  }
+
+  createListing(listingData: Listing): Observable<ListingResponse> {
+    const url = `${environment.URI}/api/listings`;
+
+    console.log(listingData);
+
+    return this.http.post<ListingResponse>(url, listingData).pipe(
+      map((resp) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
   }
 }
