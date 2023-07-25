@@ -96,6 +96,7 @@ interface FormatedLocation {
 export class MapboxService {
 
   public emitSelectedLocation: EventEmitter<FormatedLocation> = new EventEmitter();
+  public emitSetSearchInputValue: EventEmitter<Location> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
@@ -126,7 +127,8 @@ export class MapboxService {
         region,
         place,
         postCode: postCode ? Number(postCode) : undefined,
-        address
+        address,
+        placeName: feature.place_name!
       },
       placeName: feature.place_name!
     }

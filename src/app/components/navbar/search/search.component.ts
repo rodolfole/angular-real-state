@@ -26,12 +26,14 @@ export class SearchComponent {
   @Input() isExpanded: boolean = false;
   @Output() location?: Feature;
 
+  searchInputSubscription$?: Subscription;
   formSubscription$?: Subscription;
   handleCloseMenuSub$?: Subscription;
 
   form: FormGroup;
   locations: Feature[] = [];
   preventMenuClose: boolean = false;
+  preventSearch: boolean = false;
   isMenuVisible: boolean = false;
 
   constructor(
@@ -41,7 +43,7 @@ export class SearchComponent {
   ) {
     this.form = this.initForm();
     this.handleFormChanges();
-    this.handleHideMenu();
+    this.handleSetFormValue();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -65,13 +67,7 @@ export class SearchComponent {
   ngOnDestroy(): void {
     this.formSubscription$?.unsubscribe();
     this.handleCloseMenuSub$?.unsubscribe();
-  }
-
-  handleHideMenu() {
-    this.handleCloseMenuSub$ = this.mapboxService.emitSelectedLocation.subscribe(({ placeName }) => {
-      this.form.setValue({ searchParam: placeName });
-      this.isMenuVisible = false;
-    });
+    this.searchInputSubscription$?.unsubscribe();
   }
 
   handleFormChanges() {
@@ -81,12 +77,13 @@ export class SearchComponent {
         distinctUntilChanged()
       ).subscribe(value => {
 
+        if (this.preventSearch) return;
+
         // Check that form "searchParam" is null
         if (!value.searchParam) {
           this.locations = [];
           this.isMenuVisible = false;
-        }
-        else {
+        } else {
           const getLocationsSubscription = this.mapboxService.searchPlaceByTerm(value.searchParam).subscribe(locations => {
             this.isMenuVisible = true;
             this.locations = locations;
@@ -100,6 +97,14 @@ export class SearchComponent {
   initForm(): FormGroup {
     return this.fb.group({
       searchParam: [{ value: "", disabled: false }, Validators.required]
+    });
+  }
+
+  handleSetFormValue() {
+    this.searchInputSubscription$ = this.mapboxService.emitSetSearchInputValue.subscribe(({ placeName }) => {
+      this.form.setValue({ searchParam: placeName });
+      this.isMenuVisible = false;
+      this.preventSearch = true;
     });
   }
 }

@@ -5,9 +5,16 @@ import { Router } from '@angular/router';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 import { Subscription, distinctUntilChanged } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { StepRoute } from 'src/app/pages/become-an-agent/become-an-agent.component';
+import { StepRoute, stepsRoutes } from 'src/app/mocks/steps';
 import { SteperPipe } from 'src/app/pipes/steper.pipe';
 import { CookieService } from 'ngx-cookie-service';
+
+interface CurrentStepValifity {
+  isValid: boolean;
+  formData?: {
+    [key: string]: any;
+  }
+}
 
 @Component({
   selector: 'app-become-an-agent-floating-footer',
@@ -17,13 +24,12 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./become-an-agent-floating-footer.component.css']
 })
 export class BecomeAnAgentFloatingFooterComponent {
-
-  @Input() stepsRoutes: StepRoute[] = [];
-
+  
   formSubscription$?: Subscription;
   becomeAnAgentServiceSub$?: Subscription;
   routerEventsSubscription$?: Subscription;
-
+  
+  stepsRoutes: StepRoute[] = stepsRoutes;
   isFormValid: boolean = false;
   currentRoute: string = "";
 
@@ -32,7 +38,6 @@ export class BecomeAnAgentFloatingFooterComponent {
     private becomeAnAgentService: BecomeAnAgentService,
     private cookieService: CookieService
   ) {
-    this.checkCurrentStep();
     this.checkFormsValidity();
   }
 
@@ -41,21 +46,61 @@ export class BecomeAnAgentFloatingFooterComponent {
     this.routerEventsSubscription$?.unsubscribe();
   }
 
-  checkCurrentStep() {
-    const currentRoute = this.getCurrentRoute();
-    this.cookieService.get(this.currentRoute);
+  checkCurrentStepValidity(): CurrentStepValifity {
+
+    const currentRouteIndex = this.stepsRoutes.findIndex(elem => elem.stepRoute === this.currentRoute);
+
+    // Check if current step is the first one
+    if (currentRouteIndex === 0) return { isValid: true };
+
+    const currentStepFormData = this.cookieService.get(this.currentRoute);
+
+    // Check if current step is valid 
+    if (currentStepFormData) {
+      return this.getValidStepDataFromCookie(currentStepFormData);
+    }
+
+    const { stepRoute } = this.stepsRoutes[currentRouteIndex - 1];
+    const isPreviousStepValid = this.cookieService.get(stepRoute);
+
+    // Check if the previous step is valid to allow "Next" button functionallity
+    if (isPreviousStepValid) {
+      return this.getValidStepDataFromCookie(currentStepFormData);
+    }
+
+    const auxStepRoutes: StepRoute[] = [...this.stepsRoutes];
+
+    // Iterate over the "stepsRoutes" array to find the last step completed 
+    const lastStepCompleted = auxStepRoutes.reverse().find(step => this.cookieService.get(step.stepRoute));
+
+    this.router.navigate([`/become-an-agent/${lastStepCompleted!.stepRoute}`]);
+
+    return { isValid: false }
   }
 
   checkFormsValidity() {
     this.becomeAnAgentServiceSub$ = this.becomeAnAgentService.emitFilterCategory.subscribe(
-      ({ formGroupRef, stepRoute, isStepIntro }) => {
+      async ({ formGroupRef, stepRoute, isStepIntro }) => {
 
-        this.currentRoute = this.getCurrentRoute();
+        this.currentRoute = stepRoute!;
 
-        // Save active route step into a the cookie "active-route"
-        this.cookieService.set('active-route', this.currentRoute);
+        // Await 100 milliseconds to ensure "stepsRoutes" var is inited
+        await new Promise(resolve => setTimeout(resolve, 100));
 
-        if (isStepIntro || (this.currentRoute === stepRoute && formGroupRef?.valid)) this.isFormValid = true;
+        const { isValid, formData } = this.checkCurrentStepValidity();
+
+        if (!isValid) return;
+
+        // Save active route step into a the cookie "active-route"       
+        this.cookieService.set('active-route', stepRoute!);
+
+        // Patch "formGroupRef" with saved data in cookie if exists
+        if (formData && !formData["isStepIntro"]) formGroupRef?.patchValue(formData);
+
+        if (isStepIntro || (this.currentRoute === stepRoute && formGroupRef?.valid)) {
+          this.isFormValid = true;
+          this.cookieService.set(this.currentRoute, isStepIntro ? JSON.stringify({ isStepIntro: true }) : JSON.stringify(formGroupRef?.value));
+        }
         else this.isFormValid = false;
 
         // Return If "formGroupRef" is undefined
@@ -68,9 +113,8 @@ export class BecomeAnAgentFloatingFooterComponent {
     );
   }
 
-  getCurrentRoute(): string {
-    const currentRoute = this.router.url.split('become-an-agent/')[1] || 'about-your-home';
-    return currentRoute;
+  getValidStepDataFromCookie(currentStepFormData: string): CurrentStepValifity {
+    return { isValid: true, formData: currentStepFormData ? JSON.parse(currentStepFormData) : null };
   }
 
   handleStep(isNext: boolean) {
@@ -87,7 +131,7 @@ export class BecomeAnAgentFloatingFooterComponent {
         if (this.currentRoute === stepRoute && form.valid) this.isFormValid = true;
         else this.isFormValid = false;
 
-        this.cookieService.set(this.currentRoute, JSON.stringify(form));
+        if (form.valid) this.cookieService.set(this.currentRoute, JSON.stringify(form.value));
 
       });
   }

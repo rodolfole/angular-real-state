@@ -33,7 +33,7 @@
             <sup *ngIf="superfix">{{superfix}}</sup>
         </div>
         <ng-container *ngIf="!isCounter" [ngTemplateOutlet]="propertyAreaInput"></ng-container>
-        <app-counter *ngIf="isCounter" [formGroupRef]="form" [controlName]="controlName"></app-counter>
+        <app-counter *ngIf="isCounter" [formGroupRef]="form" [controlName]="controlName" [value]="form.get(controlName)!.value"></app-counter>
     </div>
 </ng-template>
 

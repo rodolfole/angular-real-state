@@ -7,7 +7,9 @@ import { Observable, delay, of } from 'rxjs';
 })
 export class ImagePreviewPipe implements PipeTransform {
 
-  transform(file: File): Observable<string> {
+  transform(file?: File): Observable<string> {
+    if (!file) return of("");
+
     const imageUrl = URL.createObjectURL(file);
     return of(imageUrl).pipe(delay(100));
   }

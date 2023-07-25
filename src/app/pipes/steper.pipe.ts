@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { StepRoute } from '../pages/become-an-agent/become-an-agent.component';
+import { StepRoute } from '../mocks/steps';
 
 type SteperAction = "GetSteps" | "GetProgress";
 

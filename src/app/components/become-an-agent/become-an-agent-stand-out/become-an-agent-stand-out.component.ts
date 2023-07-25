@@ -12,7 +12,7 @@ import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 export class BecomeAnAgentStandOutComponent {
 
   constructor(private becomeAnAgentService: BecomeAnAgentService) {
-    this.becomeAnAgentService.emitFilterCategory.emit({ isStepIntro: true });
+    this.becomeAnAgentService.emitFilterCategory.emit({ isStepIntro: true, stepRoute: "stand-out" });
   }
 
 }

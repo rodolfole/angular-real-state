@@ -5,11 +5,6 @@ import { BecomeAnAgentFloatingFooterComponent } from 'src/app/components/become-
 import { BecomeAnAgentNavbarComponent } from 'src/app/components/become-an-agent/become-an-agent-navbar/become-an-agent-navbar.component';
 import { ContainerComponent } from 'src/app/components/container/container.component';
 
-export interface StepRoute {
-  stepRoute: string;
-  isStepIntro?: boolean;
-}
-
 @Component({
   selector: 'app-become-an-agent',
   templateUrl: './become-an-agent.component.html',
@@ -23,48 +18,4 @@ export interface StepRoute {
   ],
   standalone: true
 })
-export class BecomeAnAgentComponent {
-
-  stepsRoutes: StepRoute[] = [
-    {
-      stepRoute: 'about-your-home',
-      isStepIntro: true
-    },
-    {
-      stepRoute: 'structure'
-    },
-    {
-      stepRoute: 'location'
-    },
-    {
-      stepRoute: 'features'
-    },
-    {
-      stepRoute: 'stand-out',
-      isStepIntro: true
-    },
-    {
-      stepRoute: 'amenities'
-    },
-    {
-      stepRoute: 'photos'
-    },
-    {
-      stepRoute: 'title'
-    },
-    {
-      stepRoute: 'description'
-    },
-    {
-      stepRoute: 'finish-setup',
-      isStepIntro: true
-    },
-    {
-      stepRoute: 'price'
-    },
-    {
-      stepRoute: 'receipt'
-    }
-  ]
-
-}
+export class BecomeAnAgentComponent { }

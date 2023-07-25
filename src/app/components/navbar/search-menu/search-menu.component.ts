@@ -21,7 +21,7 @@ export class SearchMenuComponent {
     }
   }
 
-  handleSelctedLocation(locationFeature: Feature) {
+  handleSelectedLocation(locationFeature: Feature) {
     const formatedLocation = this.mapboxService.formatFeatureToLocation(locationFeature);
     this.mapboxService.emitSelectedLocation.emit(formatedLocation);
   }

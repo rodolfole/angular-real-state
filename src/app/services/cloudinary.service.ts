@@ -17,8 +17,8 @@ export interface UploadState {
 }
 
 export interface AddedFiles extends Partial<UploadState> {
-  filePreview: File;
-  index: number;
+  filePreview?: File;
+  index?: number;
   isDeleting?: boolean;
 }
 

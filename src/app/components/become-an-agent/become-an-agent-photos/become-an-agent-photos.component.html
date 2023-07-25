@@ -1,15 +1,11 @@
 <section class="flex items-center justify-center w-full h-max animate-fade-up">
     <div class="flex flex-col flex-1 gap-6 max-w-[700px]">
-        <ng-container *ngIf="!imagesList.length" [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{
+        <ng-container [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{
                 $implicit: 'Add some photos of your house category property', 
                 subtitle: 'To start, you will need 5 photos. Later you can add more or make changes.'
             }"></ng-container>
-        <ng-container *ngIf="imagesList.length" [ngTemplateOutlet]="header" [ngTemplateOutletContext]="{
-                $implicit: 'Choose at least 5 photos', 
-                subtitle: 'Drag the photo to change its place'
-            }"></ng-container>
 
-        <app-drag-and-drop-zone class="w-full h-auto"></app-drag-and-drop-zone>
+        <app-drag-and-drop-zone class="w-full h-auto" [files]="files"></app-drag-and-drop-zone>
     </div>
 </section>
 

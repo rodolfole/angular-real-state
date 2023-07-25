@@ -4,7 +4,8 @@ import { FormGroup } from '@angular/forms';
 interface FormValidity {
   formGroupRef?: FormGroup;
   stepRoute?: string;
-  isStepIntro?: boolean
+  isStepIntro?: boolean,
+  isLastStep?: boolean
 }
 
 @Injectable({

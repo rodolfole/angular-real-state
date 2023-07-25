@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class BecomeAnAgentLocationComponent {
 
+  formSubscription$?: Subscription;
   getLocationSub$?: Subscription;
 
   form: FormGroup = new FormGroup({});
@@ -25,11 +26,13 @@ export class BecomeAnAgentLocationComponent {
     private mapboxService: MapboxService
   ) {
     this.form = this.initForm();
+    this.handleFormChanges();
     this.becomeAnAgentService.emitFilterCategory.emit({ formGroupRef: this.form, stepRoute: 'location' });
     this.getSelectedLocation();
   }
 
   ngOnDestroy(): void {
+    this.formSubscription$?.unsubscribe();
     this.getLocationSub$?.unsubscribe();
   }
 
@@ -49,6 +52,15 @@ export class BecomeAnAgentLocationComponent {
         Validators.required
       ]
     });
+  }
+
+  handleFormChanges() {
+    this.formSubscription$ =
+      this.form.valueChanges.subscribe((value) => {
+
+        this.mapboxService.emitSetSearchInputValue.emit(value.location);
+
+      });
   }
 
 }

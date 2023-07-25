@@ -7,6 +7,7 @@ export type Location = {
   place?: string;
   postCode?: number;
   address?: string;
+  placeName: string;
 };
 
 export type ListingImage = {

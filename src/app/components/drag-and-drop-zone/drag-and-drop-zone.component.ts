@@ -25,6 +25,7 @@ export class DragAndDropZoneComponent {
 
   uploadFilesSub$?: Subscription;
 
+  @Input() files: AddedFiles[] = [];
   @Input() formControlName: string = "";
   @Input() formGroupRef: FormGroup = new FormGroup({});
   @Input() wrapperClasses: string = "";
@@ -36,8 +37,6 @@ export class DragAndDropZoneComponent {
   @Input() expandable: boolean = true;
   @Input() disableClick: boolean = false;
   @Input() processDirectoryDrop: boolean = false;
-
-  files: AddedFiles[] = [];
 
   constructor(private cloudinaryService: CloudinaryService) { }
 
@@ -69,9 +68,9 @@ export class DragAndDropZoneComponent {
 
   }
 
-  hanleOnRemove(event: File, public_id: string) {
+  hanleOnRemove(public_id: string) {
 
-    const deletingFileIndex = this.files.findIndex(file => file.filePreview === event);
+    const deletingFileIndex = this.files.findIndex(file => file.file?.public_id === public_id);
 
     this.files[deletingFileIndex].isDeleting = true;
 
