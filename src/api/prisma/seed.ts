@@ -6,15 +6,16 @@ import { listings } from './mock';
 const prisma = new PrismaClient();
 
 async function start() {
-  listings.forEach(({ userId, location, features, ...listing }) => {
+  listings.forEach(({ features, images, location, userId, ...listing }) => {
     (async () => {
       userId.hashedPassword = await argon.hash('123456');
       await prisma.listing.create({
         data: {
           ...listing,
-          user: { create: userId },
-          features: { create: features},
+          features: { create: features },
+          images: { create: images },
           location: { create: location },
+          user: { create: userId },
         },
       });
     })();

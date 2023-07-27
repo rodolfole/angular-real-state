@@ -8,18 +8,17 @@ import { Listing } from 'src/app/types/listing';
 @Component({
   selector: 'app-listing-sticky',
   templateUrl: './listing-sticky.component.html',
-  styleUrls: ['./listing-sticky.component.css']
+  styleUrls: ['./listing-sticky.component.css'],
 })
 export class ListingStickyComponent {
-
   @Input() listing?: Listing;
 
-  constructor(private authService: AuthService, private modalService: ModalService) { }
+  constructor(
+    private authService: AuthService,
+    private modalService: ModalService
+  ) {}
 
-  ngOnInit(): void {
-    console.log(this.listing);
-    
-  }
+  ngOnInit(): void {}
 
   handleClick = () => {
     const isLoggedIn = !!this.authService.getCurrentUser();
@@ -28,9 +27,8 @@ export class ListingStickyComponent {
       component: isLoggedIn ? ContactComponent : LoginModalComponent,
       title: isLoggedIn ? '' : 'Login',
       data: { loginAction: 'Login' },
-      maxWidth: "max-w-[600px]",
-      enableClose: true
+      maxWidth: 'max-w-[600px]',
+      enableClose: true,
     });
-  }
-
+  };
 }

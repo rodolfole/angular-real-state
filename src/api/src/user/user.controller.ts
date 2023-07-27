@@ -31,8 +31,6 @@ export class UserController {
   @Post('contact')
   @HttpCode(HttpStatus.OK)
   sendContactMail(@Body() { from, message }: any) {
-    console.log({ from, message });
-
     this._mailService.sendMail(from, message);
 
     return {

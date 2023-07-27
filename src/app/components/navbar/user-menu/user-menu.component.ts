@@ -14,8 +14,8 @@ import { SafeUser } from 'src/app/types';
   styleUrls: ['./user-menu.component.css'],
 })
 export class UserMenuComponent {
-
-  @ViewChild(OutsideClickDirective) outsideClickDirective?: OutsideClickDirective;
+  @ViewChild(OutsideClickDirective)
+  outsideClickDirective?: OutsideClickDirective;
 
   userFromEmitterSubscription$?: Subscription;
   currentUser?: SafeUser | null = null;
@@ -34,8 +34,7 @@ export class UserMenuComponent {
 
   @HostListener('window:scroll', ['$event'])
   getScrollHeight() {
-    if (window.scrollY > 0 && this.isOpen)
-      this.isOpen = false;
+    if (window.scrollY > 0 && this.isOpen) this.isOpen = false;
   }
 
   ngOnDestroy(): void {
@@ -49,17 +48,17 @@ export class UserMenuComponent {
   onSell = () => {
     const isLoggedIn = !!this.authService.getCurrentUser();
 
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       this.router.navigate(['/become-an-agent'], {
-        relativeTo: this.route
+        relativeTo: this.route,
       });
     } else {
       this.modalService.setModalData({
         component: LoginModalComponent,
         title: 'Login',
         data: { loginAction: 'Login' },
-        maxWidth: "max-w-[600px]",
-        enableClose: true
+        maxWidth: 'max-w-[600px]',
+        enableClose: true,
       });
     }
   };
@@ -73,13 +72,13 @@ export class UserMenuComponent {
     this.loginAction = loginAction;
 
     this.modalService.setModalData({
-      component: loginAction === 'Login' ? LoginModalComponent : RegisterModalComponent,
+      component:
+        loginAction === 'Login' ? LoginModalComponent : RegisterModalComponent,
       title: loginAction,
       data: { loginAction },
-      maxWidth: "max-w-[600px]",
-      enableClose: true
+      maxWidth: 'max-w-[600px]',
+      enableClose: true,
     });
-
   };
 
   getLoginAction = (): LoginAction => {

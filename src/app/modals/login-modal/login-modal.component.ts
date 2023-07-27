@@ -17,7 +17,6 @@ export interface LoginDialogData {
   loginAction?: LoginAction;
 }
 
-
 @Component({
   selector: 'app-login-modal',
   templateUrl: './login-modal.component.html',
@@ -32,9 +31,8 @@ export interface LoginDialogData {
   standalone: true,
 })
 export class LoginModalComponent {
-
   @Input() data?: LoginDialogData;
-  
+
   errors: boolean = false;
   form: FormGroup;
 
@@ -83,5 +81,5 @@ export class LoginModalComponent {
     // registerModal.onOpen();
   }
 
-  signIn = (action?: string) => { };
+  signIn = (action?: string) => {};
 }

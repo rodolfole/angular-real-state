@@ -22,7 +22,10 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (this.authService.getAccessToken()) {
+    const cloudinaryApi =
+      'https://api.cloudinary.com/v1_1/devmexsoft/image/upload';
+
+    if (this.authService.getAccessToken() && request.url !== cloudinaryApi) {
       return next
         .handle(
           request.clone({
@@ -41,6 +44,7 @@ export class TokenInterceptor implements HttpInterceptor {
           })
         );
     }
+
     return next.handle(request);
   }
 }

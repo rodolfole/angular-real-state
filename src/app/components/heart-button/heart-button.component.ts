@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { getStorage } from 'src/app/helpers/storage';
 import { AuthService } from 'src/app/services/auth.service';
+import { ListingsService } from 'src/app/services/listings.service';
 import { SafeUser } from 'src/app/types';
 
 @Component({
@@ -14,14 +16,41 @@ export class HeartButtonComponent {
   @Input() listingId: string | null = null;
 
   currentUser?: SafeUser | null = null;
-  hasFavorited: boolean = false;
+  hasFavorited?: boolean | null;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private listingService: ListingsService
+  ) {
     this.currentUser = this.authService.getCurrentUser();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.authService.getCurrentUser())
+      this.hasFavorited = this.listingService.isFavorite(
+        this.listingId!,
+        this.currentUser?.favoriteIds!
+      );
   }
 
   toggleFavorite = (e: MouseEvent) => {
     e.stopPropagation();
-    this.hasFavorited = !this.hasFavorited;
+
+    this.listingService
+      .toggleFavorite(this.listingId!, this.authService.getCurrentUser()!)
+      .subscribe((resp) => {
+        const [access_token, refresh_token] = getStorage([
+          'access_token',
+          'refresh_token',
+        ]);
+        this.authService.setCurrentUser(resp.user, {
+          access_token,
+          refresh_token,
+        });
+        this.hasFavorited = this.listingService.isFavorite(
+          this.listingId!,
+          resp.user?.favoriteIds!
+        );
+      });
   };
 }

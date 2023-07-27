@@ -13,13 +13,18 @@ export type Location = {
 export type ListingImage = {
   url: string;
   public_id: string;
-}
+};
 
 export type Listing = {
-  amenities?: string[];
-  category: string;
+  amenities: string[];
+  categories: string[];
   createdAt: string;
   description: string;
+  features: {
+    bathroomCount: number;
+    propertyArea: number;
+    roomCount: number;
+  };
   id: string;
   images: ListingImage[];
   location: Location;
@@ -27,9 +32,4 @@ export type Listing = {
   rating: number;
   title: string;
   user: SafeUser;
-  features: {
-    roomCount: number;
-    bathroomCount: number;
-    propertyArea: number;
-  }
 };

@@ -31,7 +31,7 @@ export class HomeComponent {
     this.getListingsByCategory();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.$categoryEmiterSubscription?.unsubscribe();
@@ -49,11 +49,13 @@ export class HomeComponent {
 
   getListingsByCategory() {
     this.$categoryEmiterSubscription =
-      this.listinsgService.emitFilterCategory.subscribe(async ({ isLoading, listings }) => {
-        if (listings) this.listings = [...listings];
-        this.isLoading = isLoading;
+      this.listinsgService.emitFilterCategory.subscribe(
+        async ({ isLoading, listings }) => {
+          if (listings) this.listings = [...listings];
+          this.isLoading = isLoading;
 
-        this.changeDetector.detectChanges();
-      });
+          this.changeDetector.detectChanges();
+        }
+      );
   }
 }

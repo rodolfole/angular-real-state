@@ -27,6 +27,52 @@ enum Role {
   New
 }
 
+model Features {
+  bathroomCount Int
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  listing       Listing @relation(fields: [listingId], references: [id])
+  listingId     String  @unique @db.ObjectId
+  propertyArea  Int
+  roomCount     Int
+}
+
+model Image {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String  @db.ObjectId
+  publicId  String
+  url       String
+}
+
+model Listing {
+  amenities   String[]
+  categories  String[]
+  createdAt   DateTime  @default(now())
+  description String
+  features    Features?
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  images      Image[]
+  location    Location?
+  price       String
+  rating      Float?
+  title       String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String    @db.ObjectId
+}
+
+model Location {
+  address     String?
+  coordinates Float[]
+  country     String
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  listing     Listing @relation(fields: [listingId], references: [id])
+  listingId   String  @unique @db.ObjectId
+  place       String?
+  placeName   String
+  postCode    Int?
+  region      String
+}
+
 model User {
   createdAt      DateTime  @default(now())
   email          String?   @unique
@@ -40,41 +86,4 @@ model User {
   phone          String?
   role           Role      @default(New)
   updatedAt      DateTime  @updatedAt
-}
-
-model Listing {
-  amenities     String[]
-  category      String
-  createdAt     DateTime  @default(now())
-  description   String
-  features      Features?
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  images        String[]
-  location      Location?
-  price         String
-  rating        Float
-  title         String
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String    @db.ObjectId
-}
-
-model Location {
-  coordinates Float[]
-  country     String
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  listing     Listing @relation(fields: [listingId], references: [id])
-  listingId   String  @unique @db.ObjectId
-  place       String
-  postCode    Int
-  region      String
-  street      String
-}
-
-model Features {
-  bathroomCount Int
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  listing       Listing @relation(fields: [listingId], references: [id])
-  listingId     String  @unique @db.ObjectId
-  propertyArea  Int
-  roomCount     Int
 }

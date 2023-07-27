@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddedFiles, CloudinaryService, UploadResponse } from 'src/app/services/cloudinary.service';
+import {
+  AddedFiles,
+  CloudinaryService,
+  UploadResponse,
+} from 'src/app/services/cloudinary.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 import { DragAndDropZoneComponent } from '../../drag-and-drop-zone/drag-and-drop-zone.component';
@@ -12,10 +16,9 @@ import { CookieService } from 'ngx-cookie-service';
   standalone: true,
   imports: [CommonModule, DragAndDropZoneComponent],
   templateUrl: './become-an-agent-photos.component.html',
-  styleUrls: ['./become-an-agent-photos.component.css']
+  styleUrls: ['./become-an-agent-photos.component.css'],
 })
 export class BecomeAnAgentPhotosComponent {
-
   files: AddedFiles[] = [];
 
   getSelectedFilesSub$?: Subscription;
@@ -29,7 +32,10 @@ export class BecomeAnAgentPhotosComponent {
     private cookieService: CookieService
   ) {
     this.form = this.initForm();
-    this.becomeAnAgentService.emitFilterCategory.emit({ formGroupRef: this.form, stepRoute: 'photos' });
+    this.becomeAnAgentService.emitFilterCategory.emit({
+      formGroupRef: this.form,
+      stepRoute: 'photos',
+    });
     this.getSelectedFiles();
     this.handleSetSelectedFiles();
   }
@@ -39,12 +45,16 @@ export class BecomeAnAgentPhotosComponent {
   }
 
   getSelectedFiles() {
-    this.getSelectedFilesSub$ = this.cloudinaryService.emitSelectedFiles.subscribe((files) => {
-      this.form.setValue({
-        images: files.map(file => ({ url: file.file?.url, public_id: file.file?.public_id }))
+    this.getSelectedFilesSub$ =
+      this.cloudinaryService.emitSelectedFiles.subscribe((files) => {
+        this.form.setValue({
+          images: files.map((file) => ({
+            url: file.file?.url,
+            public_id: file.file?.public_id,
+          })),
+        });
+        this.cookieService.set('photos', JSON.stringify(this.form.value));
       });
-      this.cookieService.set("photos", JSON.stringify(this.form.value));
-    });
   }
 
   initForm(): FormGroup {
@@ -52,21 +62,21 @@ export class BecomeAnAgentPhotosComponent {
       images: [
         {
           value: null,
-          disabled: false
+          disabled: false,
         },
-        Validators.required
+        Validators.required,
       ],
     });
   }
 
   handleSetSelectedFiles() {
     setTimeout(() => {
-      this.files = this.form.value.images.map((image: UploadResponse) => ({
-        progress: 100,
-        state: 'DONE',
-        file: image
-      }));
+      this.files =
+        this.form.value.images?.map((image: UploadResponse) => ({
+          progress: 100,
+          state: 'DONE',
+          file: image,
+        })) || [];
     }, 100);
   }
-
 }

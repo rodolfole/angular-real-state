@@ -1,23 +1,32 @@
+export type Feature = {
+  bathroomCount: number;
+  propertyArea: number;
+  roomCount: number;
+};
+
+export type Image = {
+  publicId: string;
+  url: string;
+};
+
 export type Location = {
+  address: string;
   coordinates: number[];
   country: string;
   place: string;
+  placeName: string;
   postCode: number;
   region: string;
-  street: string;
 };
 
 export class ListingDto {
   amenities: string[];
-  bathroomCount: number;
-  category: string;
+  categories: string[];
   description: string;
-  guestCount: number;
-  images: string[];
+  features: Feature;
+  images: Image[];
   location: Location;
   price: string;
-  propertyArea: number;
   rating: number;
-  roomCount: number;
   title: string;
 }

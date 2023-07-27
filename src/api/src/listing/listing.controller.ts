@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -13,6 +14,7 @@ import { GetCurrentUserId } from '../auth/decorators/get-current-user-id.decorat
 import { ListingDto } from './dto/listing.dto';
 import { ListingService } from './listing.service';
 import { Public } from '../auth/decorators/public.decorator';
+import { GetCurrentUser } from 'src/auth/decorators/get-current-user.decorator';
 
 @Controller('listings')
 export class ListingController {
@@ -24,12 +26,28 @@ export class ListingController {
     return this._listingService.create(listing, userId);
   }
 
+  @Post('favorites/:listingId')
+  @HttpCode(HttpStatus.OK)
+  addFavorite(
+    @Param('listingId') listingId: string,
+    @GetCurrentUserId() userId: string,
+  ) {
+    return this._listingService.addRemoveFavorite(listingId, userId, 'ADD');
+  }
+
+  @Delete('favorites/:listingId')
+  @HttpCode(HttpStatus.OK)
+  removeFavorite(
+    @Param('listingId') listingId: string,
+    @GetCurrentUserId() userId: string,
+  ) {
+    return this._listingService.addRemoveFavorite(listingId, userId, 'REMOVE');
+  }
+
   @Public()
   @Get(':listingId')
   @HttpCode(HttpStatus.OK)
   listing(@Param('listingId') listingId: string) {
-    console.log({ listingId });
-
     return this._listingService.getOneListing(listingId);
   }
 
@@ -37,8 +55,6 @@ export class ListingController {
   @Get()
   @HttpCode(HttpStatus.OK)
   listings(@Query() query) {
-    console.log({ query });
-
     return this._listingService.getListings(query);
   }
 }

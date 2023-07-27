@@ -6,6 +6,7 @@ import { Observable, catchError, lastValueFrom, map, throwError } from 'rxjs';
 
 import { Listing } from '../types/listing';
 import { environment } from '../../environments/environment';
+import { SafeUser } from '../types';
 
 export interface IListingsParams {
   category?: string;
@@ -27,9 +28,10 @@ interface ListingResponse {
   providedIn: 'root',
 })
 export class ListingsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  public emitFilterCategory: EventEmitter<ListingsByCategory> = new EventEmitter();
+  public emitFilterCategory: EventEmitter<ListingsByCategory> =
+    new EventEmitter();
   public emitStepperData: EventEmitter<Listing> = new EventEmitter();
   public emitIsSaving: EventEmitter<boolean> = new EventEmitter();
 
@@ -57,20 +59,56 @@ export class ListingsService {
 
   async filterListingsByCategory(category: string) {
     this.emitFilterCategory.emit({ isLoading: true });
-    const newListingsByCategory = await lastValueFrom(this.getListings({ category }));
-    this.emitFilterCategory.emit({ isLoading: false, listings: newListingsByCategory });
+    const newListingsByCategory = await lastValueFrom(
+      this.getListings({ category })
+    );
+    this.emitFilterCategory.emit({
+      isLoading: false,
+      listings: newListingsByCategory,
+    });
   }
 
   createListing(listingData: Listing): Observable<ListingResponse> {
-    const url = `${environment.URI}/api/listings`;
+    const url = `${environment.URI}/api/listings/create`;
+    const dataListing = {
+      ...listingData,
+      images: listingData?.images.map((image) => ({
+        url: image.url,
+        publicId: image.public_id,
+      })),
+      price: String(listingData?.price),
+    };
 
-    console.log(listingData);
-
-    return this.http.post<ListingResponse>(url, listingData).pipe(
+    return this.http.post<ListingResponse>(url, dataListing).pipe(
       map((resp) => resp),
       catchError((err) => {
         return throwError(() => err);
       })
     );
+  }
+
+  toggleFavorite(listingId: string, user: SafeUser) {
+    const url = `${environment.URI}/api/listings/favorites/${listingId}`;
+    const hasFavorited = this.isFavorite(listingId, user.favoriteIds);
+
+    if (hasFavorited) {
+      return this.http.delete(url).pipe(
+        map((resp: any) => resp),
+        catchError((err) => {
+          return throwError(() => err);
+        })
+      );
+    } else {
+      return this.http.post(url, null).pipe(
+        map((resp: any) => resp),
+        catchError((err) => {
+          return throwError(() => err);
+        })
+      );
+    }
+  }
+
+  isFavorite(listingId: string, favoriteIds: string[]) {
+    return favoriteIds.includes(listingId);
   }
 }

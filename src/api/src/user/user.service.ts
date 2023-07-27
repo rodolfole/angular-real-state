@@ -32,8 +32,6 @@ export class UserService {
         throw error;
       });
 
-    console.log({ userFin: user });
-
     const tokens = await this._authService.getTokens(user.id, user.email);
     // await this.updateRtHash(user.id, tokens.refresh_token);
 
