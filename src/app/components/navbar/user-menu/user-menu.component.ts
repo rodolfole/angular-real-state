@@ -72,8 +72,7 @@ export class UserMenuComponent {
     this.loginAction = loginAction;
 
     this.modalService.setModalData({
-      component:
-        loginAction === 'Login' ? LoginModalComponent : RegisterModalComponent,
+      component: LoginModalComponent,
       title: loginAction,
       data: { loginAction },
       maxWidth: 'max-w-[600px]',

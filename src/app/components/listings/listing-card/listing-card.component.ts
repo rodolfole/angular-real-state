@@ -4,6 +4,7 @@ import { HeartButtonComponent } from '../../heart-button/heart-button.component'
 import { SwiperComponent } from '../../swiper/swiper.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-listing-card',
@@ -32,7 +33,7 @@ export class ListingCardComponent {
 
   price: string = '';
 
-  constructor() {}
+  constructor(private readonly authService: AuthService) {}
 
   ngOnInit(): void {
     this.price = this.data?.price || '';
@@ -46,5 +47,9 @@ export class ListingCardComponent {
     }
 
     this.onAction?.(this.actionId!);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.authService.getCurrentUser();
   }
 }

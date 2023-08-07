@@ -1,3 +1,4 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -14,6 +15,11 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 @Module({
   imports: [
     AuthModule,
+    CacheModule.register({
+      ttl: 10,
+      max: 100000,
+      isGlobal: true,
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     ListingModule,
     MailerModule.forRoot({

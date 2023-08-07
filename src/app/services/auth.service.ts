@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 
@@ -61,6 +61,19 @@ export class AuthService {
           access_token: resp.tokens.access_token,
           refresh_token: resp.tokens.refresh_token,
         });
+        return resp;
+      }),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
+
+  loginGoogle(id: string) {
+    const url = `${environment.URI}/api/auth/google/login`;
+    const headers = new HttpHeaders({ Authorization: `Bearer ${id}` });
+    return this.http.post(url, {}, { headers }).pipe(
+      map((resp: any) => {
         return resp;
       }),
       catchError((err) => {

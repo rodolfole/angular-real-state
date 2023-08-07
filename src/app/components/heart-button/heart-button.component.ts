@@ -16,21 +16,12 @@ export class HeartButtonComponent {
   @Input() listingId: string | null = null;
 
   currentUser?: SafeUser | null = null;
-  hasFavorited?: boolean | null;
 
   constructor(
     private authService: AuthService,
     private listingService: ListingsService
   ) {
     this.currentUser = this.authService.getCurrentUser();
-  }
-
-  ngAfterViewInit(): void {
-    if (this.authService.getCurrentUser())
-      this.hasFavorited = this.listingService.isFavorite(
-        this.listingId!,
-        this.currentUser?.favoriteIds!
-      );
   }
 
   toggleFavorite = (e: MouseEvent) => {
@@ -47,10 +38,13 @@ export class HeartButtonComponent {
           access_token,
           refresh_token,
         });
-        this.hasFavorited = this.listingService.isFavorite(
-          this.listingId!,
-          resp.user?.favoriteIds!
-        );
       });
   };
+
+  hasFavorited(): boolean {
+    return this.listingService.isFavorite(
+      this.listingId!,
+      this.authService.getCurrentUser()?.favoriteIds!
+    );
+  }
 }

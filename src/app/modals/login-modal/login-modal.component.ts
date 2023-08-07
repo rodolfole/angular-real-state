@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import { ButtonComponent } from 'src/app/components/button/button.component';
 import { HeadingComponent } from 'src/app/components/heading/heading.component';
 import { InputComponent } from 'src/app/components/Inputs/input/input.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
 
 export interface LoginDialogData {
   loginAction?: LoginAction;
@@ -33,28 +34,75 @@ export interface LoginDialogData {
 export class LoginModalComponent {
   @Input() data?: LoginDialogData;
 
+  loginAction: LoginAction = 'Login';
   errors: boolean = false;
   form: FormGroup;
+  private tempId = '';
+  showRegisterSuccessMessage: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private modalService: ModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.form = this.initForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.loginAction = this.data!.loginAction!;
+    this.changeDetectorRef.detectChanges();
   }
 
   handleClose = () => {
     this.modalService.toggleModal.emit(false);
   };
 
+  public async googleAuth() {
+    const url = this.getGoogleLoginUrl();
+    const authWindow = window.open(url, '', 'popup=true');
+
+    if (authWindow) {
+      const checkPopupWindow = setInterval(() => {
+        if (authWindow.closed) {
+          clearInterval(checkPopupWindow);
+
+          if (this.tempId && uuidValidate(this.tempId))
+            this.authService.loginGoogle(this.tempId).subscribe((resp) => {});
+          this.tempId = '';
+        }
+      }, 100);
+    }
+  }
+
+  private getGoogleLoginUrl(): string {
+    const state = uuidv4();
+    this.tempId = state;
+    const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+    const loginRequestParameters: { [key: string]: string } = {
+      response_type: 'code',
+      redirect_uri: `http://localhost:3000/api/auth/google/callback`,
+      scope: 'email profile',
+      client_id:
+        '702765054016-4e692e7rjfj2h6q79tbpsq0bi4hd9390.apps.googleusercontent.com',
+      state,
+    };
+
+    const paramsString = Object.keys(loginRequestParameters)
+      .map((key) => `${key}=${encodeURIComponent(loginRequestParameters[key])}`)
+      .join('&');
+
+    return `${googleAuthEndpoint}?${paramsString}`;
+  }
+
   handleSubmit = () => {
     this.form.disable();
 
-    if (this.data?.loginAction === 'Register') {
+    if (this.loginAction === 'Register') {
       this.userService.registerUser(this.form.value).subscribe((resp) => {
-        this.handleClose();
+        this.form = this.initForm();
+        this.showRegisterSuccessMessage = true;
       });
     } else {
       this.authService
@@ -76,10 +124,8 @@ export class LoginModalComponent {
     });
   }
 
-  onToggle() {
-    // loginModal.onClose();
-    // registerModal.onOpen();
+  handleModalAction(action: LoginAction) {
+    this.loginAction = action;
+    this.showRegisterSuccessMessage = false;
   }
-
-  signIn = (action?: string) => {};
 }

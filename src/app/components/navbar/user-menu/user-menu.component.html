@@ -53,7 +53,7 @@
           (click)="onSell()"
         ></app-menu-item>
         <hr />
-        <app-menu-item label="Logout" (click)="(handleSignOut)"></app-menu-item>
+        <app-menu-item label="Logout" (click)="handleSignOut()"></app-menu-item>
       </ng-container>
 
       <ng-container *ngIf="!currentUser">

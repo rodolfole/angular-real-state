@@ -1,4 +1,9 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon from 'argon2';
@@ -6,6 +11,10 @@ import * as argon from 'argon2';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtPayload, Tokens } from './types';
+import { Request, Response } from 'express';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
+import { validate as uuidValidate } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +22,7 @@ export class AuthService {
     private config: ConfigService,
     private jwtService: JwtService,
     private readonly _prismaService: PrismaService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async login({ email, password }: LoginDto) {
@@ -31,6 +41,37 @@ export class AuthService {
     // await this.updateRtHash(user.id, tokens.refresh_token);
 
     return { tokens, user };
+  }
+
+  public async googleRedirect(req: Request, res: Response) {
+    const userTempId = req.query['state'];
+    await this.cacheManager.set(
+      `temp-google-user__${userTempId}`,
+      req.user,
+      10000,
+    );
+
+    res.send('<script>window.close()</script>');
+  }
+
+  public async googleLogin(req: Request) {
+    const authorization = req.get('authorization');
+    if (!authorization) throw new UnauthorizedException();
+
+    const userTempId = authorization.replace('Bearer ', '');
+    if (!uuidValidate(userTempId)) throw new UnauthorizedException();
+
+    const googleUser = await this.cacheManager.get(
+      `temp-google-user__${userTempId}`,
+    );
+
+    await this.handleDatabaseUser();
+
+    return googleUser;
+  }
+
+  handleDatabaseUser() {
+    throw new Error('Method not implemented.');
   }
 
   async getTokens(userId: string, email: string): Promise<Tokens> {

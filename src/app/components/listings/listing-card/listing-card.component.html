@@ -5,7 +5,10 @@
 >
   <div class="relative flex flex-col gap-2 w-full bg-white rounded-xl">
     <div class="relative">
-      <div *ngIf="showFavoritesBtn" class="absolute right-3 top-3 z-40">
+      <div
+        *ngIf="isLoggedIn() && showFavoritesBtn"
+        class="absolute right-3 top-3 z-40"
+      >
         <app-heart-button [listingId]="data!.id"> </app-heart-button>
       </div>
       <app-swiper
