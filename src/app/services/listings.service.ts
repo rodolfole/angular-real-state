@@ -89,7 +89,7 @@ export class ListingsService {
 
   toggleFavorite(listingId: string, user: SafeUser) {
     const url = `${environment.URI}/api/listings/favorites/${listingId}`;
-    const hasFavorited = this.isFavorite(listingId, user.favoriteIds);
+    const hasFavorited = this.isFavorite(listingId, user.favoriteIds || []);
 
     if (hasFavorited) {
       return this.http.delete(url).pipe(

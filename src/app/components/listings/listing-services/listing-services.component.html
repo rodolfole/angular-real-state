@@ -3,9 +3,11 @@
     <div class="flex flex-wrap gap-4 w-full mt-7">
         <div *ngFor="let elem of amenities" class="flex gap-2 py-3 px-6 bg-white rounded-lg text-brown-600 font-medium">
             <svg class="h-7 w-7 fill-current" aria-hidden="true" focusable="false">
-                <use [attr.href]="'../../../../assets/icons/'+elem+'.svg#'+elem"></use>
+                <use
+                    [attr.href]="'../../../../assets/icons/' + elem.toLowerCase().replace(' ', '_') + '.svg#' + elem.toLowerCase().replace(' ', '_')">
+                </use>
             </svg>
-            <span class="capitalize">{{elem.replace("_", " ")}}</span>
+            <span class="capitalize">{{elem}}</span>
         </div>
     </div>
 </section>

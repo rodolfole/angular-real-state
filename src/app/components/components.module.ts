@@ -45,6 +45,7 @@ import { HeroComponent } from '../modals/hero/hero.component';
 import { ContactComponent } from '../modals/contact/contact.component';
 import { SearchMenuComponent } from './navbar/search-menu/search-menu.component';
 import { OutsideClickDirective } from '../directives/outside-click.directive';
+import { SafeDatePipe } from '../pipes/safe-date.pipe';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { OutsideClickDirective } from '../directives/outside-click.directive';
     SearchMenuComponent,
     OutsideClickDirective,
     SearchComponent,
+    SafeDatePipe
   ],
   exports: [
     InputComponent,

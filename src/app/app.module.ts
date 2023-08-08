@@ -21,7 +21,6 @@ import { AgentsComponent } from './pages/agents/agents.component';
 import { FloatingFooterComponent } from './components/listings/floating-footer/floating-footer.component';
 import { MapboxComponent } from './components/mapbox/mapbox.component';
 import { TOKEN_PROVIDER } from './interceptors/token.interceptor';
-import { BecomeAnAgentComponent } from './pages/become-an-agent/become-an-agent.component';
 
 register();
 
@@ -46,8 +45,7 @@ register();
       accessToken: environment.MAPBOX_TOKEN,
     }),
     NgxSkeletonLoaderModule.forRoot({ animation: 'pulse' }),
-    MapboxComponent,
-    BecomeAnAgentComponent
+    MapboxComponent
   ],
   exports: [],
   providers: [NgxMapboxGLModule, TOKEN_PROVIDER],

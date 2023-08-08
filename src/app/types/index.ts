@@ -16,11 +16,9 @@ export type SafeReservation = Omit<
   listing: SafeListing;
 };
 
-export type SafeUser = Omit<
-  User,
-  "createdAt" | "updatedAt" | "emailVerified"
-> & {
-  createdAt: string;
-  updatedAt: string;
-  emailVerified: string | null;
-};
+export interface SafeUser extends Partial<User> {
+  emailVerified?: Date | null;
+  updatedAt?: string;
+  createdAt?: string;
+}
+

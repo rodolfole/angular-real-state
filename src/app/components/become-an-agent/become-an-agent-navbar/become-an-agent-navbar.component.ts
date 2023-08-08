@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogoComponent } from '../../logo/logo.component';
 import { ContainerComponent } from '../../container/container.component';
@@ -18,20 +18,23 @@ import { RouterModule } from '@angular/router';
 })
 export class BecomeAnAgentNavbarComponent {
 
-  @ViewChild('navbar', { static: false }) navbar?: ElementRef<HTMLElement>;
-
   isScrolling: boolean = false;
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const navbarElement = this.navbar?.nativeElement;
-    if (!navbarElement) return;
+  constructor() {
+    setTimeout(() => this.handleContainerScroll(), 100);
+  }
 
-    if (window.scrollY > navbarElement.clientHeight - 160) {
-      this.isScrolling = true;
-    } else {
-      this.isScrolling = false;
-    }
+  handleContainerScroll() {
+    const container = document.getElementById("become-an-agent-container");
+    
+    container!.addEventListener("scroll", () => {
+
+      if (container!.scrollTop > 1) {
+        this.isScrolling = true;
+      } else {
+        this.isScrolling = false;
+      }
+    });
   }
 
 }
