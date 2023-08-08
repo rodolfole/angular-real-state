@@ -11,17 +11,20 @@ export interface Tokens {
   refresh_token: string;
 }
 
+export type AuthError = "WrongCredentials";
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private user: SafeUser | null = null;
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
 
   userEmitter: EventEmitter<SafeUser | null> = new EventEmitter();
+  authError: EventEmitter<AuthError> = new EventEmitter();
 
   setCurrentUser(user: SafeUser | null, tokens: Tokens | null) {
     if (user && tokens)
@@ -64,6 +67,7 @@ export class AuthService {
         return resp;
       }),
       catchError((err) => {
+        this.authError.emit("WrongCredentials");
         return throwError(() => err);
       })
     );

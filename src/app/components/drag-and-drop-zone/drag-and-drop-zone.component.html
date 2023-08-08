@@ -71,7 +71,7 @@
         <ngx-dropzone-label class="flex items-center justify-center w-full h-full !m-0">
             <img class="w-auto h-full" [ngClass]="{'hidden': !(file.filePreview | imagePreview | async) && !file.file}"
                 [src]="file.file?.url || (file.filePreview | imagePreview | async )"
-                [alt]="file.file?.public_id || file.index" width="200" height="300">
+                [alt]="file.file?.public_id || file.fileId" width="200" height="300">
 
             <i class="far fa-image text-5xl text-[rgb(29, 29, 29)] animate-pulse"
                 *ngIf="!file.file?.url && !(file.filePreview | imagePreview | async )"></i>

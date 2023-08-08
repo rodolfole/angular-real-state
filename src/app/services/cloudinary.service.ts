@@ -21,12 +21,14 @@ export interface UploadState {
   progress: number;
   state: 'PENDING' | 'IN_PROGRESS' | 'DONE';
   file?: UploadResponse;
+  fileId?: string
 }
 
 export interface AddedFiles extends Partial<UploadState> {
   filePreview?: File;
-  index?: number;
+  fileId?: string;
   isDeleting?: boolean;
+  isUploaded?: boolean;
 }
 
 export enum ResourceType {
@@ -45,6 +47,7 @@ export interface UploadParams {
     caption?: string;
   };
   tags?: string;
+  fileId?: string;
 }
 
 export interface DeleteParams {
@@ -86,7 +89,7 @@ export class CloudinaryService {
 
   public emitSelectedFiles: EventEmitter<AddedFiles[]> = new EventEmitter();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   isHttpResponse<T>(event: HttpEvent<T>): event is HttpResponse<T> {
     return event.type === HttpEventType.Response;
@@ -101,7 +104,8 @@ export class CloudinaryService {
 
   calculateState = (
     upload: UploadState,
-    event: HttpEvent<unknown>
+    event: HttpEvent<unknown>,
+    fileId?: string
   ): UploadState => {
     if (this.isHttpProgressEvent(event)) {
       return {
@@ -109,6 +113,7 @@ export class CloudinaryService {
           ? Math.round((100 * event.loaded) / event.total)
           : upload.progress,
         state: 'IN_PROGRESS',
+        fileId
       };
     }
     if (this.isHttpResponse(event)) {
@@ -116,16 +121,15 @@ export class CloudinaryService {
         progress: 100,
         state: 'DONE',
         file: event.body as UploadResponse,
+        fileId
       };
     }
-    return upload;
+    return { ...upload, fileId };
   };
 
-  uploadState = (): ((
-    source: Observable<HttpEvent<unknown>>
-  ) => Observable<UploadState>) => {
+  uploadState = (fileId?: string): ((source: Observable<HttpEvent<unknown>>) => Observable<UploadState>) => {
     const initialState: UploadState = { state: 'PENDING', progress: 0 };
-    return (source) => source.pipe(scan(this.calculateState, initialState));
+    return (source) => source.pipe(scan((upload, event) => this.calculateState(upload, event, fileId), initialState));
   };
 
   uploadFiles(props: UploadParams): Observable<UploadState> {
@@ -153,7 +157,7 @@ export class CloudinaryService {
         reportProgress: true,
         observe: 'events',
       })
-      .pipe(this.uploadState(), catchError(this.errorMgmt));
+      .pipe(this.uploadState(props.fileId), catchError(this.errorMgmt));
   }
 
   deleteFiles(props: DeleteParams): Observable<DeleteResponse> {

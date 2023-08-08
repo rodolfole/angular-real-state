@@ -97,6 +97,7 @@ export class SwiperComponent {
   ngAfterViewInit(): void {
     this.swiper = (this.swiperRef?.nativeElement as any).swiper;
     this.detector.detectChanges();
+        
   }
 
   handleNextSlide(e: MouseEvent, swipper: HTMLElement) {

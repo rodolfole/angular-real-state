@@ -23,7 +23,7 @@ export class AuthService {
     private jwtService: JwtService,
     private readonly _prismaService: PrismaService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
+  ) { }
 
   async login({ email, password }: LoginDto) {
     const user = await this._prismaService.user.findUnique({
@@ -35,6 +35,7 @@ export class AuthService {
     if (!user) throw new ForbiddenException('Access Denied');
 
     const passwordMatches = await argon.verify(user.hashedPassword, password);
+
     if (!passwordMatches) throw new ForbiddenException('Access Denied');
 
     const tokens = await this.getTokens(user.id, user.email);

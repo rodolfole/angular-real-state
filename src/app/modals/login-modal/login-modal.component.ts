@@ -12,7 +12,8 @@ import { ButtonComponent } from 'src/app/components/button/button.component';
 import { HeadingComponent } from 'src/app/components/heading/heading.component';
 import { InputComponent } from 'src/app/components/Inputs/input/input.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { v4 as uuidv4, validate as uuidValidate } from 'uuid';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { FormErrorBoxComponent } from 'src/app/components/form-error-box/form-error-box.component';
 
 export interface LoginDialogData {
   loginAction?: LoginAction;
@@ -28,17 +29,22 @@ export interface LoginDialogData {
     ButtonComponent,
     HeadingComponent,
     InputComponent,
+    FormErrorBoxComponent
   ],
   standalone: true,
 })
 export class LoginModalComponent {
+
   @Input() data?: LoginDialogData;
+
+  authErrorSub$?: Subscription;
+  formChangesSub$?: Subscription;
 
   loginAction: LoginAction = 'Login';
   errors: boolean = false;
   form: FormGroup;
-  private tempId = '';
   showRegisterSuccessMessage: boolean = false;
+  authError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +54,7 @@ export class LoginModalComponent {
     private changeDetectorRef: ChangeDetectorRef
   ) {
     this.form = this.initForm();
+    this.handleError();
   }
 
   ngAfterViewInit(): void {
@@ -55,46 +62,14 @@ export class LoginModalComponent {
     this.changeDetectorRef.detectChanges();
   }
 
+  ngOnDestroy(): void {
+    this.authErrorSub$?.unsubscribe();
+    this.formChangesSub$?.unsubscribe();
+  }
+
   handleClose = () => {
     this.modalService.toggleModal.emit(false);
   };
-
-  public async googleAuth() {
-    const url = this.getGoogleLoginUrl();
-    const authWindow = window.open(url, '', 'popup=true');
-
-    if (authWindow) {
-      const checkPopupWindow = setInterval(() => {
-        if (authWindow.closed) {
-          clearInterval(checkPopupWindow);
-
-          if (this.tempId && uuidValidate(this.tempId))
-            this.authService.loginGoogle(this.tempId).subscribe((resp) => {});
-          this.tempId = '';
-        }
-      }, 100);
-    }
-  }
-
-  private getGoogleLoginUrl(): string {
-    const state = uuidv4();
-    this.tempId = state;
-    const googleAuthEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-    const loginRequestParameters: { [key: string]: string } = {
-      response_type: 'code',
-      redirect_uri: `http://localhost:3000/api/auth/google/callback`,
-      scope: 'email profile',
-      client_id:
-        '702765054016-4e692e7rjfj2h6q79tbpsq0bi4hd9390.apps.googleusercontent.com',
-      state,
-    };
-
-    const paramsString = Object.keys(loginRequestParameters)
-      .map((key) => `${key}=${encodeURIComponent(loginRequestParameters[key])}`)
-      .join('&');
-
-    return `${googleAuthEndpoint}?${paramsString}`;
-  }
 
   handleSubmit = () => {
     this.form.disable();
@@ -124,8 +99,26 @@ export class LoginModalComponent {
     });
   }
 
+  handleHideErrors() {
+    const formChangesSub$ = this.form.valueChanges
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe(() => {
+        this.authError = false;
+        formChangesSub$.unsubscribe();
+      });
+  }
+
   handleModalAction(action: LoginAction) {
     this.loginAction = action;
     this.showRegisterSuccessMessage = false;
+    this.authError = false;
+  }
+
+  handleError() {
+    this.authErrorSub$ = this.authService.authError.subscribe(() => {
+      this.authError = true;
+      this.form.enable();
+      this.handleHideErrors();
+    });
   }
 }

@@ -10,6 +10,7 @@ import { BecomeAnAgentService } from 'src/app/services/become-an-agent.service';
 import { DragAndDropZoneComponent } from '../../drag-and-drop-zone/drag-and-drop-zone.component';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { ReactiveFormService } from 'src/app/services/reactive-form.service';
 
 @Component({
   selector: 'app-become-an-agent-photos',
@@ -29,6 +30,7 @@ export class BecomeAnAgentPhotosComponent {
     private formBuilder: FormBuilder,
     private becomeAnAgentService: BecomeAnAgentService,
     private cloudinaryService: CloudinaryService,
+    private reactiveFormService: ReactiveFormService,
     private cookieService: CookieService
   ) {
     this.form = this.initForm();
@@ -64,7 +66,7 @@ export class BecomeAnAgentPhotosComponent {
           value: null,
           disabled: false,
         },
-        Validators.required,
+        [Validators.required, Validators.minLength(5)],
       ],
     });
   }
@@ -76,6 +78,7 @@ export class BecomeAnAgentPhotosComponent {
           progress: 100,
           state: 'DONE',
           file: image,
+          isUploaded: true
         })) || [];
     }, 100);
   }

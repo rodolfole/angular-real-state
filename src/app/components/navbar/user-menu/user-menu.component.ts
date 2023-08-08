@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OutsideClickDirective } from 'src/app/directives/outside-click.directive';
 import { LoginModalComponent } from 'src/app/modals/login-modal/login-modal.component';
-import { RegisterModalComponent } from 'src/app/modals/register-modal/register-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginAction, ModalService } from 'src/app/services/modal.service';
 import { SafeUser } from 'src/app/types';

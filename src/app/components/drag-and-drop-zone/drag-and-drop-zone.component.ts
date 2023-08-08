@@ -46,24 +46,34 @@ export class DragAndDropZoneComponent {
 
   handleOnSelect = (event: NgxDropzoneChangeEvent) => {
 
-    event.addedFiles.forEach((file, index) => {
-      this.files.push({ filePreview: file, index });
+    event.addedFiles.forEach(file => {
 
-      this.uploadFilesSub$ = this.cloudinaryService.uploadFiles({
+      const fileId = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2);
+
+      this.files.push({ filePreview: file, fileId });
+
+      const uploadFilesSub$ = this.cloudinaryService.uploadFiles({
         file,
         folder: "AngularRealState",
-        resourceType: ResourceType.image
-      }).subscribe(({ progress, state, file }) => {
+        resourceType: ResourceType.image,
+        fileId
+      }).subscribe(({ progress, state, file, fileId }) => {
 
-        this.files[index].progress = progress;
-        this.files[index].state = state;
-        this.files[index].file = file;
+        const uploadingFileIndex = this.files.findIndex(elem => elem.fileId === fileId)
+
+        this.files[uploadingFileIndex].progress = progress;
+        this.files[uploadingFileIndex].state = state;
+        this.files[uploadingFileIndex].file = file;
+        this.files[uploadingFileIndex].isUploaded = true;
 
         if (file) {
-          this.cloudinaryService.emitSelectedFiles.emit(this.files.filter(file => file.file));
+          this.cloudinaryService.emitSelectedFiles.emit(this.files.filter(file => file.isUploaded));
         }
 
+        if (state === "DONE") uploadFilesSub$.unsubscribe();
+
       });
+
     });
 
   }

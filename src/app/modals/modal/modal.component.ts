@@ -58,7 +58,7 @@ export class ModalComponent {
 
       this.hangleOverflow();
       this.title = title;
-      this.closeOnBackdropClick = enableClose;
+      // this.closeOnBackdropClick = enableClose;
       this.isExpanded = isExpanded;
 
       if (maxWidth) this.maxWidth = maxWidth;
