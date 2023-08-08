@@ -15,6 +15,11 @@ import { ModalService } from 'src/app/services/modal.service';
 import { UserService } from 'src/app/services/user.service';
 import { SafeUser } from 'src/app/types';
 
+interface DialogData {
+  loginAction: string;
+  agent: SafeUser;
+}
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -30,7 +35,8 @@ import { SafeUser } from 'src/app/types';
   standalone: true,
 })
 export class ContactComponent {
-  @Input() agent?: SafeUser;
+  
+  @Input() data?: DialogData;
 
   isLoading: boolean = false;
   errors: boolean = false;

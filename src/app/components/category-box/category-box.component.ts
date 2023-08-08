@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ListingsService } from 'src/app/services/listings.service';
 
 @Component({
@@ -24,11 +25,7 @@ export class CategoryBoxComponent {
     private route: ActivatedRoute,
     public router: Router,
     private listingService: ListingsService
-  ) {
-    this.route.queryParams.subscribe((param) => {
-      this.selectedTab = param['tab_id'] || "House";
-    });
-  }
+  ) { }
 
   ngOnChanges(): void {
     if (this.label) {

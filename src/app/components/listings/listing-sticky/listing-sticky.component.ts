@@ -11,14 +11,13 @@ import { Listing } from 'src/app/types/listing';
   styleUrls: ['./listing-sticky.component.css'],
 })
 export class ListingStickyComponent {
+
   @Input() listing?: Listing;
 
   constructor(
     private authService: AuthService,
     private modalService: ModalService
-  ) {}
-
-  ngOnInit(): void {}
+  ) { }
 
   handleClick = () => {
     const isLoggedIn = !!this.authService.getCurrentUser();
@@ -26,7 +25,7 @@ export class ListingStickyComponent {
     this.modalService.setModalData({
       component: isLoggedIn ? ContactComponent : LoginModalComponent,
       title: isLoggedIn ? '' : 'Login',
-      data: { loginAction: 'Login' },
+      data: { loginAction: 'Login', agent: this.listing?.user },
       maxWidth: 'max-w-[600px]',
       enableClose: true,
     });

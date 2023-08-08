@@ -18,13 +18,17 @@ import { BecomeAnAgentDescriptionComponent } from './components/become-an-agent/
 import { BecomeAnAgentFinishSetupComponent } from './components/become-an-agent/become-an-agent-finish-setup/become-an-agent-finish-setup.component';
 import { BecomeAnAgentPriceComponent } from './components/become-an-agent/become-an-agent-price/become-an-agent-price.component';
 import { BecomeAnAgentReceiptComponent } from './components/become-an-agent/become-an-agent-receipt/become-an-agent-receipt.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
-// import { LoginGuard } from './guards/login.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { MyPropertiesComponent } from './pages/my-properties/my-properties.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'listings/:id', component: ListingsComponent },
   { path: 'agents/:id', component: AgentsComponent },
+  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] },
+  { path: 'properties', component: MyPropertiesComponent, canActivate: [AuthGuard] },
   {
     path: 'become-an-agent',
     component: BecomeAnAgentComponent,
@@ -83,7 +87,8 @@ const routes: Routes = [
         path: "receipt",
         component: BecomeAnAgentReceiptComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   { path: '**', component: PageNotFoundComponent, data: { hideNavbar: true } }
 ];

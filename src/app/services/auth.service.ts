@@ -94,4 +94,8 @@ export class AuthService {
   getAccessToken(): string | null {
     return this.accessToken;
   }
+
+  isLoggedIn(): boolean {
+    return !!this.accessToken;
+  }
 }

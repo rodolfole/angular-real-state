@@ -4,13 +4,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ListingDto } from './dto/listing.dto';
 
 interface QueryListing {
-  category: string;
-  userId: string;
+  category: string | string;
+  userId: string | string;
+  locationParams: string[] | string
 }
 
 @Injectable()
 export class ListingService {
-  constructor(private readonly _prismaService: PrismaService) {}
+  constructor(private readonly _prismaService: PrismaService) { }
 
   async addRemoveFavorite(
     listingId: string,
@@ -41,7 +42,7 @@ export class ListingService {
     return { ok: true, user: userDB };
   }
 
-  removeFavorite() {}
+  removeFavorite() { }
 
   async create(
     { features, images, location, ...listing }: ListingDto,
@@ -67,11 +68,27 @@ export class ListingService {
     });
   }
 
-  async getListings({ category, userId }: QueryListing) {
+  async getListings({ category, userId, locationParams }: QueryListing) {
+
     return await this._prismaService.listing.findMany({
       where: {
-        ...(category ? { categories: { has: category } } : {}),
-        ...(userId ? { userId } : {}),
+        ...(category && category !== "undefined" ? { categories: { has: category } } : {}),
+        ...(userId && userId !== "undefined" ? { userId } : {}),
+        ...(locationParams && locationParams !== "undefined" ? {
+          location: {
+            OR: [
+              {
+                placeName: { in: locationParams },
+              },
+              {
+                place: { in: locationParams },
+              },
+              {
+                region: { in: locationParams }
+              }
+            ]
+          }
+        } : {})
       },
       include: { images: true, features: true, location: true, user: true },
     });

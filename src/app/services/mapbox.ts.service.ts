@@ -106,7 +106,7 @@ export class MapboxService {
 
     const params = {
       access_token: environment.MAPBOX_TOKEN,
-      country: "mx",
+      // country: "mx",
       language: "es",
       limit: 5,
       proximity: "ip"

@@ -13,8 +13,8 @@
       formGroupRef.get(formControlName)?.hasError('maxlength') 
       ? 'bg-rose-50/50 border-rose-500 focus:border-rose-500'
       : 'bg-white  border-neutral-300 focus:border-black',
-    ]" [rows]="rows" [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [required]="required"
-    [id]="id" [placeholder]="placeholder" autocomplete="">
+    ]" [rows]="rows" [formControl]="formGroupRef.get(formControlName)! | formControlPipe" [id]="id"
+    [placeholder]="placeholder" autocomplete="off">
     </textarea>
   <label [for]="id" class="
       pointer-events-none
@@ -30,7 +30,7 @@
       top-5 
       left-4 
       transform z-10" [ngClass]="[
-      formGroupRef.get(formControlName)?.hasError ? 'text-rose-500' : 'text-zinc-400'
+      formGroupRef.get(formControlName)?.hasError('maxlength')  ? 'text-rose-500' : 'text-zinc-400'
       ]">
     {{ label }}
   </label>

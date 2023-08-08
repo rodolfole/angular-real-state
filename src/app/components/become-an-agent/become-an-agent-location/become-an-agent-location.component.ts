@@ -26,7 +26,7 @@ export class BecomeAnAgentLocationComponent {
     private mapboxService: MapboxService
   ) {
     this.form = this.initForm();
-    this.handleFormChanges();
+    this.setInitialSearchInputVlue();
     this.becomeAnAgentService.emitFilterCategory.emit({ formGroupRef: this.form, stepRoute: 'location' });
     this.getSelectedLocation();
   }
@@ -54,13 +54,13 @@ export class BecomeAnAgentLocationComponent {
     });
   }
 
-  handleFormChanges() {
-    this.formSubscription$ =
-      this.form.valueChanges.subscribe((value) => {
+  setInitialSearchInputVlue() {
 
-        this.mapboxService.emitSetSearchInputValue.emit(value.location);
+    setTimeout(() => {
+      const initialLocationValue = this.form.value.location;
+      this.mapboxService.emitSetSearchInputValue.emit(initialLocationValue || { placeName: "" })
+    }, 300);
 
-      });
   }
 
 }

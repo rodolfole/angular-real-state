@@ -26,7 +26,7 @@ export class AgentContactBoxComponent {
     this.modalService.setModalData({
       component: isLoggedIn ? ContactComponent : LoginModalComponent,
       title: isLoggedIn ? '' : 'Login',
-      data: { loginAction: 'Login' },
+      data: { loginAction: 'Login', agent: this.agentInfo },
       maxWidth: "max-w-[600px]",
       enableClose: true
     });

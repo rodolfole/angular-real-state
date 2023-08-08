@@ -12,7 +12,6 @@ import { FormControlPipe } from 'src/app/pipes/form-control.pipe';
 })
 export class TextareaComponent {
 
-  @Input() errors: any
   @Input() formControlName: string = "";
   @Input() formGroupRef: FormGroup = new FormGroup({});
   @Input() id: string | null = null;

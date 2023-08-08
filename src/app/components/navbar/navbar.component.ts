@@ -7,6 +7,7 @@ import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+
   @ViewChild('navbar', { static: false }) navbar?: ElementRef<HTMLElement>;
 
   currentPage: string = '';

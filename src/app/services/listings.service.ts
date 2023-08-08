@@ -11,6 +11,7 @@ import { SafeUser } from '../types';
 export interface IListingsParams {
   category?: string;
   userId?: string;
+  locationParams?: string[]
 }
 
 export interface ListingsByCategory {
@@ -28,7 +29,7 @@ interface ListingResponse {
   providedIn: 'root',
 })
 export class ListingsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public emitFilterCategory: EventEmitter<ListingsByCategory> =
     new EventEmitter();
@@ -57,10 +58,10 @@ export class ListingsService {
     );
   }
 
-  async filterListingsByCategory(category: string) {
+  async filterListingsByCategory(category?: string, locationParams?: string[]) {
     this.emitFilterCategory.emit({ isLoading: true });
     const newListingsByCategory = await lastValueFrom(
-      this.getListings({ category })
+      this.getListings({ category, locationParams })
     );
     this.emitFilterCategory.emit({
       isLoading: false,

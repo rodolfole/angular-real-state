@@ -21,6 +21,8 @@ import { AgentsComponent } from './pages/agents/agents.component';
 import { FloatingFooterComponent } from './components/listings/floating-footer/floating-footer.component';
 import { MapboxComponent } from './components/mapbox/mapbox.component';
 import { TOKEN_PROVIDER } from './interceptors/token.interceptor';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { MyPropertiesComponent } from './pages/my-properties/my-properties.component';
 
 register();
 
@@ -31,6 +33,8 @@ register();
     PageNotFoundComponent,
     ListingsComponent,
     AgentsComponent,
+    FavoritesComponent,
+    MyPropertiesComponent,
   ],
   imports: [
     BrowserModule,

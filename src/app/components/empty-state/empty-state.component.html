@@ -6,9 +6,9 @@
   items-center 
   justify-center
 ">
-    <app-heading [center]="true" [title]="title" [subtitle]="subtitle" />
-    <div class="w-48 mt-4">
-        <app-button label="Remove all filters" [routerLink]="['/']" [outline]="true" (onClick)="handleResetCategories()">
-        </app-button>
-    </div>
+  <app-heading [center]="true" [title]="title" [subtitle]="subtitle" />
+  <div class="w-48 mt-4">
+    <app-button label="Remove all filters" [outline]="true" [onClick]="handleResetCategories">
+    </app-button>
+  </div>
 </div>

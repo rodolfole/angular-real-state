@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subscription, debounceTime, delay, distinctUntilChanged } from 'rxjs';
 import { Feature, MapboxService } from 'src/app/services/mapbox.ts.service';
 import { OutsideClickDirective } from 'src/app/directives/outside-click.directive';
 import { CommonModule } from '@angular/common';
@@ -33,7 +33,6 @@ export class SearchComponent {
   form: FormGroup;
   locations: Feature[] = [];
   preventMenuClose: boolean = false;
-  preventSearch: boolean = false;
   isMenuVisible: boolean = false;
 
   constructor(
@@ -42,8 +41,8 @@ export class SearchComponent {
     private changeDetector: ChangeDetectorRef
   ) {
     this.form = this.initForm();
-    this.handleFormChanges();
     this.handleSetFormValue();
+    this.handleFormChanges();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -77,8 +76,6 @@ export class SearchComponent {
         distinctUntilChanged()
       ).subscribe(value => {
 
-        if (this.preventSearch) return;
-
         // Check that form "searchParam" is null
         if (!value.searchParam) {
           this.locations = [];
@@ -102,9 +99,8 @@ export class SearchComponent {
 
   handleSetFormValue() {
     this.searchInputSubscription$ = this.mapboxService.emitSetSearchInputValue.subscribe(({ placeName }) => {
-      this.form.setValue({ searchParam: placeName });
+      this.form.setValue({ searchParam: placeName }, { emitEvent: false });
       this.isMenuVisible = false;
-      this.preventSearch = true;
     });
   }
 }

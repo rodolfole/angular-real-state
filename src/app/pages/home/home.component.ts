@@ -4,7 +4,8 @@ import { Listing } from 'src/app/types/listing';
 import { ListingsService } from 'src/app/services/listings.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, lastValueFrom } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { MapboxService } from 'src/app/services/mapbox.ts.service';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,19 @@ import { Subscription, lastValueFrom } from 'rxjs';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
+
+  categoryEmiterSubscription$?: Subscription;
+  filterLocationSub$?: Subscription;
+
   listings: Listing[] = [];
   isDrawerOpen: boolean = false;
-  $categoryEmiterSubscription?: Subscription;
   isLoading: boolean = true;
+  isFiltered: boolean = false;
 
   constructor(
     private changeDetector: ChangeDetectorRef,
     private listinsgService: ListingsService,
+    private mapboxService: MapboxService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -29,12 +35,14 @@ export class HomeComponent {
         : false;
     });
     this.getListingsByCategory();
+    this.handleFilterListings();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
-    this.$categoryEmiterSubscription?.unsubscribe();
+    this.categoryEmiterSubscription$?.unsubscribe();
+    this.filterLocationSub$?.unsubscribe();
   }
 
   toogleDrawer(e: MouseEvent) {
@@ -48,14 +56,22 @@ export class HomeComponent {
   }
 
   getListingsByCategory() {
-    this.$categoryEmiterSubscription =
+    this.categoryEmiterSubscription$ =
       this.listinsgService.emitFilterCategory.subscribe(
         async ({ isLoading, listings }) => {
-          if (listings) this.listings = [...listings];
+
+          this.listings = listings?.length ? [...listings] : [];
           this.isLoading = isLoading;
 
           this.changeDetector.detectChanges();
         }
       );
+  }
+
+  handleFilterListings() {
+    this.filterLocationSub$ = this.mapboxService.emitSelectedLocation.subscribe(({ location }) => {
+      const locationParams = location.placeName?.split(",").map(elem => elem.trim());
+      this.listinsgService.filterListingsByCategory("", locationParams);
+    });
   }
 }

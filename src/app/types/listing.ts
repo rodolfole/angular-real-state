@@ -1,8 +1,8 @@
 import { SafeUser } from './index';
 
 export type Location = {
-  coordinates: number[];
-  country: string;
+  coordinates?: number[];
+  country?: string;
   region?: string;
   place?: string;
   postCode?: number;

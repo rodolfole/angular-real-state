@@ -103,7 +103,7 @@ export class MapboxComponent {
       },
       geometry: {
         type: "Point",
-        coordinates: listing.location.coordinates
+        coordinates: listing.location.coordinates!
       }
     }));
 
@@ -112,7 +112,7 @@ export class MapboxComponent {
       features: formatedListings
     }
 
-    this.data = geoJsonData;
+    this.data = formatedListings?.length ? geoJsonData : undefined;
   }
 
   getClusterProperties(): void {
@@ -166,7 +166,7 @@ export class MapboxComponent {
   }
 
   centerMapIntoBounds(): void {
-    const listOfCoordinates: number[][] = this.listings.map(listing => listing.location.coordinates);
+    const listOfCoordinates: number[][] = this.listings.map(listing => listing.location.coordinates!);
     const bounds: [LngLatLike, LngLatLike] = this.calcBoundsFromCoordinates(listOfCoordinates);
     this.fitBounds = bounds;
   }
