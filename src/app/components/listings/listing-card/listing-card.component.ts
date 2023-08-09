@@ -84,9 +84,10 @@ export class ListingCardComponent {
 
     const { listingId, id: locationId, ...formatedLocation }: SafeLocation = location as SafeLocation;
 
+    // publicId change this property in the model
     const formatedImages = images.map(image => ({ public_id: image.public_id, url: image.url }))
 
-    console.log(formatedImages);
+    console.log({formatedImages, images});
     return;
 
     this.cookieService.set("listingId", JSON.stringify(id));
