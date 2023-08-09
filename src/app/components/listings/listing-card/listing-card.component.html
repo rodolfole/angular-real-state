@@ -3,10 +3,10 @@
   <div class="relative flex flex-col gap-2 w-full bg-white rounded-xl">
     <div class="relative">
 
-      <ng-template *ngIf="isLoggedIn() && showFavoritesBtn && !showActions"
-        [ngTemplateOutlet]="favoritesButton"></ng-template>
+      <ng-container *ngIf="isLoggedIn() && showFavoritesBtn && !showActions"
+        [ngTemplateOutlet]="favoritesButton"></ng-container>
 
-      <ng-template *ngIf="isLoggedIn() && showActions" [ngTemplateOutlet]="actionsMenu"></ng-template>
+      <ng-container *ngIf="isLoggedIn() && showActions" [ngTemplateOutlet]="actionsMenu"></ng-container>
 
       <app-swiper *ngIf="showSwiper && data!.images.length"
         customClasses="group aspect-square overflow-hidden relative rounded-xl w-full mb-3" [showDetails]="showDetails">
@@ -87,25 +87,29 @@
 </ng-template>
 
 <ng-template #actionsMenu>
-
-  <ng-template #actionMenuTrigger>
-    <button class="
-      absolute 
-      right-3 
-      top-3 
-      z-40
-      rounded-full 
-      bg-white/80 
-      w-8 
-      h-8 
-      transition 
-      duration-200 
-      active:scale-95" (click)="$event.stopPropagation()">
+  <div class="absolute right-3 top-3 z-40">
+    <button [matMenuTriggerFor]="menu" class="
+        rounded-full 
+        bg-white/80 
+        w-8 
+        h-8 
+        transition 
+        duration-200 
+        active:scale-95" (click)="$event.stopPropagation()">
       <i class="fas fa-ellipsis-v"></i>
     </button>
-  </ng-template>
 
-  <app-dropdown class="flex w-max h-max" [menuTrigger]="actionMenuTrigger" [menuOptions]="getMenuOptions()"
-    containerClasses="min-w-[150px] max-w-[200px]"></app-dropdown>
-
+    <mat-menu #menu="matMenu" [xPosition]="'before'">
+      <ng-template matMenuContent let-items="menuItems">
+        <button class="font-normal" mat-menu-item (click)="handleUpdateListing()">
+          <i class="far fa-edit text-lg mr-2"></i>
+          <span>Editar</span>
+        </button>
+        <button class="font-normal" mat-menu-item (click)="handleDeleteListing()">
+          <i class="far fa-trash-alt text-lg mr-2"></i>
+          <span>Eliminar</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+  </div>
 </ng-template>

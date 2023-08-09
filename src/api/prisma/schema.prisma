@@ -30,7 +30,7 @@ enum Role {
 model Features {
   bathroomCount Int
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  listing       Listing @relation(fields: [listingId], references: [id])
+  listing       Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId     String  @unique @db.ObjectId
   propertyArea  Int
   roomCount     Int
@@ -65,7 +65,7 @@ model Location {
   coordinates Float[]
   country     String
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  listing     Listing @relation(fields: [listingId], references: [id])
+  listing     Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId   String  @unique @db.ObjectId
   place       String?
   placeName   String

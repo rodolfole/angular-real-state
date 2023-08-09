@@ -42,9 +42,7 @@ export class ListingService {
     return { ok: true, user: userDB };
   }
 
-  removeFavorite() { }
-
-  async create(
+  async createListing(
     { features, images, location, ...listing }: ListingDto,
     userId: string,
   ) {
@@ -57,6 +55,34 @@ export class ListingService {
         user: { connect: { id: userId } },
       },
     });
+  }
+
+  async updateListing(
+    { features, images, location, ...listing }: ListingDto,
+    listingId: string,
+  ) {
+    return await this._prismaService.listing.update({
+      where: {
+        id: listingId
+      },
+      data: {
+        ...listing,
+        features: { update: features },
+        images: { deleteMany: {}, create: images },
+        location: { update: location },
+      },
+    });
+  }
+
+  async deleteListing(listingId: string) {
+
+    await this._prismaService.listing.delete({
+      where: {
+        id: listingId
+      }
+    });
+
+    return { ok: true };
   }
 
   async getOneListing(listingId: string) {
@@ -112,4 +138,5 @@ export class ListingService {
       include: { images: true, features: true, location: true, user: true },
     });
   }
+
 }

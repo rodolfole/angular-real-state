@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 
@@ -14,7 +15,6 @@ import { GetCurrentUserId } from '../auth/decorators/get-current-user-id.decorat
 import { ListingDto } from './dto/listing.dto';
 import { ListingService } from './listing.service';
 import { Public } from '../auth/decorators/public.decorator';
-import { GetCurrentUser } from 'src/auth/decorators/get-current-user.decorator';
 
 @Controller('listings')
 export class ListingController {
@@ -22,8 +22,20 @@ export class ListingController {
 
   @Post('create')
   @HttpCode(HttpStatus.OK)
-  create(@Body() listing: ListingDto, @GetCurrentUserId() userId: string) {
-    return this._listingService.create(listing, userId);
+  createListing(@Body() listing: ListingDto, @GetCurrentUserId() userId: string) {
+    return this._listingService.createListing(listing, userId);
+  }
+
+  @Put(':listingId')
+  @HttpCode(HttpStatus.OK)
+  updateListing(@Body() listing: ListingDto, @Param('listingId') listingId: string) {
+    return this._listingService.updateListing(listing, listingId);
+  }
+
+  @Delete(':listingId')
+  @HttpCode(HttpStatus.OK)
+  removeListing(@Param('listingId') listingId: string) {
+    return this._listingService.deleteListing(listingId);
   }
 
   @Post('favorites/:listingId')

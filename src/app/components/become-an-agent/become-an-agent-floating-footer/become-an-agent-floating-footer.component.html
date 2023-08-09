@@ -48,8 +48,8 @@
                         'pointer-events-none opacity-50': (currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute && !isFormValid) || isSaving,
                         '!bg-red-700': currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute
                     }"
-                    (click)="currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute ? createListing(): handleStep(true)">
-                    {{currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute ? 'Next' : 'Publish'}}
+                    (click)="currentRoute === stepsRoutes[stepsRoutes.length-1].stepRoute ? handleStepperAction(): handleStep(true)">
+                    {{currentRoute !== stepsRoutes[stepsRoutes.length-1].stepRoute ? 'Next' : stepperAction}}
                 </button>
             </div>
         </div>

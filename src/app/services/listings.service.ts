@@ -112,6 +112,39 @@ export class ListingsService {
     );
   }
 
+  deleteListing(listingId: string): Observable<ListingResponse> {
+
+    const url = `${environment.URI}/api/listings/${listingId}`;
+
+    return this.http.delete<ListingResponse>(url).pipe(
+      map((resp) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
+
+  updateListing(listingData: Listing, listingId: string): Observable<ListingResponse> {
+
+    const url = `${environment.URI}/api/listings/${listingId}`;
+    const dataListing = {
+      ...listingData,
+      images: listingData?.images.map((image) => ({
+        url: image.url,
+        publicId: image.public_id,
+      })),
+      price: String(listingData?.price),
+    };
+
+    return this.http.put<ListingResponse>(url, dataListing).pipe(
+      map((resp) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+
+  }
+
   toggleFavorite(listingId: string, user: SafeUser) {
     const url = `${environment.URI}/api/listings/favorites/${listingId}`;
     const hasFavorited = this.isFavorite(listingId, user.favoriteIds || []);

@@ -18,6 +18,8 @@ interface CurrentStepValifity {
   };
 }
 
+export type StepperAction = "Publish" | "Update";
+
 @Component({
   selector: 'app-become-an-agent-floating-footer',
   standalone: true,
@@ -26,11 +28,13 @@ interface CurrentStepValifity {
   styleUrls: ['./become-an-agent-floating-footer.component.css'],
 })
 export class BecomeAnAgentFloatingFooterComponent {
+
   formSubscription$?: Subscription;
   becomeAnAgentServiceSub$?: Subscription;
   routerEventsSubscription$?: Subscription;
   getStepperDataSub$?: Subscription;
 
+  stepperAction: StepperAction = "Publish";
   currentRoute: string = '';
   stepsRoutes: StepRoute[] = stepsRoutes;
   stepperListingData?: Listing;
@@ -43,6 +47,7 @@ export class BecomeAnAgentFloatingFooterComponent {
     private listingService: ListingsService,
     private cookieService: CookieService
   ) {
+    this.getStepperAction();
     this.checkFormsValidity();
     this.getStepperData();
   }
@@ -51,6 +56,10 @@ export class BecomeAnAgentFloatingFooterComponent {
     this.becomeAnAgentServiceSub$?.unsubscribe();
     this.routerEventsSubscription$?.unsubscribe();
     this.getStepperDataSub$?.unsubscribe();
+  }
+
+  getStepperAction() {
+    this.stepperAction = this.cookieService.get("stepperAction") as StepperAction || "Publish";
   }
 
   checkCurrentStepValidity(): CurrentStepValifity {
@@ -131,10 +140,16 @@ export class BecomeAnAgentFloatingFooterComponent {
       );
   }
 
-  createListing() {
-    this.isSaving = true;
+  handleStepperAction() {
+    if (this.stepperAction === "Publish") this.createListing();
+    else this.updateListing();
+  }
 
+  createListing() {
+
+    this.isSaving = true;
     this.listingService.emitIsSaving.emit(true);
+
     const createListingSub$ = this.listingService
       .createListing(this.stepperListingData!)
       .subscribe(({ listing }) => {
@@ -145,6 +160,32 @@ export class BecomeAnAgentFloatingFooterComponent {
           this.cookieService.delete(step.stepRoute);
         });
         createListingSub$.unsubscribe();
+      });
+  }
+
+  updateListing() {
+
+    this.isSaving = true;
+    this.listingService.emitIsSaving.emit(true);
+
+    const listingId = this.cookieService.get("listingId");
+
+    console.log(this.stepperListingData);
+
+    return;
+    const updateListingSub$ = this.listingService
+      .updateListing(this.stepperListingData!, listingId)
+      .subscribe(({ listing }) => {
+
+        this.router.navigate(['/']);
+        this.isSaving = false;
+        this.listingService.emitIsSaving.emit(false);
+
+        this.stepsRoutes.forEach((step) => {
+          this.cookieService.delete(step.stepRoute);
+        });
+
+        updateListingSub$.unsubscribe();
       });
   }
 

@@ -1,12 +1,16 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, ViewEncapsulation } from '@angular/core';
 import { SafeListing } from 'src/app/types';
 import { HeartButtonComponent } from '../../heart-button/heart-button.component';
 import { SwiperComponent } from '../../swiper/swiper.component';
-import { RouterModule } from '@angular/router';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
-import { DropdownComponent, MenuOptions } from '../../dropdown/dropdown.component';
 import { ListingsService } from 'src/app/services/listings.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { CookieService } from 'ngx-cookie-service';
+import { amenities as amenitiesList } from 'src/app/mocks/amenities';
+import { categories as categoriesList } from 'src/app/mocks/categories';
+import { Location, SafeLocation } from 'src/app/types/listing';
 
 @Component({
   selector: 'app-listing-card',
@@ -17,12 +21,11 @@ import { ListingsService } from 'src/app/services/listings.service';
     HeartButtonComponent,
     SwiperComponent,
     RouterModule,
-    NgIf,
-    NgFor,
-    DropdownComponent
+    MatMenuModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true,
+  encapsulation: ViewEncapsulation.None
 })
 export class ListingCardComponent {
 
@@ -41,7 +44,9 @@ export class ListingCardComponent {
 
   constructor(
     private readonly authService: AuthService,
-    private listingService: ListingsService
+    private listingService: ListingsService,
+    private cookieService: CookieService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -62,36 +67,49 @@ export class ListingCardComponent {
     return !!this.authService.getCurrentUser();
   }
 
-  getMenuOptions(): MenuOptions {
-    const listing = this.data!;
+  async handleUpdateListing() {
+    const { id, amenities, categories, location, features, images, title, description, price }: SafeListing = this.data!;
 
-    return {
-      menuItems: [
-        {
-          label: "Editar",
-          icon: "fal fa-edit",
-          click: () => this.handleUpdateListing(listing)
-        },
-        {
-          label: "Eliminar",
-          icon: "fal fa-trash",
-          click: () => this.handleDeleteListing(listing)
-        }
-      ]
-    }
+    const formatedAmenities = amenitiesList.map(amenity => ({
+      value: amenities.includes(amenity.label),
+      disabled: false,
+      amenity
+    }));
+
+    const formatedCategories = categoriesList.map(category => ({
+      value: categories.includes(category.label),
+      disabled: false,
+      category
+    }));
+
+    const { listingId, id: locationId, ...formatedLocation }: SafeLocation = location as SafeLocation;
+
+    const formatedImages = images.map(image => ({ public_id: image.public_id, url: image.url }))
+
+    console.log(formatedImages);
+    return;
+
+    this.cookieService.set("listingId", JSON.stringify(id));
+    this.cookieService.set("amenities", JSON.stringify(formatedAmenities));
+    this.cookieService.set("structure", JSON.stringify(formatedCategories));
+    this.cookieService.set("location", JSON.stringify({ location: formatedLocation }));
+    this.cookieService.set("features", JSON.stringify(features));
+    this.cookieService.set("photos", JSON.stringify({ images: formatedImages }));
+    this.cookieService.set("title", JSON.stringify({ title }));
+    this.cookieService.set("description", JSON.stringify({ description }));
+    this.cookieService.set("price", JSON.stringify({ price }));
+    this.cookieService.set("stepperAction", "Update");
+
+    this.router.navigate(["/become-an-agent"]);
   }
 
-  async handleUpdateListing(listing: SafeListing) {
-    console.log(listing);
-  }
+  async handleDeleteListing() {
+    const listing: SafeListing = this.data!;
 
-  async handleDeleteListing(listing: SafeListing) {
-    console.log(listing);
-
-    // const deleteListingSub$ = this.listingService.deleteUserTemporarily(user._id!).subscribe(() => {
-    //   this.listingService.emitReloadListings.emit();
-    //   deleteListingSub$.unsubscribe();
-    // });
+    const deleteListingSub$ = this.listingService.deleteListing(listing.id!).subscribe(() => {
+      this.listingService.emitReloadListings.emit();
+      deleteListingSub$.unsubscribe();
+    });
   }
 
 }

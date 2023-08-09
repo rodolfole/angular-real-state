@@ -10,6 +10,11 @@ export type Location = {
   placeName?: string;
 };
 
+export interface SafeLocation extends Location {
+  listingId: string;
+  id: string;
+}
+
 export type ListingImage = {
   url: string;
   public_id: string;
