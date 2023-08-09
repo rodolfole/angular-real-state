@@ -33,6 +33,7 @@ export class ListingsService {
 
   public emitFilterCategory: EventEmitter<ListingsByCategory> =
     new EventEmitter();
+  public emitReloadListings: EventEmitter<boolean> = new EventEmitter();
   public emitStepperData: EventEmitter<Listing> = new EventEmitter();
   public emitIsSaving: EventEmitter<boolean> = new EventEmitter();
 
@@ -40,6 +41,17 @@ export class ListingsService {
     const url = `${environment.URI}/api/listings`;
 
     return this.http.get(url, { params: { ...params } }).pipe(
+      map((resp: any) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
+
+  getFavoriteListings(listingIds: string[]): Observable<Listing[]> {
+    const url = `${environment.URI}/api/listings/favorites/list`;
+
+    return this.http.get(url, { params: { listingIds } }).pipe(
       map((resp: any) => resp),
       catchError((err) => {
         return throwError(() => err);
@@ -58,8 +70,20 @@ export class ListingsService {
     );
   }
 
+  getAgentProperties(userId: string): Observable<Listing[]> {
+    const url = `${environment.URI}/api/listings/properties/list`;
+
+    return this.http.get(url, { params: { userId } }).pipe(
+      map((resp: any) => resp),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
+
   async filterListingsByCategory(category?: string, locationParams?: string[]) {
     this.emitFilterCategory.emit({ isLoading: true });
+
     const newListingsByCategory = await lastValueFrom(
       this.getListings({ category, locationParams })
     );

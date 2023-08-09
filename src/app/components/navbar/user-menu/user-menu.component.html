@@ -2,7 +2,7 @@
   <div class="flex flex-row items-center gap-3">
     <button (click)="onSell()"
       class="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition active:scale-95">
-      Sell your home
+      Sell property
     </button>
     <div>
       <button (click)="toggleOpen(); preventCloseOnClick()"
@@ -29,7 +29,7 @@
       <ng-container *ngIf="currentUser">
         <app-menu-item label="My favorites" routerLink="/favorites" (click)="toggleOpen()"></app-menu-item>
         <app-menu-item label="My properties" routerLink="/properties" (click)="toggleOpen()"></app-menu-item>
-        <app-menu-item label="Sell your home" (click)="onSell()"></app-menu-item>
+        <app-menu-item label="Sell property" (click)="onSell()"></app-menu-item>
         <hr />
         <app-menu-item label="Logout" (click)="handleSignOut(); toggleOpen()"></app-menu-item>
       </ng-container>

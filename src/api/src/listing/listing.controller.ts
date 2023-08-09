@@ -18,7 +18,7 @@ import { GetCurrentUser } from 'src/auth/decorators/get-current-user.decorator';
 
 @Controller('listings')
 export class ListingController {
-  constructor(private readonly _listingService: ListingService) {}
+  constructor(private readonly _listingService: ListingService) { }
 
   @Post('create')
   @HttpCode(HttpStatus.OK)
@@ -56,5 +56,17 @@ export class ListingController {
   @HttpCode(HttpStatus.OK)
   listings(@Query() query) {
     return this._listingService.getListings(query);
+  }
+
+  @Get('favorites/list')
+  @HttpCode(HttpStatus.OK)
+  favorites(@Query() query) {
+    return this._listingService.getFavoriteListings(query);
+  }
+
+  @Get('properties/list')
+  @HttpCode(HttpStatus.OK)
+  properties(@Query() query) {
+    return this._listingService.getAgentProperties(query);
   }
 }

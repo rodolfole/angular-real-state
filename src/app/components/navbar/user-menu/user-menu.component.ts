@@ -13,6 +13,7 @@ import { SafeUser } from 'src/app/types';
   styleUrls: ['./user-menu.component.css'],
 })
 export class UserMenuComponent {
+
   @ViewChild(OutsideClickDirective)
   outsideClickDirective?: OutsideClickDirective;
 

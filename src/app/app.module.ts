@@ -23,6 +23,7 @@ import { MapboxComponent } from './components/mapbox/mapbox.component';
 import { TOKEN_PROVIDER } from './interceptors/token.interceptor';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { MyPropertiesComponent } from './pages/my-properties/my-properties.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 register();
 
@@ -49,7 +50,8 @@ register();
       accessToken: environment.MAPBOX_TOKEN,
     }),
     NgxSkeletonLoaderModule.forRoot({ animation: 'pulse' }),
-    MapboxComponent
+    MapboxComponent,
+    BrowserAnimationsModule
   ],
   exports: [],
   providers: [NgxMapboxGLModule, TOKEN_PROVIDER],

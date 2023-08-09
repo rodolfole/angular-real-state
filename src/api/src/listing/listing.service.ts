@@ -69,7 +69,6 @@ export class ListingService {
   }
 
   async getListings({ category, userId, locationParams }: QueryListing) {
-
     return await this._prismaService.listing.findMany({
       where: {
         ...(category && category !== "undefined" ? { categories: { has: category } } : {}),
@@ -89,6 +88,26 @@ export class ListingService {
             ]
           }
         } : {})
+      },
+      include: { images: true, features: true, location: true, user: true },
+    });
+  }
+
+  async getFavoriteListings({ listingIds }: { listingIds: string[] }) {
+
+    return await this._prismaService.listing.findMany({
+      where: {
+        id: { in: listingIds }
+      },
+      include: { images: true, features: true, location: true, user: true },
+    });
+  }
+
+  async getAgentProperties({ userId }: { userId: string }) {
+
+    return await this._prismaService.listing.findMany({
+      where: {
+        userId: userId
       },
       include: { images: true, features: true, location: true, user: true },
     });

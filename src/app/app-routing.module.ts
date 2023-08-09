@@ -24,11 +24,19 @@ import { AuthGuard } from './guards/auth.guard';
 import { MyPropertiesComponent } from './pages/my-properties/my-properties.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, data: { hideSearchFilter: false } },
   { path: 'listings/:id', component: ListingsComponent },
   { path: 'agents/:id', component: AgentsComponent },
-  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] },
-  { path: 'properties', component: MyPropertiesComponent, canActivate: [AuthGuard] },
+  {
+    path: 'favorites',
+    component: FavoritesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'properties',
+    component: MyPropertiesComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'become-an-agent',
     component: BecomeAnAgentComponent,

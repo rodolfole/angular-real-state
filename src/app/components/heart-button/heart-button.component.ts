@@ -13,7 +13,9 @@ import { SafeUser } from 'src/app/types';
   standalone: true,
 })
 export class HeartButtonComponent {
+
   @Input() listingId: string | null = null;
+  @Input() emitReloadListings: boolean = false;
 
   currentUser?: SafeUser | null = null;
 
@@ -38,6 +40,7 @@ export class HeartButtonComponent {
           access_token,
           refresh_token,
         });
+        if (this.emitReloadListings) this.listingService.emitReloadListings.emit(true);
       });
   };
 

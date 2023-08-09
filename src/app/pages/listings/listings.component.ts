@@ -9,6 +9,7 @@ import { Listing } from 'src/app/types/listing';
   styleUrls: ['./listings.component.css'],
 })
 export class ListingsComponent {
+  
   @ViewChild('listingInfo', { static: false })
   listingInfoSection?: ElementRef<HTMLDivElement>;
 

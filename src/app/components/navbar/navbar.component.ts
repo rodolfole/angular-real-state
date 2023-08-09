@@ -12,6 +12,7 @@ export class NavbarComponent {
 
   currentPage: string = '';
   hideNavbar: boolean = true;
+  hideSearchFilter: boolean = true;
   isScrolling: boolean = false;
 
   constructor(private router: Router) {
@@ -22,6 +23,8 @@ export class NavbarComponent {
 
       if (event instanceof ActivationEnd) {
         this.hideNavbar = event.snapshot.data['hideNavbar'] || false;
+        const hideSearchFilterData = event.snapshot.data['hideSearchFilter'];
+        this.hideSearchFilter = hideSearchFilterData !== undefined ? hideSearchFilterData : true;
       }
     });
   }
